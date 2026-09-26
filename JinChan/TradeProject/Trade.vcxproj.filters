@@ -1,0 +1,922 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Kernel">
+      <UniqueIdentifier>{b6a53442-8e62-4b13-ac29-a6b321eae8e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Kernel">
+      <UniqueIdentifier>{9f2a6ecc-62ba-457e-a981-f1b08dd0f3dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network">
+      <UniqueIdentifier>{835c5aee-c14d-469e-8611-83a4db85b60a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DataStruct">
+      <UniqueIdentifier>{46131e28-9761-4fff-954f-8b29e2cdb036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DataStruct">
+      <UniqueIdentifier>{77ed3962-2d97-4eff-a4d9-803ec230702e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network\Tcp">
+      <UniqueIdentifier>{18142964-7d53-4b4f-86d9-952c24b7982a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DataStruct\Flow">
+      <UniqueIdentifier>{337dfd29-5528-429e-bbf7-9d8b570306a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DataStruct\Flow">
+      <UniqueIdentifier>{d48261ed-e407-4631-8c33-39b6be08952a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network\Udp">
+      <UniqueIdentifier>{dbe3f4c9-64f1-4ab1-8365-893dab47dd56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Connection">
+      <UniqueIdentifier>{841d88c3-7eda-4a3d-8b01-027e76978aec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Connection">
+      <UniqueIdentifier>{5a56d60f-f9fb-47a4-8c51-2a7c19d9dcc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Protocol">
+      <UniqueIdentifier>{dd6e445b-0f3b-456b-b153-e7a4cb2760b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Protocol">
+      <UniqueIdentifier>{bc13816f-022e-43f0-8d3b-c94207ede544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Kernel\Handler">
+      <UniqueIdentifier>{dc729167-db23-4ae7-bd54-2e5a2ca15a75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Kernel\Handler">
+      <UniqueIdentifier>{9a0c1dc5-f360-4a98-96cf-528396103020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Service">
+      <UniqueIdentifier>{e7b21447-914b-4af8-8b1b-e3ca9559e91a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DataStruct\DataType">
+      <UniqueIdentifier>{c30fc549-aa28-41d6-bf0a-341b9dd2cb7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility">
+      <UniqueIdentifier>{6ea8c094-b24f-422e-aa17-a061763c3be7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{52af1654-8e77-4c79-b818-87cd9784adf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{5ed66e8f-50eb-4808-892e-dab00821fab4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{21d864ea-bc4e-4718-8b19-8f4cf0adc963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Kernel\Thread">
+      <UniqueIdentifier>{9bcb4964-fa1c-47c2-aff5-06936285a507}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Kernel\Thread">
+      <UniqueIdentifier>{4b58be3a-626a-475e-be5e-01a46345465a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{254c77d9-a9b4-4a2d-b20e-138349e7157b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Tcp">
+      <UniqueIdentifier>{1ea64323-69d0-4787-9c73-16d6cff392a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Udp">
+      <UniqueIdentifier>{df7e950f-0efd-4ddb-b4d9-e58da6962e6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Database">
+      <UniqueIdentifier>{7fbf4ef3-6fee-43c5-acd6-73a0e80c375f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Database">
+      <UniqueIdentifier>{ab35563a-031b-4f34-b15b-ae3e3a4b5e65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rules">
+      <UniqueIdentifier>{c5077bb6-0b81-41b3-b4fe-fde07431ab97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rules">
+      <UniqueIdentifier>{80739b8c-2faa-4d86-95b8-08e7070f6559}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Front">
+      <UniqueIdentifier>{b865e3b1-e290-4d51-9c3b-ac4796c31f74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Front">
+      <UniqueIdentifier>{06852c31-08bc-459e-a52a-8c8695015f1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Connection\SGE">
+      <UniqueIdentifier>{15c78ff0-87af-451f-a356-e28a23068d14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Connection\SGE">
+      <UniqueIdentifier>{854d0671-bdbd-4312-aa6c-2ab0b707c688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Service\Impl">
+      <UniqueIdentifier>{b2fa724a-e4ec-4b93-a847-feb30067676a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Service">
+      <UniqueIdentifier>{97534664-6c8b-49de-beca-da55c5fa2213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Service\Impl">
+      <UniqueIdentifier>{bc00adfa-dc50-4fbe-9e3e-576ea2b0aaf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Kernel\Queue">
+      <UniqueIdentifier>{6cc19e56-942d-4258-b6f1-6b45aa56370a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Kernel\Queue">
+      <UniqueIdentifier>{bf9fbcde-b7c9-489f-bda5-b22498a46a33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Service\Link">
+      <UniqueIdentifier>{ff2362f0-97cb-48ee-8138-474d907748b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Service\Link">
+      <UniqueIdentifier>{a9ca7eba-4e65-4a46-9ae9-f0918bd5976c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Protocol\ChannelProtocol">
+      <UniqueIdentifier>{7b72bc16-b9ee-491c-890a-fce964521fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Protocol\CompressProtocol">
+      <UniqueIdentifier>{da5826c4-cce5-4e39-b4c8-39b3b7736a33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Protocol\FTDProtocol">
+      <UniqueIdentifier>{dec911bd-d87c-48a9-9948-c8c89d51d272}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Protocol\XMPProtocol">
+      <UniqueIdentifier>{b6fc22ea-33dd-40cc-a4bb-c953490d4ca4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Protocol\ZTPProtocol">
+      <UniqueIdentifier>{0e9094e4-5c8f-4331-99a3-92f546f56380}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Protocol\ChannelProtocol">
+      <UniqueIdentifier>{269dc7d8-ecf4-4927-98da-6f746180c6fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Protocol\CompressProtocol">
+      <UniqueIdentifier>{cf493800-5c03-4fed-aef7-4707ed12dea8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Protocol\FTDProtocol">
+      <UniqueIdentifier>{b31a7dee-7086-49ea-9a34-4e7508f308dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Protocol\XMPProtocol">
+      <UniqueIdentifier>{570b3f4b-175a-400d-af30-708a430db751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Protocol\ZTPProtocol">
+      <UniqueIdentifier>{1596ca76-fce6-47a1-aa09-33e07e73ab0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DataStruct\DataTYpe">
+      <UniqueIdentifier>{c183581e-9ad9-4477-8d58-78a80cf194cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Connection\Mock">
+      <UniqueIdentifier>{49b3995d-4c32-4ba4-9359-39e70ed1af43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Connection\Mock">
+      <UniqueIdentifier>{c22a150b-49a4-4f83-9665-dc238b4e4668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Domain">
+      <UniqueIdentifier>{df4c9dd6-94e8-43c2-b94b-eb10a858e729}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Domain">
+      <UniqueIdentifier>{a026a897-5916-491b-b1a6-d7b60c47f3bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Infra">
+      <UniqueIdentifier>{dd7fa2af-cd6b-4fca-9dea-0185286ab60a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Infra\Repository">
+      <UniqueIdentifier>{f939946e-e6c5-4244-9e56-1b70d07eeaf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Infra">
+      <UniqueIdentifier>{9c479b2d-2c09-4904-a62d-b453e49d9de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Infra\Repository">
+      <UniqueIdentifier>{276ea0ba-dfd8-4d0f-a5db-24bd45d1221f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RPC">
+      <UniqueIdentifier>{c38dacb4-54d5-4cde-8222-1d20acdc0192}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\RPC">
+      <UniqueIdentifier>{322d204f-4764-494a-88b1-d5b7c1f7e767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Type">
+      <UniqueIdentifier>{9c158659-ac88-4967-8b48-0f37b090fff3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="..\DailyInit.py">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Utility\CTime.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Utility\EntityCopy.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Utility\Logger.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Utility\Mutex.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Utility\Profile.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Utility\Semaphore.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Utility\ToolFunctions.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\BaseDataType.h">
+      <Filter>Header Files\DataStruct\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\FtdDataStruct.h">
+      <Filter>Header Files\DataStruct\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\UserDataType.h">
+      <Filter>Header Files\DataStruct\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\ZtpDataStruct.h">
+      <Filter>Header Files\DataStruct\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\CachedFileFlow.h">
+      <Filter>Header Files\DataStruct\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\CachedFlow.h">
+      <Filter>Header Files\DataStruct\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\FlowReader.h">
+      <Filter>Header Files\DataStruct\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\IndexPackageFlow.h">
+      <Filter>Header Files\DataStruct\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\UserFlow.h">
+      <Filter>Header Files\DataStruct\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\FileFlow.h">
+      <Filter>Header Files\DataStruct\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Engine\ErrorDefine.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Engine\ErrorEngine.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Engine\TradeEngine.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\EventHandler.h">
+      <Filter>Header Files\Kernel\Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\ListenHandler.h">
+      <Filter>Header Files\Kernel\Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\NotifyHandler.h">
+      <Filter>Header Files\Kernel\Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\TimerHandler.h">
+      <Filter>Header Files\Kernel\Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\BaseThread.h">
+      <Filter>Header Files\Kernel\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\EventThread.h">
+      <Filter>Header Files\Kernel\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\ReactorThread.h">
+      <Filter>Header Files\Kernel\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\SelectThread.h">
+      <Filter>Header Files\Kernel\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\TcpChannel.h">
+      <Filter>Header Files\Network\Tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\TcpClient.h">
+      <Filter>Header Files\Network\Tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\TcpNetworkFactory.h">
+      <Filter>Header Files\Network\Tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\TcpServer.h">
+      <Filter>Header Files\Network\Tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\UdpChannel.h">
+      <Filter>Header Files\Network\Udp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\UdpClient.h">
+      <Filter>Header Files\Network\Udp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\UdpNetworkFactory.h">
+      <Filter>Header Files\Network\Udp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\UdpServer.h">
+      <Filter>Header Files\Network\Udp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\Channel.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\ClientBase.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\NetworkFactory.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\ServerBase.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\ServiceName.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Network\SocketInit.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\ChannelPackage.h">
+      <Filter>Header Files\Protocol\ChannelProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\CompressPackage.h">
+      <Filter>Header Files\Protocol\CompressProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\CompressUtil.h">
+      <Filter>Header Files\Protocol\CompressProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\FTDPackage.h">
+      <Filter>Header Files\Protocol\FTDProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\FTDSession.h">
+      <Filter>Header Files\Protocol\FTDProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\FTDSubscribe.h">
+      <Filter>Header Files\Protocol\FTDProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\XMPPackage.h">
+      <Filter>Header Files\Protocol\XMPProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\XMPSession.h">
+      <Filter>Header Files\Protocol\XMPProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\ZTPPackage.h">
+      <Filter>Header Files\Protocol\ZTPProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\FieldDescribe.h">
+      <Filter>Header Files\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\FieldSet.h">
+      <Filter>Header Files\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\Package.h">
+      <Filter>Header Files\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\Protocol.h">
+      <Filter>Header Files\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Service\LoginServiceImpl.h">
+      <Filter>Header Files\Service\Impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Service\TradeServiceImpl.h">
+      <Filter>Header Files\Service\Impl</Filter>
+    </ClInclude>
+    <ClInclude Include="TradeCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Front\TradeFront.h">
+      <Filter>Header Files\Front</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\BaseExchApi.h">
+      <Filter>Header Files\Connection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\EventQueue.h">
+      <Filter>Header Files\Kernel\Queue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\OrderQueue.h">
+      <Filter>Header Files\Kernel\Queue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\PackageDefine.h">
+      <Filter>Header Files\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\LinkManager.h">
+      <Filter>Header Files\Connection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Service\LoginServiceLink.h">
+      <Filter>Header Files\Service\Link</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Front\FrontForwarder.h">
+      <Filter>Header Files\Front</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Engine\FrontEngine.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Service\InitServiceLink.h">
+      <Filter>Header Files\Service\Link</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Service\TradeServiceLink.h">
+      <Filter>Header Files\Service\Link</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Engine\Triggers.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Utility\FunctionCopy.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\IFlow.h">
+      <Filter>Header Files\DataStruct\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\IReadOnlyFlow.h">
+      <Filter>Header Files\DataStruct\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\FipDataStruct.h">
+      <Filter>Header Files\DataStruct\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\ChannelProtocol.h">
+      <Filter>Header Files\Protocol\ChannelProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\CompressProtocol.h">
+      <Filter>Header Files\Protocol\CompressProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\FTDProtocol.h">
+      <Filter>Header Files\Protocol\FTDProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Protocol\XMPProtocol.h">
+      <Filter>Header Files\Protocol\XMPProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\CacheList.h">
+      <Filter>Header Files\DataStruct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\Session.h">
+      <Filter>Header Files\Kernel\Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\SessionFactory.h">
+      <Filter>Header Files\Kernel\Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\SeriesCachedFlow.h">
+      <Filter>Header Files\DataStruct\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\InitHandler.h">
+      <Filter>Header Files\Kernel\Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\DBConnection.h">
+      <Filter>Header Files\Connection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\CSVParser.h">
+      <Filter>Header Files\DataStruct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SGEConnection.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SGEHandler.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Front\MarketFlowMgr.h">
+      <Filter>Header Files\Front</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\MarketRepository.h">
+      <Filter>Header Files\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Kernel\DBLoadThread.h">
+      <Filter>Header Files\Kernel\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Engine\DBScheduler.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Rules\RateAlgorithms.h">
+      <Filter>Header Files\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\MockSGEConnection.h">
+      <Filter>Header Files\Connection\Mock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\MockSGEHandler.h">
+      <Filter>Header Files\Connection\Mock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Service\OrderSyncLink.h">
+      <Filter>Header Files\Service\Link</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Domain\Investor.h">
+      <Filter>Header Files\Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Domain\Order.h">
+      <Filter>Header Files\Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SGE\client_cb_list_define.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SGE\keyfld_enc.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SGE\sge_api.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SGE\sge_packet_struct.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SGE\sge_safe_client_interface.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SGE\sge_service.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SGE\sge_session.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SGE\sge_util.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SGE\Syd_Api_WIN.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SGE\z_guomi_struct_define.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SafeHandler.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Engine\AdapterEngine.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Infra\Repository\MemoryRepositoryImpl.h">
+      <Filter>Header Files\Infra\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Domain\Repository.h">
+      <Filter>Header Files\Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Domain\MaxOrderLocalIDSinglton.h">
+      <Filter>Header Files\Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Service\BaseServiceLink.h">
+      <Filter>Header Files\Service\Link</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Service\QueryServiceLink.h">
+      <Filter>Header Files\Service\Link</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Engine\IEngine.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\IClient.h">
+      <Filter>Header Files\RPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\IServer.h">
+      <Filter>Header Files\RPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\ServiceDef.h">
+      <Filter>Header Files\RPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\ZTPClient.h">
+      <Filter>Header Files\RPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\ZTPServer.h">
+      <Filter>Header Files\RPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\message.hpp">
+      <Filter>Header Files\RPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\ztp_client.hpp">
+      <Filter>Header Files\RPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\ztp_protocol.hpp">
+      <Filter>Header Files\RPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\ztp_server.hpp">
+      <Filter>Header Files\RPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Type\type.hpp">
+      <Filter>Header Files\Type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\ZTPType.h">
+      <Filter>Header Files\RPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Database\Database.h">
+      <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Service\OperatorServiceLink.h">
+      <Filter>Header Files\Service\Link</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Connection\SGEHandlerBase.h">
+      <Filter>Header Files\Connection\SGE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Utility\sha256.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Trade.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Utility\CTime.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Utility\Logger.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Utility\Profile.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Utility\ToolFunctions.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\DataStruct\CachedFileFlow.cpp">
+      <Filter>Source Files\DataStruct\Flow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\DataStruct\CachedFlow.cpp">
+      <Filter>Source Files\DataStruct\Flow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\DataStruct\FileFlow.cpp">
+      <Filter>Source Files\DataStruct\Flow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\DataStruct\FlowReader.cpp">
+      <Filter>Source Files\DataStruct\Flow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\DataStruct\IndexPackageFlow.cpp">
+      <Filter>Source Files\DataStruct\Flow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\DataStruct\UserFlow.cpp">
+      <Filter>Source Files\DataStruct\Flow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\DataStruct\CacheList.cpp">
+      <Filter>Source Files\DataStruct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Engine\ErrorDefine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Engine\ErrorEngine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Engine\TradeEngine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\EventHandler.cpp">
+      <Filter>Source Files\Kernel\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\ListenHandler.cpp">
+      <Filter>Source Files\Kernel\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\NotifyHandler.cpp">
+      <Filter>Source Files\Kernel\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\TimerHandler.cpp">
+      <Filter>Source Files\Kernel\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\BaseThread.cpp">
+      <Filter>Source Files\Kernel\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\EventThread.cpp">
+      <Filter>Source Files\Kernel\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\ReactorThread.cpp">
+      <Filter>Source Files\Kernel\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\SelectThread.cpp">
+      <Filter>Source Files\Kernel\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Network\TcpChannel.cpp">
+      <Filter>Source Files\Network\Tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Network\TcpClient.cpp">
+      <Filter>Source Files\Network\Tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Network\TcpNetworkFactory.cpp">
+      <Filter>Source Files\Network\Tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Network\TcpServer.cpp">
+      <Filter>Source Files\Network\Tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Network\UdpChannel.cpp">
+      <Filter>Source Files\Network\Udp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Network\UdpClient.cpp">
+      <Filter>Source Files\Network\Udp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Network\UdpNetworkFactory.cpp">
+      <Filter>Source Files\Network\Udp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Network\UdpServer.cpp">
+      <Filter>Source Files\Network\Udp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Network\Channel.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Network\NetworkFactory.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Network\ServiceName.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\ChannelPackage.cpp">
+      <Filter>Source Files\Protocol\ChannelProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\CompressPackage.cpp">
+      <Filter>Source Files\Protocol\CompressProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\CompressProtocol.cpp">
+      <Filter>Source Files\Protocol\CompressProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\CompressUtil.cpp">
+      <Filter>Source Files\Protocol\CompressProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\FTDPackage.cpp">
+      <Filter>Source Files\Protocol\FTDProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\FTDSession.cpp">
+      <Filter>Source Files\Protocol\FTDProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\XMPPackage.cpp">
+      <Filter>Source Files\Protocol\XMPProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\XMPSession.cpp">
+      <Filter>Source Files\Protocol\XMPProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\ZTPPackage.cpp">
+      <Filter>Source Files\Protocol\ZTPProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\FieldDescribe.cpp">
+      <Filter>Source Files\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\FieldSet.cpp">
+      <Filter>Source Files\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\Package.cpp">
+      <Filter>Source Files\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\Protocol.cpp">
+      <Filter>Source Files\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Service\LoginServiceImpl.cpp">
+      <Filter>Source Files\Service\Impl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Service\TradeServiceImpl.cpp">
+      <Filter>Source Files\Service\Impl</Filter>
+    </ClCompile>
+    <ClCompile Include="TradeCore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Front\TradeFront.cpp">
+      <Filter>Source Files\Front</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\EventQueue.cpp">
+      <Filter>Source Files\Kernel\Queue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\OrderQueue.cpp">
+      <Filter>Source Files\Kernel\Queue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Connection\LinkManager.cpp">
+      <Filter>Source Files\Connection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Front\FrontForwarder.cpp">
+      <Filter>Source Files\Front</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Engine\FrontEngine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Service\InitServiceLink.cpp">
+      <Filter>Source Files\Service\Link</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Service\LoginServiceLink.cpp">
+      <Filter>Source Files\Service\Link</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Service\TradeServiceLink.cpp">
+      <Filter>Source Files\Service\Link</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\ChannelProtocol.cpp">
+      <Filter>Source Files\Protocol\ChannelProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\FTDProtocol.cpp">
+      <Filter>Source Files\Protocol\FTDProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Protocol\XMPProtocol.cpp">
+      <Filter>Source Files\Protocol\XMPProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\Session.cpp">
+      <Filter>Source Files\Kernel\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\SessionFactory.cpp">
+      <Filter>Source Files\Kernel\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\DataStruct\SeriesCachedFlow.cpp">
+      <Filter>Source Files\DataStruct\Flow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\InitHandler.cpp">
+      <Filter>Source Files\Kernel\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Connection\DBConnection.cpp">
+      <Filter>Source Files\Connection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\DataStruct\CSVParser.cpp">
+      <Filter>Source Files\DataStruct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\DataStruct\FtdDataStruct.cpp">
+      <Filter>Source Files\DataStruct\DataTYpe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\DataStruct\ZtpDataStruct.cpp">
+      <Filter>Source Files\DataStruct\DataTYpe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Connection\SGEConnection.cpp">
+      <Filter>Source Files\Connection\SGE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Connection\SGEHandler.cpp">
+      <Filter>Source Files\Connection\SGE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Front\MarketFlowMgr.cpp">
+      <Filter>Source Files\Front</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\DBLoadThread.cpp">
+      <Filter>Source Files\Kernel\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Engine\Scheduler.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Rules\RateAlgorithms.cpp">
+      <Filter>Source Files\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Connection\MockSGEConnection.cpp">
+      <Filter>Source Files\Connection\Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Connection\MockSGEHandler.cpp">
+      <Filter>Source Files\Connection\Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Service\OrderSyncLink.cpp">
+      <Filter>Source Files\Service\Link</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Domain\Investor.cpp">
+      <Filter>Source Files\Domain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Domain\Order.cpp">
+      <Filter>Source Files\Domain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Connection\SafeHandler.cpp">
+      <Filter>Source Files\Connection\SGE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Engine\AdapterEngine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Infra\Repository\MemoryRepositoryImpl.cpp">
+      <Filter>Source Files\Infra\Repository</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Kernel\MarketRepository.cpp">
+      <Filter>Source Files\Kernel\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Domain\MaxOrderLocalIDSinglton.cpp">
+      <Filter>Source Files\Domain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Connection\SGESerializer.cpp">
+      <Filter>Source Files\Connection\SGE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Service\BaseServiceLink.cpp">
+      <Filter>Source Files\Service\Link</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\format.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\RPC\ZTPServer.cpp">
+      <Filter>Source Files\RPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\RPC\ztp_server.cpp">
+      <Filter>Source Files\RPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Database\Database.cpp">
+      <Filter>Source Files\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Service\OperatorServiceLink.cpp">
+      <Filter>Source Files\Service\Link</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Service\QueryServiceLink.cpp">
+      <Filter>Source Files\Service\Link</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Connection\SGEHandlerBase.cpp">
+      <Filter>Source Files\Connection\SGE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Front\InstrumentManager.cpp">
+      <Filter>Source Files\Front</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Utility\sha256.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Doc\初始化\JinChan.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Trade.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

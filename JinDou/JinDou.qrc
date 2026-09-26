@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/JinDou">
+        <file>qt.conf</file>
+        <file>JinDou.ico</file>
+    </qresource>
+</RCC>

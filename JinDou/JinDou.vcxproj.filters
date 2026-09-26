@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="config\Config.cpp" />
+    <ClCompile Include="conn\ctp\CTPConnection.cpp" />
+    <ClCompile Include="conn\ctp\CTPMarketHandler.cpp" />
+    <ClCompile Include="conn\ctp\CTPTraderHandler.cpp" />
+    <ClCompile Include="conn\esunny\ESUNNYConnection.cpp" />
+    <ClCompile Include="conn\esunny\ESUNNYQuoteHandler.cpp" />
+    <ClCompile Include="conn\esunny\ESUNNYTradeHandler.cpp" />
+    <ClCompile Include="conn\ExchangeConn.cpp" />
+    <ClCompile Include="conn\factory\ConnFactory.cpp" />
+    <ClCompile Include="conn\ztp\ZTPConnection.cpp" />
+    <ClCompile Include="conn\ztp\ZTPMarketHandler.cpp" />
+    <ClCompile Include="conn\ztp\ZTPTraderHandler.cpp" />
+    <ClCompile Include="Dispatcher.cpp" />
+    <ClCompile Include="domain\RateAlgorithms.cpp" />
+    <ClCompile Include="format.cc" />
+    <ClCompile Include="LoginDlg.cpp" />
+    <ClCompile Include="model\dealing\Dealing.cpp" />
+    <ClCompile Include="model\dealing\LocalIDService.cpp" />
+    <ClCompile Include="model\factory\InstrumentFactory.cpp" />
+    <ClCompile Include="model\Instrument.cpp" />
+    <ClCompile Include="model\Quote.cpp" />
+    <ClCompile Include="model\Variety.cpp" />
+    <ClCompile Include="notify\ConnPublisher.cpp" />
+    <ClCompile Include="notify\Notify.cpp" />
+    <ClCompile Include="notify\StrategyPublisher.cpp" />
+    <ClCompile Include="notify\UIPublisher.cpp" />
+    <ClCompile Include="presenter\OrderListPresenter.cpp" />
+    <ClCompile Include="presenter\OrderPresenter.cpp" />
+    <ClCompile Include="presenter\StrategyListPresenter.cpp" />
+    <ClCompile Include="presenter\TradeListPresenter.cpp" />
+    <ClCompile Include="runner\ConnRunner.cpp" />
+    <ClCompile Include="runner\Framework.cpp" />
+    <ClCompile Include="runner\StrategyRunner.cpp" />
+    <ClCompile Include="runner\UIRunner.cpp" />
+    <ClCompile Include="service\ExchangeService.cpp" />
+    <ClCompile Include="service\InitService.cpp" />
+    <ClCompile Include="service\InstrumentProgressManager.cpp" />
+    <ClCompile Include="service\OrderService.cpp" />
+    <ClCompile Include="service\PositionService.cpp" />
+    <ClCompile Include="service\QueryService.cpp" />
+    <ClCompile Include="service\QuoteService.cpp" />
+    <ClCompile Include="service\TradeService.cpp" />
+    <ClCompile Include="service\TradeSystemService.cpp" />
+    <ClCompile Include="StrategySettingDlg.cpp" />
+    <ClCompile Include="strategy\auto\AutoStrategy.cpp" />
+    <ClCompile Include="strategy\auto\Context.cpp" />
+    <ClCompile Include="strategy\auto\StatusMachine.cpp" />
+    <ClCompile Include="strategy\mct\MCTStrategy.cpp" />
+    <ClCompile Include="strategy\StrategyFactory.cpp" />
+    <ClCompile Include="unittest\DispatcherTest.cpp" />
+    <ClCompile Include="unittest\LocalIDAccTest.cpp" />
+    <ClCompile Include="unittest\MockService.cpp" />
+    <ClCompile Include="unittest\PositionServiceTest.cpp" />
+    <ClCompile Include="unittest\testmain.cpp" />
+    <ClCompile Include="utils\Encryption.cpp" />
+    <ClCompile Include="utils\Log.cpp" />
+    <ClCompile Include="utils\Platform.cpp" />
+    <ClCompile Include="JinDou.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="service\StrategyService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="service\AccountService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="service\InstrumentService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="service\Service.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="strategy\Business.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unittest\ContextTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="repository\Repository.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="service\CancellationLimiter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\License.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="atomic\Atomic64.h" />
+    <ClInclude Include="atomic\IdleStrategy.h" />
+    <ClInclude Include="atomic\platform\Atomic64_gcc_cpp11.h" />
+    <ClInclude Include="atomic\platform\Atomic64_gcc_x86_64.h" />
+    <ClInclude Include="atomic\platform\Atomic64_msvc.h" />
+    <ClInclude Include="atomic\platform\Atomic64_msvc_cpp11.h" />
+    <ClInclude Include="config\Config.h" />
+    <ClInclude Include="config\cpptoml.h" />
+    <ClInclude Include="conn\ctp\CTPConnection.h" />
+    <ClInclude Include="conn\ctp\CTPMarketHandler.h" />
+    <ClInclude Include="conn\ctp\CTPTraderHandler.h" />
+    <ClInclude Include="conn\esunny\ESUNNYConnection.h" />
+    <ClInclude Include="conn\esunny\ESUNNYQuoteHandler.h" />
+    <ClInclude Include="conn\esunny\ESUNNYTradeHandler.h" />
+    <ClInclude Include="conn\ExchangeConn.h" />
+    <ClInclude Include="conn\factory\ConnFactory.h" />
+    <ClInclude Include="conn\ztp\ZTPConnection.h" />
+    <ClInclude Include="conn\ztp\ZTPMarketHandler.h" />
+    <ClInclude Include="conn\ztp\ZTPTraderHandler.h" />
+    <ClInclude Include="container\Circle.h" />
+    <ClInclude Include="container\PriorityQueue.h" />
+    <ClInclude Include="container\RingBuffer.h" />
+    <ClInclude Include="container\Utils.h" />
+    <ClInclude Include="Define.h" />
+    <ClInclude Include="Dispatcher.h" />
+    <ClInclude Include="domain\RateAlgorithms.h" />
+    <ClInclude Include="model\Constants.h" />
+    <ClInclude Include="model\dealing\Customer.h" />
+    <ClInclude Include="model\dealing\Dealing.h" />
+    <ClInclude Include="model\dealing\ExchangeRequest.h" />
+    <ClInclude Include="model\dealing\LocalIDService.h" />
+    <ClInclude Include="model\dealing\MarketingDealing.h" />
+    <ClInclude Include="model\dealing\OrderCommand.h" />
+    <ClInclude Include="model\factory\InstrumentFactory.h" />
+    <ClInclude Include="model\Instrument.h" />
+    <ClInclude Include="model\Quote.h" />
+    <ClInclude Include="model\Variety.h" />
+    <ClInclude Include="notify\ConnPublisher.h" />
+    <ClInclude Include="notify\Notify.h" />
+    <ClInclude Include="notify\StrategyPublisher.h" />
+    <ClInclude Include="notify\UIPublisher.h" />
+    <ClInclude Include="presenter\AccountPresenter.h" />
+    <ClInclude Include="presenter\LoginPresenter.h" />
+    <ClInclude Include="presenter\OrderListPresenter.h" />
+    <ClInclude Include="presenter\OrderPresenter.h" />
+    <ClInclude Include="presenter\PositionPresenter.h" />
+    <ClInclude Include="presenter\PresenterUtils.h" />
+    <ClInclude Include="presenter\StatusPresenter.h" />
+    <ClInclude Include="presenter\StrategyListPresenter.h" />
+    <ClInclude Include="presenter\TradeListPresenter.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="service\CancellationLimiter.h" />
+    <ClInclude Include="service\CustomizingPersistService.h" />
+    <ClInclude Include="service\ExchangeService.h" />
+    <ClInclude Include="service\InitService.h" />
+    <ClInclude Include="service\InstrumentProgressManager.h" />
+    <ClInclude Include="service\InstrumentService.h" />
+    <ClInclude Include="service\OrderService.h" />
+    <ClInclude Include="service\QueryService.h" />
+    <ClInclude Include="service\TradeService.h" />
+    <ClInclude Include="service\Service.h" />
+    <ClInclude Include="runner\ConnRunner.h" />
+    <ClInclude Include="runner\Framework.h" />
+    <ClInclude Include="runner\Queues.h" />
+    <ClInclude Include="runner\Runner.h" />
+    <ClInclude Include="runner\StrategyRunner.h" />
+    <ClInclude Include="runner\UIRunner.h" />
+    <ClInclude Include="service\PositionService.h" />
+    <ClInclude Include="service\QuoteService.h" />
+    <ClInclude Include="service\TradeSystemService.h" />
+    <ClInclude Include="strategy\auto\AutoStrategy.h" />
+    <ClInclude Include="strategy\auto\Context.h" />
+    <ClInclude Include="strategy\auto\Machine.h" />
+    <ClInclude Include="strategy\auto\StatusMachine.h" />
+    <ClInclude Include="strategy\Business.h" />
+    <ClInclude Include="strategy\mct\MCTStrategy.h" />
+    <ClInclude Include="strategy\PositionManager.h" />
+    <ClInclude Include="strategy\QuoteManager.h" />
+    <ClInclude Include="strategy\Strategy.h" />
+    <ClInclude Include="strategy\StrategyFactory.h" />
+    <ClInclude Include="type\CharArray.h" />
+    <ClInclude Include="type\Math.h" />
+    <ClInclude Include="type\Money.h" />
+    <ClInclude Include="type\type.hpp" />
+    <ClInclude Include="type\ZTPType.h" />
+    <ClInclude Include="unittest\MockService.h" />
+    <ClInclude Include="utils\Encryption.h" />
+    <ClInclude Include="utils\Log.h" />
+    <ClInclude Include="utils\Platform.h" />
+    <ClInclude Include="utils\String.h" />
+    <ClInclude Include="utils\TimeChecker.h" />
+    <ClInclude Include="utils\Uri.h" />
+    <ClInclude Include="view\AccountView.h" />
+    <ClInclude Include="view\LoginView.h" />
+    <ClInclude Include="view\OrderListView.h" />
+    <ClInclude Include="view\OrderView.h" />
+    <ClInclude Include="view\PositionView.h" />
+    <ClInclude Include="view\StatusView.h" />
+    <ClInclude Include="view\TradeListView.h" />
+    <ClInclude Include="view\ViewUtils.h" />
+    <ClInclude Include="service\StrategyService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="service\AccountService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\StrategyListView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="repository\Repository.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\License.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="JinDou.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="JinDou.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="JinDou.h" />
+    <QtMoc Include="LoginDlg.h" />
+    <QtMoc Include="StrategySettingDlg.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="JinDou.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="JinDou.ui" />
+    <QtUic Include="Login.ui" />
+    <QtUic Include="StrategySetting.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+  </ItemGroup>
+</Project>

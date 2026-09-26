@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{28D21805-F549-49FB-9745-89F0554CD863}</ProjectGuid>
+    <Keyword>MFCProj</Keyword>
+    <RootNamespace>pixiu</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)thirdparty\spdlog-1.x\include;$(SolutionDir)thirdparty\date-2.4.1\include;$(SolutionDir)thirdparty\fmt-6.1.2\include;$(SolutionDir)thirdparty\boost-1.72;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)\Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName>$(ProjectName)_64</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)thirdparty\date-2.4.1\include;$(SolutionDir)thirdparty\fmt-6.1.2\include;$(SolutionDir)thirdparty\boost-1.72;$(SolutionDir)thirdparty\spdlog-1.x\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_WINDOWS;_DEBUG;%(PreprocessorDefinitions);_WINSOCK_DEPRECATED_NO_WARNINGS</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)/thirdapi;$(SolutionDir)/pixiu/src;$(SolutionDir)pixiu</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <XMLDocumentationFileName>$(IntDir)</XMLDocumentationFileName>
+      <BrowseInformationFile>$(IntDir)</BrowseInformationFile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <MinimalRebuild>false</MinimalRebuild>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>$(SolutionDir)/thirdapi/lib/x64/CTP/real/thostmduserapi_se.lib;$(SolutionDir)/thirdapi/lib/x64/CTP/real/thosttraderapi_se.lib;$(SolutionDir)/thirdapi/lib/x64/CTP/real/WinDataCollect.lib;$(SolutionDir)/thirdapi/lib/x64/ESUNNY/TapQuoteAPI.lib;$(SolutionDir)/thirdapi/lib/x64/ESUNNY/iTapTradeAPI_64.lib;$(SolutionDir)/thirdapi/lib/x64/YD/yd.lib;$(SolutionDir)/thirdapi/lib/x64/SGE/KeyFldEnc.lib;$(SolutionDir)/thirdapi/lib/x64/SGE/sge_api.lib;$(SolutionDir)/thirdapi/lib/x64/SGE/libWinSgeSafeApi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(IntDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ManifestFile>$(IntDir)$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <ProfileGuidedDatabase>$(IntDir)$(TargetName).pgd</ProfileGuidedDatabase>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <FixedBaseAddress>true</FixedBaseAddress>
+      <BaseAddress>0x180000000 </BaseAddress>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ResourceOutputFileName>$(IntDir)%(Filename).res</ResourceOutputFileName>
+    </ResourceCompile>
+    <BuildLog>
+      <Path>$(IntDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
+    <Bscmake>
+      <OutputFile>$(SolutionDir)Bin\$(IntDir)$(TargetName).bsc</OutputFile>
+    </Bscmake>
+    <Xdcmake>
+      <OutputFile>$(IntDir)$(TargetName).xml</OutputFile>
+    </Xdcmake>
+    <Manifest>
+      <OutputManifestFile>$(IntDir)$(TargetName)$(TargetExt).embed.manifest</OutputManifestFile>
+    </Manifest>
+    <ManifestResourceCompile>
+      <ResourceOutputFileName>$(IntDir)$(TargetName)$(TargetExt).embed.manifest.res</ResourceOutputFileName>
+    </ManifestResourceCompile>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\Bin
+</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)/thirdapi;$(SolutionDir)pixiu/src;$(SolutionDir)pixiu</AdditionalIncludeDirectories>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <XMLDocumentationFileName>$(IntDir)</XMLDocumentationFileName>
+      <BrowseInformationFile>$(IntDir)</BrowseInformationFile>
+      <PreprocessorDefinitions>_WINDOWS;%(PreprocessorDefinitions);_WINSOCK_DEPRECATED_NO_WARNINGS</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>$(IntDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ManifestFile>$(IntDir)$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <ProfileGuidedDatabase>$(IntDir)$(TargetName).pgd</ProfileGuidedDatabase>
+      <AdditionalDependencies>$(SolutionDir)/thirdapi/lib/x64/CTP/real/thostmduserapi_se.lib;$(SolutionDir)/thirdapi/lib/x64/CTP/real/thosttraderapi_se.lib;$(SolutionDir)/thirdapi/lib/x64/CTP/real/WinDataCollect.lib;$(SolutionDir)/thirdapi/lib/x64/ESUNNY/TapQuoteAPI.lib;$(SolutionDir)/thirdapi/lib/x64/ESUNNY/iTapTradeAPI_64.lib;$(SolutionDir)/thirdapi/lib/x64/EES/EESQuoteApi.lib;$(SolutionDir)/thirdapi/lib/x64/YD/yd.lib;$(SolutionDir)/thirdapi/lib/x64/SGE/KeyFldEnc.lib;$(SolutionDir)/thirdapi/lib/x64/SGE/sge_api.lib;$(SolutionDir)/thirdapi/lib/x64/SGE/libWinSgeSafeApi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ResourceOutputFileName>$(IntDir)%(Filename).res</ResourceOutputFileName>
+    </ResourceCompile>
+    <BuildLog>
+      <Path>$(IntDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
+    <Bscmake>
+      <OutputFile>$(SolutionDir)Bin\$(IntDir)$(TargetName).bsc</OutputFile>
+    </Bscmake>
+    <Xdcmake>
+      <OutputFile>$(IntDir)$(TargetName).xml</OutputFile>
+    </Xdcmake>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\Bin</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="dlg\DialogTabCtrl.h" />
+    <ClInclude Include="dlg\FundSettingDlg.h" />
+    <ClInclude Include="dlg\HFNeturalDlg.h" />
+    <ClInclude Include="dlg\LoginDlg.h" />
+    <ClInclude Include="dlg\HKMarketingDlg.h" />
+    <ClInclude Include="dlg\pixiuDlg.h" />
+    <ClInclude Include="dlg\PostionDlg.h" />
+    <ClInclude Include="dlg\RegisterDlg.h" />
+    <ClInclude Include="dlg\HFSpreadDlg.h" />
+    <ClInclude Include="myafx.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="pixiu.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="src\account\Account.h" />
+    <ClInclude Include="src\account\Funds.h" />
+    <ClInclude Include="src\account\Positions.h" />
+    <ClInclude Include="src\atomic\Atomic64.h" />
+    <ClInclude Include="src\atomic\IdleStrategy.h" />
+    <ClInclude Include="src\atomic\platform\Atomic64_gcc_cpp11.h" />
+    <ClInclude Include="src\atomic\platform\Atomic64_gcc_x86_64.h" />
+    <ClInclude Include="src\atomic\platform\Atomic64_msvc.h" />
+    <ClInclude Include="src\atomic\platform\Atomic64_msvc_cpp11.h" />
+    <ClInclude Include="src\config\Config.h" />
+    <ClInclude Include="src\config\cpptoml.h" />
+    <ClInclude Include="src\conn\ctp\CTPConnection.h" />
+    <ClInclude Include="src\conn\ctp\CTPMarketHandler.h" />
+    <ClInclude Include="src\conn\ctp\CTPTraderHandler.h" />
+    <ClInclude Include="src\conn\esunny\ESUNNYConnection.h" />
+    <ClInclude Include="src\conn\esunny\ESUNNYQuoteHandler.h" />
+    <ClInclude Include="src\conn\esunny\ESUNNYTradeHandler.h" />
+    <ClInclude Include="src\conn\ExchangeConn.h" />
+    <ClInclude Include="src\conn\factory\ConnFactory.h" />
+    <ClInclude Include="src\conn\hft\EESQuoteApi.h" />
+    <ClInclude Include="src\conn\hft\HFTConnection.h" />
+    <ClInclude Include="src\conn\hft\HFTMarketHandler.h" />
+    <ClInclude Include="src\conn\hft\HFTTraderHandler.h" />
+    <ClInclude Include="src\conn\sge\SGESerializer.h" />
+    <ClInclude Include="src\conn\sge\SGEHandler.h" />
+    <ClInclude Include="src\conn\sge\SGEConnection.h" />
+    <ClInclude Include="src\conn\sge\SafeHandler.h" />
+    <ClInclude Include="src\container\Circle.h" />
+    <ClInclude Include="src\container\PriorityQueue.h" />
+    <ClInclude Include="src\container\RingBuffer.h" />
+    <ClInclude Include="src\container\Utils.h" />
+    <ClInclude Include="src\metrics\MovingAverage.h" />
+    <ClInclude Include="src\metrics\ProfitManager.h" />
+    <ClInclude Include="src\model\Constants.h" />
+    <ClInclude Include="src\model\dealing\Dealing.h" />
+    <ClInclude Include="src\model\dealing\ExchangeRequest.h" />
+    <ClInclude Include="src\model\dealing\MarketingDealing.h" />
+    <ClInclude Include="src\model\factory\InstrumentFactory.h" />
+    <ClInclude Include="src\model\Instrument.h" />
+    <ClInclude Include="src\model\dealing\OrderCommand.h" />
+    <ClInclude Include="src\model\Quote.h" />
+    <ClInclude Include="src\model\Variety.h" />
+    <ClInclude Include="src\notify\ConnPublisher.h" />
+    <ClInclude Include="src\notify\Notify.h" />
+    <ClInclude Include="src\notify\StrategyPublisher.h" />
+    <ClInclude Include="src\notify\UIPublisher.h" />
+    <ClInclude Include="src\runner\ConnRunner.h" />
+    <ClInclude Include="src\runner\Framework.h" />
+    <ClInclude Include="src\runner\Queues.h" />
+    <ClInclude Include="src\runner\Runner.h" />
+    <ClInclude Include="src\runner\StrategyRunner.h" />
+    <ClInclude Include="src\service\DealingRepository.h" />
+    <ClInclude Include="src\service\FundService.h" />
+    <ClInclude Include="src\service\PositionService.h" />
+    <ClInclude Include="src\service\QuoteService.h" />
+    <ClInclude Include="src\statusmachine\StatusMachine.h" />
+    <ClInclude Include="src\strategy\Business.h" />
+    <ClInclude Include="src\model\Timer.h" />
+    <ClInclude Include="src\strategy\grab\GrabStatus.h" />
+    <ClInclude Include="src\strategy\hk_marketing\Arguments.h" />
+    <ClInclude Include="src\strategy\hk_marketing\BalanceHandler.h" />
+    <ClInclude Include="src\strategy\hk_marketing\ChangeApplier.h" />
+    <ClInclude Include="src\strategy\hk_marketing\Hedge.h" />
+    <ClInclude Include="src\strategy\hk_marketing\HedgeManager.h" />
+    <ClInclude Include="src\strategy\hk_marketing\HKMarketingStrategy.h" />
+    <ClInclude Include="src\strategy\hk_marketing\Position.h" />
+    <ClInclude Include="src\strategy\hk_marketing\QuotingBusiness.h" />
+    <ClInclude Include="src\strategy\hk_marketing\Snapshot.h" />
+    <ClInclude Include="src\strategy\hk_marketing\Statuses.h" />
+    <ClInclude Include="src\strategy\spread\SpreadContext.h" />
+    <ClInclude Include="src\strategy\spread\SpreadBusiness.h" />
+    <ClInclude Include="src\strategy\spread\SpreadStatus.h" />
+    <ClInclude Include="src\strategy\grab\GrabStrategy.h" />
+    <ClInclude Include="src\strategy\grab\GrabBusiness.h" />
+    <ClInclude Include="src\strategy\mct\MCTStrategy.h" />
+    <ClInclude Include="src\strategy\hf_marketing\Marketing.h" />
+    <ClInclude Include="src\strategy\hf_marketing\PriceBusiness.h" />
+    <ClInclude Include="src\strategy\hf_marketing\SameStatus.h" />
+    <ClInclude Include="src\strategy\hf_marketing\NeturalSpreadStrategy.h" />
+    <ClInclude Include="src\strategy\hf_marketing\Snapshot.h" />
+    <ClInclude Include="src\strategy\spread\SpreadStrategy.h" />
+    <ClInclude Include="src\strategy\PositionManager.h" />
+    <ClInclude Include="src\strategy\QuoteManager.h" />
+    <ClInclude Include="src\strategy\Strategy.h" />
+    <ClInclude Include="src\strategy\StrategyFactory.h" />
+    <ClInclude Include="src\thirdapi\CFFEX\USTPFtdcMduserApi.h" />
+    <ClInclude Include="src\thirdapi\CFFEX\USTPFtdcTraderApi.h" />
+    <ClInclude Include="src\thirdapi\CFFEX\USTPFtdcUserApiDataType.h" />
+    <ClInclude Include="src\thirdapi\CFFEX\USTPFtdcUserApiStruct.h" />
+    <ClInclude Include="src\thirdapi\CTP\ThostFtdcMdApi.h" />
+    <ClInclude Include="src\thirdapi\CTP\ThostFtdcTraderApi.h" />
+    <ClInclude Include="src\thirdapi\CTP\ThostFtdcUserApiDataType.h" />
+    <ClInclude Include="src\thirdapi\CTP\ThostFtdcUserApiStruct.h" />
+    <ClInclude Include="src\thirdapi\EES\EESQuoteApiStruct.h" />
+    <ClInclude Include="src\thirdapi\ESUNNY\iTapAPICommDef.h" />
+    <ClInclude Include="src\thirdapi\ESUNNY\iTapAPIError.h" />
+    <ClInclude Include="src\thirdapi\ESUNNY\iTapTradeAPI.h" />
+    <ClInclude Include="src\thirdapi\ESUNNY\iTapTradeAPIDataType.h" />
+    <ClInclude Include="src\thirdapi\ESUNNY\TapAPICommDef.h" />
+    <ClInclude Include="src\thirdapi\ESUNNY\TapAPIError.h" />
+    <ClInclude Include="src\thirdapi\ESUNNY\TapQuoteAPI.h" />
+    <ClInclude Include="src\thirdapi\ESUNNY\TapQuoteAPIDataType.h" />
+    <ClInclude Include="src\thirdapi\SGE\mmtpMdUserApi.h" />
+    <ClInclude Include="src\thirdapi\SGE\mmtpTraderApi.h" />
+    <ClInclude Include="src\thirdapi\SGE\mmtpUserApiDataType.h" />
+    <ClInclude Include="src\thirdapi\SGE\mmtpUserApiStruct.h" />
+    <ClInclude Include="src\thirdapi\SHFE\FtdcMduserApi.h" />
+    <ClInclude Include="src\thirdapi\SHFE\FtdcTraderApi.h" />
+    <ClInclude Include="src\thirdapi\SHFE\FtdcUserApiDataType.h" />
+    <ClInclude Include="src\thirdapi\SHFE\FtdcUserApiStruct.h" />
+    <ClInclude Include="src\thirdapi\XSPEED\DFITCSECApiDataType.h" />
+    <ClInclude Include="src\thirdapi\XSPEED\DFITCSECApiStruct.h" />
+    <ClInclude Include="src\thirdapi\XSPEED\DFITCSECMdApi.h" />
+    <ClInclude Include="src\thirdapi\XSPEED\DFITCSECTraderApi.h" />
+    <ClInclude Include="src\type\CharArray.h" />
+    <ClInclude Include="src\type\Math.h" />
+    <ClInclude Include="src\type\Money.h" />
+    <ClInclude Include="src\utils\Ctrl.h" />
+    <ClInclude Include="src\utils\Log.h" />
+    <ClInclude Include="src\utils\Mutex.h" />
+    <ClInclude Include="src\utils\Platform.h" />
+    <ClInclude Include="src\utils\String.h" />
+    <ClInclude Include="src\utils\TimeChecker.h" />
+    <ClInclude Include="src\utils\Uri.h" />
+    <ClInclude Include="dlg\SuperGrabDlg.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dlg\DialogTabCtrl.cpp" />
+    <ClCompile Include="dlg\FundSettingDlg.cpp" />
+    <ClCompile Include="dlg\HFNeturalDlg.cpp" />
+    <ClCompile Include="dlg\LoginDlg.cpp" />
+    <ClCompile Include="dlg\HKMarketingDlg.cpp" />
+    <ClCompile Include="dlg\pixiuDlg.cpp" />
+    <ClCompile Include="dlg\PostionDlg.cpp" />
+    <ClCompile Include="dlg\RegisterDlg.cpp" />
+    <ClCompile Include="format.cc" />
+    <ClCompile Include="dlg\HFSpreadDlg.cpp" />
+    <ClCompile Include="loader.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="pixiu.cpp" />
+    <ClCompile Include="src\account\Funds.cpp" />
+    <ClCompile Include="src\config\Config.cpp" />
+    <ClCompile Include="src\conn\ctp\CTPConnection.cpp" />
+    <ClCompile Include="src\conn\ctp\CTPMarketHandler.cpp" />
+    <ClCompile Include="src\conn\ctp\CTPTraderHandler.cpp" />
+    <ClCompile Include="src\conn\esunny\ESUNNYConnection.cpp" />
+    <ClCompile Include="src\conn\esunny\ESUNNYQuoteHandler.cpp" />
+    <ClCompile Include="src\conn\esunny\ESUNNYTradeHandler.cpp" />
+    <ClCompile Include="src\conn\ExchangeConn.cpp" />
+    <ClCompile Include="src\conn\factory\ConnFactory.cpp" />
+    <ClCompile Include="src\conn\hft\EESQuoteApi.cpp" />
+    <ClCompile Include="src\conn\hft\HFTConnection.cpp" />
+    <ClCompile Include="src\conn\hft\HFTMarketHandler.cpp" />
+    <ClCompile Include="src\conn\hft\HFTTraderHandler.cpp" />
+    <ClCompile Include="src\conn\sge\SGEConnection.cpp" />
+    <ClCompile Include="src\conn\sge\SGESerializer.cpp" />
+    <ClCompile Include="src\conn\sge\SGEHandler.cpp" />
+    <ClCompile Include="src\conn\sge\SafeHandler.cpp" />
+    <ClCompile Include="src\model\factory\InstrumentFactory.cpp" />
+    <ClCompile Include="src\model\Variety.cpp" />
+    <ClCompile Include="src\notify\ConnPublisher.cpp" />
+    <ClCompile Include="src\notify\StrategyPublisher.cpp" />
+    <ClCompile Include="src\notify\UIPublisher.cpp" />
+    <ClCompile Include="src\runner\ConnRunner.cpp" />
+    <ClCompile Include="src\runner\Framework.cpp" />
+    <ClCompile Include="src\runner\StrategyRunner.cpp" />
+    <ClCompile Include="src\service\DealingRepository.cpp" />
+    <ClCompile Include="src\service\FundService.cpp" />
+    <ClCompile Include="src\service\PositionService.cpp" />
+    <ClCompile Include="src\service\QuoteService.cpp" />
+    <ClCompile Include="src\strategy\Business.cpp" />
+    <ClCompile Include="src\strategy\grab\GrabStatus.cpp" />
+    <ClCompile Include="src\strategy\hk_marketing\Hedge.cpp" />
+    <ClCompile Include="src\strategy\hk_marketing\HKMarketingStrategy.cpp" />
+    <ClCompile Include="src\strategy\hk_marketing\QuotingBusiness.cpp" />
+    <ClCompile Include="src\strategy\hk_marketing\Statuses.cpp" />
+    <ClCompile Include="src\strategy\spread\SpreadContext.cpp" />
+    <ClCompile Include="src\strategy\spread\SpreadBusiness.cpp" />
+    <ClCompile Include="src\strategy\spread\SpreadStatus.cpp" />
+    <ClCompile Include="src\strategy\grab\GrabStrategy.cpp" />
+    <ClCompile Include="src\strategy\grab\GrabBusiness.cpp" />
+    <ClCompile Include="src\strategy\mct\MCTStrategy.cpp" />
+    <ClCompile Include="src\strategy\hf_marketing\Marketing.cpp" />
+    <ClCompile Include="src\strategy\hf_marketing\PriceBusiness.cpp" />
+    <ClCompile Include="src\strategy\hf_marketing\SameStatus.cpp" />
+    <ClCompile Include="src\strategy\hf_marketing\NeturalSpreadStrategy.cpp" />
+    <ClCompile Include="src\strategy\spread\SpreadStrategy.cpp" />
+    <ClCompile Include="src\strategy\StrategyFactory.cpp" />
+    <ClCompile Include="src\utils\Log.cpp" />
+    <ClCompile Include="dlg\SuperGrabDlg.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="pixiu.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="conf\example.prod.toml" />
+    <None Include="res\pixiu.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\pixiu.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

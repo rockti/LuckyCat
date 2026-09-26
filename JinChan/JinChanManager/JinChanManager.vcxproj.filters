@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Header Files\ZTP">
+      <UniqueIdentifier>{da82568a-72c5-425c-9279-b9f99ee0dba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ZTP">
+      <UniqueIdentifier>{0777831c-4218-41b3-8864-3210ab1f195e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Widget">
+      <UniqueIdentifier>{6571fbeb-043b-4e03-b119-60c3005db846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Widget">
+      <UniqueIdentifier>{0db8e8b3-0d8d-4550-8d33-503fad59525d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\thirdparty\fmt-6.1.2\src\format.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\Utility\Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\RPC\ztp_client.cpp">
+      <Filter>Source Files\ZTP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SourceUnit\RPC\ZTPClient.cpp">
+      <Filter>Source Files\ZTP</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\TipWidget.cpp">
+      <Filter>Source Files\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\ProgressIndicator.cpp">
+      <Filter>Source Files\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="JinChanManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\TitleBar.cpp">
+      <Filter>Source Files\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\framelesswindow.cpp">
+      <Filter>Source Files\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\windowdragger.cpp">
+      <Filter>Source Files\Widget</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="JinChanManager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Widget\TipWidget.h">
+      <Filter>Header Files\Widget</Filter>
+    </QtMoc>
+    <QtMoc Include="LoginDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Widget\ProgressIndicator.h">
+      <Filter>Header Files\Widget</Filter>
+    </QtMoc>
+    <QtMoc Include="Widget\TitleBar.h">
+      <Filter>Header Files\Widget</Filter>
+    </QtMoc>
+    <QtMoc Include="Widget\framelesswindow.h">
+      <Filter>Header Files\Widget</Filter>
+    </QtMoc>
+    <QtMoc Include="Widget\windowdragger.h">
+      <Filter>Header Files\Widget</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="JinChanManager.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="LoginDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Widget\framelesswindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="JinChanManager.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtRcc Include="Widget\framelesswindow.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Utility\Logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\ServiceDef.h">
+      <Filter>Header Files\ZTP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Type\type.hpp">
+      <Filter>Header Files\ZTP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\ztp_client.hpp">
+      <Filter>Header Files\ZTP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\ztp_protocol.hpp">
+      <Filter>Header Files\ZTP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\ZTPClient.h">
+      <Filter>Header Files\ZTP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\ZTPType.h">
+      <Filter>Header Files\ZTP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\IClient.h">
+      <Filter>Header Files\ZTP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\Engine\ErrorDefine.h">
+      <Filter>Header Files\ZTP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\DataStruct\IFlow.h">
+      <Filter>Header Files\ZTP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SourceUnit\RPC\message.hpp">
+      <Filter>Header Files\ZTP</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

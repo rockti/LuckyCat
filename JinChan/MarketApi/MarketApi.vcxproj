@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6945FA8E-3C5D-4415-A4D1-38D633185962}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>MarketApi</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\Temp\Compile\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_D</TargetName>
+    <IncludePath>$(SolutionDir)..\thirdparty/spdlog-1.x/include;$(SolutionDir)..\thirdparty/fmt-6.1.2/include;$(SolutionDir)..\thirdparty/boost-1.72/;$(SolutionDir)..\thirdparty\refl-0.8.1;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>$(ProjectName)_D64</TargetName>
+    <IncludePath>$(SolutionDir)..\thirdparty/spdlog-1.x/include;$(SolutionDir)..\thirdparty/fmt-6.1.2/include;$(SolutionDir)..\thirdparty/boost-1.72/;$(SolutionDir)..\thirdparty\refl-0.8.1;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <TargetExt>.dll</TargetExt>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\Temp\Compile\$(ProjectName)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)..\thirdparty/spdlog-1.x/include;$(SolutionDir)..\thirdparty/fmt-6.1.2/include;$(SolutionDir)..\thirdparty/boost-1.72/;$(SolutionDir)..\thirdparty\refl-0.8.1;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)..\thirdparty/spdlog-1.x/include;$(SolutionDir)..\thirdparty/fmt-6.1.2/include;$(SolutionDir)..\thirdparty/boost-1.72/;$(SolutionDir)..\thirdparty\refl-0.8.1;$(IncludePath)</IncludePath>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>$(ProjectName)_64</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>SPDLOG_FMT_EXTERNAL;WIN32;_DEBUG;_WINDOWS;_USRDLL;LOG4CPLUS_STATIC;ZTP_MD_API_EXPORT;ZTP_USER_API_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)\Include;$(SolutionDir)\SourceUnit\Api;$(SolutionDir)\SourceUnit\Connection;$(SolutionDir)\SourceUnit\Database;$(SolutionDir)\SourceUnit\DataStruct;$(SolutionDir)\SourceUnit\Engine;$(SolutionDir)\SourceUnit\Front;$(SolutionDir)\SourceUnit\Kernel;$(SolutionDir)\SourceUnit\Network;$(SolutionDir)\SourceUnit\Protocol;$(SolutionDir)\SourceUnit\Service;$(SolutionDir)\SourceUnit\Utility;$(SolutionDir)\SourceUnit\Type;$(SolutionDir)\SourceUnit\RPC;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <CallingConvention>Cdecl</CallingConvention>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\Bin
+copy $(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\$(ProjectName)_D.lib $(SolutionDir)\Lib\ZTP
+copy $(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\$(ProjectName)_D.pdb $(SolutionDir)\Lib\ZTP</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>SPDLOG_FMT_EXTERNAL;WIN32;_DEBUG;_WINDOWS;_USRDLL;LOG4CPLUS_STATIC;ZTP_MD_API_EXPORT;ZTP_USER_API_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)\Include;$(SolutionDir)\SourceUnit\Api;$(SolutionDir)\SourceUnit\Connection;$(SolutionDir)\SourceUnit\Database;$(SolutionDir)\SourceUnit\DataStruct;$(SolutionDir)\SourceUnit\Engine;$(SolutionDir)\SourceUnit\Front;$(SolutionDir)\SourceUnit\Kernel;$(SolutionDir)\SourceUnit\Network;$(SolutionDir)\SourceUnit\Protocol;$(SolutionDir)\SourceUnit\Service;$(SolutionDir)\SourceUnit\Utility;$(SolutionDir)\SourceUnit\Type;$(SolutionDir)\SourceUnit\RPC;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <CallingConvention>Cdecl</CallingConvention>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\Bin
+copy $(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\$(ProjectName)_D.lib $(SolutionDir)\Lib\ZTP
+copy $(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\$(ProjectName)_D.pdb $(SolutionDir)\Lib\ZTP</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>SPDLOG_FMT_EXTERNAL;WIN32;NDEBUG;_WINDOWS;_USRDLL;ZTP_MD_API_EXPORT;ZTP_USER_API_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)\Include;$(SolutionDir)\SourceUnit\Api;$(SolutionDir)\SourceUnit\Connection;$(SolutionDir)\SourceUnit\Database;$(SolutionDir)\SourceUnit\DataStruct;$(SolutionDir)\SourceUnit\Engine;$(SolutionDir)\SourceUnit\Front;$(SolutionDir)\SourceUnit\Kernel;$(SolutionDir)\SourceUnit\Network;$(SolutionDir)\SourceUnit\Protocol;$(SolutionDir)\SourceUnit\Service;$(SolutionDir)\SourceUnit\Utility;$(SolutionDir)\SourceUnit\Type;$(SolutionDir)\SourceUnit\RPC;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\Bin
+copy $(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\$(ProjectName).lib $(SolutionDir)\Lib\ZTP
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>SPDLOG_FMT_EXTERNAL;WIN32;NDEBUG;_WINDOWS;_USRDLL;ZTP_MD_API_EXPORT;ZTP_USER_API_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)\Include;$(SolutionDir)\SourceUnit\Api;$(SolutionDir)\SourceUnit\Connection;$(SolutionDir)\SourceUnit\Database;$(SolutionDir)\SourceUnit\DataStruct;$(SolutionDir)\SourceUnit\Engine;$(SolutionDir)\SourceUnit\Front;$(SolutionDir)\SourceUnit\Kernel;$(SolutionDir)\SourceUnit\Network;$(SolutionDir)\SourceUnit\Protocol;$(SolutionDir)\SourceUnit\Service;$(SolutionDir)\SourceUnit\Utility;$(SolutionDir)\SourceUnit\Type;$(SolutionDir)\SourceUnit\RPC;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\Bin
+copy $(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\$(ProjectName).lib $(SolutionDir)\Lib\ZTP
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Include\ZTP\ZTPUserApiDataType.h" />
+    <ClInclude Include="..\Include\ZTP\ZTPUserApiStruct.h" />
+    <ClInclude Include="..\Include\ZTP\ZTPUserMDApi.h" />
+    <ClInclude Include="..\SourceUnit\Api\ZtpFtdUserApi.h" />
+    <ClInclude Include="..\SourceUnit\Api\ZtpFtdUserApiImpl.h" />
+    <ClInclude Include="..\SourceUnit\Api\ZtpFtdUserApiImplBase.h" />
+    <ClInclude Include="..\SourceUnit\Connection\CTPMarketHandler.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGEConnection.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGEHandler.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\BaseDataType.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\CachedFileFlow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\CachedFlow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\CacheList.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\FileFlow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\Flow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\FlowReader.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\FtdDataStruct.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\IndexPackageFlow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\ReadOnlyFlow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\SeriesCachedFlow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\UserDataType.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\UserFlow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\ZtpDataStruct.h" />
+    <ClInclude Include="..\SourceUnit\Front\MarketFlowMgr.h" />
+    <ClInclude Include="..\SourceUnit\Front\MarketFront.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\BaseThread.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\EventHandler.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\EventQueue.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\EventThread.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\ListenHandler.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\MarketRepository.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\NotifyHandler.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\OrderQueue.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\ReactorThread.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\SelectThread.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\Session.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\SessionFactory.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\TimerHandler.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\TimerQueue.h" />
+    <ClInclude Include="..\SourceUnit\Network\Channel.h" />
+    <ClInclude Include="..\SourceUnit\Network\ClientBase.h" />
+    <ClInclude Include="..\SourceUnit\Network\NetworkFactory.h" />
+    <ClInclude Include="..\SourceUnit\Network\ServerBase.h" />
+    <ClInclude Include="..\SourceUnit\Network\ServiceName.h" />
+    <ClInclude Include="..\SourceUnit\Network\SocketInit.h" />
+    <ClInclude Include="..\SourceUnit\Network\TcpChannel.h" />
+    <ClInclude Include="..\SourceUnit\Network\TcpClient.h" />
+    <ClInclude Include="..\SourceUnit\Network\TcpNetworkFactory.h" />
+    <ClInclude Include="..\SourceUnit\Network\TcpServer.h" />
+    <ClInclude Include="..\SourceUnit\Network\UdpChannel.h" />
+    <ClInclude Include="..\SourceUnit\Network\UdpClient.h" />
+    <ClInclude Include="..\SourceUnit\Network\UdpNetworkFactory.h" />
+    <ClInclude Include="..\SourceUnit\Network\UdpServer.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\ChannelPackage.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\ChannelProtocol.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\CompressPackage.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\CompressProtocol.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\CompressUtil.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\FieldDescribe.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\FieldSet.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\FTDPackage.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\FTDProtocol.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\FTDSession.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\FTDSubscribe.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\Package.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\PackageDefine.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\Protocol.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\XMPPackage.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\XMPProtocol.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\XMPSession.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\ZTPPackage.h" />
+    <ClInclude Include="..\SourceUnit\Utility\CTime.h" />
+    <ClInclude Include="..\SourceUnit\Utility\Logger.h" />
+    <ClInclude Include="..\SourceUnit\Utility\Profile.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="ZtpFtdUserMDApiImpl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\SourceUnit\Api\ZtpFtdUserApiImpl.cpp" />
+    <ClCompile Include="..\SourceUnit\Api\ZtpFtdUserApiImplBase.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\CachedFileFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\CachedFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\CacheList.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\FileFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\FlowReader.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\FtdDataStruct.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\IndexPackageFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\SeriesCachedFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\UserFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\ZtpDataStruct.cpp" />
+    <ClCompile Include="..\SourceUnit\format.cc" />
+    <ClCompile Include="..\SourceUnit\Front\InstrumentManager.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\BaseThread.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\EventHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\EventQueue.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\EventThread.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\ExchangeLinkManager.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\ListenHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\MarketRepository.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\NotifyHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\OrderQueue.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\ReactorThread.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\SelectThread.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\Session.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\SessionFactory.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\TimerHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\Channel.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\NetworkFactory.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\ServiceName.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\TcpChannel.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\TcpClient.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\TcpNetworkFactory.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\TcpServer.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\UdpChannel.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\UdpClient.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\UdpNetworkFactory.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\UdpServer.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\ChannelPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\ChannelProtocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\CompressPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\CompressProtocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\CompressUtil.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FieldDescribe.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FieldSet.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FTDPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FTDProtocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FTDSession.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\Package.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\Protocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\XMPPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\XMPProtocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\XMPSession.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\ZTPPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Utility\CTime.cpp" />
+    <ClCompile Include="..\SourceUnit\Utility\Logger.cpp" />
+    <ClCompile Include="..\SourceUnit\Utility\Profile.cpp" />
+    <ClCompile Include="dllmain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="ZtpFtdUserMDApiImpl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MarketApi.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

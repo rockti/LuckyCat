@@ -1,0 +1,474 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug_Real|x64">
+      <Configuration>Debug_Real</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_real|x64">
+      <Configuration>Release_real</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="UNITTEST|x64">
+      <Configuration>UNITTEST</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{23EB5E1C-BD34-4D36-B523-CF2195669988}</ProjectGuid>
+    <Keyword>QtVS_v303</Keyword>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='Debug_Real|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='UNITTEST|x64'">10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='Release_real|x64'">10.0.17763.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Real|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UNITTEST|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_real|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Real|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='UNITTEST|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_real|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <OutDir>$(SolutionDir)\Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)\Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)thirdparty\;$(SolutionDir)thirdparty\sqlite-3.35.4;$(SolutionDir)thirdparty\sqlite_orm;$(SolutionDir)thirdparty\date-2.4.1\include;$(SolutionDir)thirdparty\fmt-6.1.2\include;$(SolutionDir)thirdparty\boost-1.72;$(SolutionDir)thirdparty\licensepp-1.0.5\;$(SolutionDir)thirdparty\catch2-2.11.1\single_include;$(SolutionDir)thirdparty\spdlog-1.x\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <TargetName>$(ProjectName)_D</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Real|x64'">
+    <OutDir>$(SolutionDir)\Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)\Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)thirdparty\;$(SolutionDir)thirdparty\sqlite-3.35.4;$(SolutionDir)thirdparty\sqlite_orm;$(SolutionDir)thirdparty\date-2.4.1\include;$(SolutionDir)thirdparty\fmt-6.1.2\include;$(SolutionDir)thirdparty\boost-1.72;$(SolutionDir)thirdparty\licensepp-1.0.5\;$(SolutionDir)thirdparty\catch2-2.11.1\single_include;$(SolutionDir)thirdparty\spdlog-1.x\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <TargetName>$(ProjectName)_DR</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UNITTEST|x64'">
+    <OutDir>$(SolutionDir)\Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)\Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)thirdparty\;$(SolutionDir)thirdparty\sqlite-3.35.4;$(SolutionDir)thirdparty\sqlite_orm;$(SolutionDir)thirdparty\date-2.4.1\include;$(SolutionDir)thirdparty\fmt-6.1.2\include;$(SolutionDir)thirdparty\boost-1.72;$(SolutionDir)thirdparty\licensepp-1.0.5\;$(SolutionDir)thirdparty\catch2-2.11.1\single_include;$(SolutionDir)thirdparty\spdlog-1.x\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <TargetName>$(ProjectName)_UNIT</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutDir>$(SolutionDir)\Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)\Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)thirdparty\sqlite_orm;$(SolutionDir)thirdparty\date-2.4.1\include;$(SolutionDir)thirdparty\fmt-6.1.2\include;$(SolutionDir)thirdparty\boost-1.70;$(SolutionDir)thirdparty\licensepp-1.0.5\;$(SolutionDir)thirdparty\spdlog-1.x\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_real|x64'">
+    <OutDir>$(SolutionDir)\Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)\Temp\Link\$(Platform)\$(ProjectName)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)thirdparty\;$(SolutionDir)thirdparty\sqlite-3.35.4;$(SolutionDir)thirdparty\sqlite_orm;$(SolutionDir)thirdparty\date-2.4.1\include;$(SolutionDir)thirdparty\fmt-6.1.2\include;$(SolutionDir)thirdparty\boost-1.72;$(SolutionDir)thirdparty\licensepp-1.0.5\;$(SolutionDir)thirdparty\catch2-2.11.1\single_include;$(SolutionDir)thirdparty\spdlog-1.x\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)JinDou;$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>5053</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(SolutionDir)thirdapi/lib/x64/esunny/iTapTradeAPI_64.lib;$(SolutionDir)thirdapi/lib/x64/esunny/TapQuoteAPI.lib;$(SolutionDir)thirdapi/lib/x64/CTP/sim/thostmduserapi_se.lib;$(SolutionDir)thirdapi/lib/x64/CTP/sim/thosttraderapi_se.lib;$(SolutionDir)thirdapi/lib/x64/CTP/sim/WinDataCollect.lib;$(SolutionDir)thirdapi/lib/x64/ZTP/TradeApi_64.lib;$(SolutionDir)thirdapi/lib/x64/ZTP/MarketApi_64.lib;$(SolutionDir)thirdparty/sqlite-3.35.4/sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\Bin</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Real|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)JinDou;$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>5053</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(SolutionDir)thirdapi/lib/x64/esunny/iTapTradeAPI_64.lib;$(SolutionDir)thirdapi/lib/x64/esunny/TapQuoteAPI.lib;$(SolutionDir)thirdapi/lib/x64/CTP/Real/thostmduserapi_se.lib;$(SolutionDir)thirdapi/lib/x64/CTP/Real/thosttraderapi_se.lib;$(SolutionDir)thirdapi/lib/x64/CTP/Real/WinDataCollect.lib;$(SolutionDir)thirdapi/lib/x64/ZTP/TradeApi_64.lib;$(SolutionDir)thirdapi/lib/x64/ZTP/MarketApi_64.lib;$(SolutionDir)thirdparty/sqlite-3.35.4/sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\BinJD</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='UNITTEST|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)JinDou;$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNITTEST;$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>5053</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(SolutionDir)thirdapi/lib/x64/esunny/iTapTradeAPI_64.lib;$(SolutionDir)thirdapi/lib/x64/esunny/TapQuoteAPI.lib;$(SolutionDir)thirdapi/lib/x64/CTP/real/thostmduserapi_se.lib;$(SolutionDir)thirdapi/lib/x64/CTP/real/thosttraderapi_se.lib;$(SolutionDir)thirdapi/lib/x64/CTP/real/WinDataCollect.lib;$(SolutionDir)thirdapi/lib/x64/ZTP/TradeApi_D64.lib;$(SolutionDir)thirdapi/lib/x64/ZTP/MarketApi_D64.lib;$(SolutionDir)thirdparty/sqlite-3.35.4/sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\Bin</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)JinDou;$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>5053</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\BinJD</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>$(SolutionDir)thirdapi/lib/x64/esunny/iTapTradeAPI_64.lib;$(SolutionDir)thirdapi/lib/x64/esunny/TapQuoteAPI.lib;$(SolutionDir)thirdapi/lib/x64/CTP/Real/thostmduserapi_se.lib;$(SolutionDir)thirdapi/lib/x64/CTP/Real/thosttraderapi_se.lib;$(SolutionDir)thirdapi/lib/x64/CTP/Real/WinDataCollect.lib;$(SolutionDir)thirdapi/lib/x64/ZTP/TradeApi_64.lib;$(SolutionDir)thirdapi/lib/x64/ZTP/MarketApi_64.lib;$(SolutionDir)thirdparty/sqlite-3.35.4/sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_real|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)JinDou;$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>5053</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(SolutionDir)thirdapi/lib/x64/esunny/iTapTradeAPI_64.lib;$(SolutionDir)thirdapi/lib/x64/esunny/TapQuoteAPI.lib;$(SolutionDir)thirdapi/lib/x64/CTP/Real/thostmduserapi_se.lib;$(SolutionDir)thirdapi/lib/x64/CTP/Real/thosttraderapi_se.lib;$(SolutionDir)thirdapi/lib/x64/CTP/Real/WinDataCollect.lib;$(SolutionDir)thirdapi/lib/x64/ZTP/TradeApi_64.lib;$(SolutionDir)thirdapi/lib/x64/ZTP/MarketApi_64.lib;$(SolutionDir)thirdparty/sqlite-3.35.4/sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\BinJD</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
+    <QtInstall>5.13.1_msvc2017</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+    <QtHeaderSearchPath>$(QtHeaderSearchPath)</QtHeaderSearchPath>
+    <QtLibrarySearchPath>$(QtLibrarySearchPath)</QtLibrarySearchPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Real|x64'" Label="QtSettings">
+    <QtInstall>5.13.1_msvc2017_64</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+    <QtHeaderSearchPath>$(QtHeaderSearchPath)</QtHeaderSearchPath>
+    <QtLibrarySearchPath>$(QtLibrarySearchPath)</QtLibrarySearchPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UNITTEST|x64'" Label="QtSettings">
+    <QtInstall>5.13.1</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+    <QtHeaderSearchPath>$(QtHeaderSearchPath)</QtHeaderSearchPath>
+    <QtLibrarySearchPath>$(QtLibrarySearchPath)</QtLibrarySearchPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
+    <QtInstall>5.13.1_msvc2017</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_real|x64'" Label="QtSettings">
+    <QtInstall>5.13.1_msvc2017_64</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Real|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='UNITTEST|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_real|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="config\Config.cpp" />
+    <ClCompile Include="conn\ctp\CTPConnection.cpp" />
+    <ClCompile Include="conn\ctp\CTPMarketHandler.cpp" />
+    <ClCompile Include="conn\ctp\CTPTraderHandler.cpp" />
+    <ClCompile Include="conn\esunny\ESUNNYConnection.cpp" />
+    <ClCompile Include="conn\esunny\ESUNNYQuoteHandler.cpp" />
+    <ClCompile Include="conn\esunny\ESUNNYTradeHandler.cpp" />
+    <ClCompile Include="conn\ExchangeConn.cpp" />
+    <ClCompile Include="conn\factory\ConnFactory.cpp" />
+    <ClCompile Include="conn\ztp\ZTPConnection.cpp" />
+    <ClCompile Include="conn\ztp\ZTPMarketHandler.cpp" />
+    <ClCompile Include="conn\ztp\ZTPTraderHandler.cpp" />
+    <ClCompile Include="Dispatcher.cpp" />
+    <ClCompile Include="domain\RateAlgorithms.cpp" />
+    <ClCompile Include="format.cc" />
+    <ClCompile Include="LoginDlg.cpp" />
+    <ClCompile Include="model\dealing\Dealing.cpp" />
+    <ClCompile Include="model\dealing\LocalIDService.cpp" />
+    <ClCompile Include="model\factory\InstrumentFactory.cpp" />
+    <ClCompile Include="model\Instrument.cpp" />
+    <ClCompile Include="model\Quote.cpp" />
+    <ClCompile Include="model\Variety.cpp" />
+    <ClCompile Include="notify\ConnPublisher.cpp" />
+    <ClCompile Include="notify\Notify.cpp" />
+    <ClCompile Include="notify\StrategyPublisher.cpp" />
+    <ClCompile Include="notify\UIPublisher.cpp" />
+    <ClCompile Include="presenter\OrderListPresenter.cpp" />
+    <ClCompile Include="presenter\OrderPresenter.cpp" />
+    <ClCompile Include="presenter\StrategyListPresenter.cpp" />
+    <ClCompile Include="presenter\TradeListPresenter.cpp" />
+    <ClCompile Include="repository\Repository.cpp" />
+    <ClCompile Include="runner\ConnRunner.cpp" />
+    <ClCompile Include="runner\Framework.cpp" />
+    <ClCompile Include="runner\StrategyRunner.cpp" />
+    <ClCompile Include="runner\UIRunner.cpp" />
+    <ClCompile Include="service\AccountService.cpp" />
+    <ClCompile Include="service\CancellationLimiter.cpp" />
+    <ClCompile Include="service\ExchangeService.cpp" />
+    <ClCompile Include="service\InitService.cpp" />
+    <ClCompile Include="service\InstrumentProgressManager.cpp" />
+    <ClCompile Include="service\InstrumentService.cpp" />
+    <ClCompile Include="service\OrderService.cpp" />
+    <ClCompile Include="service\PositionService.cpp" />
+    <ClCompile Include="service\QueryService.cpp" />
+    <ClCompile Include="service\QuoteService.cpp" />
+    <ClCompile Include="service\Service.cpp" />
+    <ClCompile Include="service\StrategyService.cpp" />
+    <ClCompile Include="service\TradeService.cpp" />
+    <ClCompile Include="service\TradeSystemService.cpp" />
+    <ClCompile Include="StrategySettingDlg.cpp" />
+    <ClCompile Include="strategy\auto\AutoStrategy.cpp" />
+    <ClCompile Include="strategy\auto\Context.cpp" />
+    <ClCompile Include="strategy\auto\StatusMachine.cpp" />
+    <ClCompile Include="strategy\Business.cpp" />
+    <ClCompile Include="strategy\mct\MCTStrategy.cpp" />
+    <ClCompile Include="strategy\StrategyFactory.cpp" />
+    <ClCompile Include="unittest\ContextTest.cpp" />
+    <ClCompile Include="unittest\DispatcherTest.cpp" />
+    <ClCompile Include="unittest\LocalIDAccTest.cpp" />
+    <ClCompile Include="unittest\MockService.cpp" />
+    <ClCompile Include="unittest\PositionServiceTest.cpp" />
+    <ClCompile Include="unittest\testmain.cpp" />
+    <ClCompile Include="utils\Encryption.cpp" />
+    <ClCompile Include="utils\License.cpp" />
+    <ClCompile Include="utils\Log.cpp" />
+    <ClCompile Include="utils\Platform.cpp" />
+    <QtRcc Include="JinDou.qrc" />
+    <QtUic Include="JinDou.ui" />
+    <QtMoc Include="JinDou.h" />
+    <ClCompile Include="JinDou.cpp" />
+    <ClCompile Include="main.cpp" />
+    <QtUic Include="Login.ui" />
+    <QtUic Include="StrategySetting.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="atomic\Atomic64.h" />
+    <ClInclude Include="atomic\IdleStrategy.h" />
+    <ClInclude Include="atomic\platform\Atomic64_gcc_cpp11.h" />
+    <ClInclude Include="atomic\platform\Atomic64_gcc_x86_64.h" />
+    <ClInclude Include="atomic\platform\Atomic64_msvc.h" />
+    <ClInclude Include="atomic\platform\Atomic64_msvc_cpp11.h" />
+    <ClInclude Include="config\Config.h" />
+    <ClInclude Include="config\cpptoml.h" />
+    <ClInclude Include="conn\ctp\CTPConnection.h" />
+    <ClInclude Include="conn\ctp\CTPMarketHandler.h" />
+    <ClInclude Include="conn\ctp\CTPTraderHandler.h" />
+    <ClInclude Include="conn\esunny\ESUNNYConnection.h" />
+    <ClInclude Include="conn\esunny\ESUNNYQuoteHandler.h" />
+    <ClInclude Include="conn\esunny\ESUNNYTradeHandler.h" />
+    <ClInclude Include="conn\ExchangeConn.h" />
+    <ClInclude Include="conn\factory\ConnFactory.h" />
+    <ClInclude Include="conn\ztp\ZTPConnection.h" />
+    <ClInclude Include="conn\ztp\ZTPMarketHandler.h" />
+    <ClInclude Include="conn\ztp\ZTPTraderHandler.h" />
+    <ClInclude Include="container\Circle.h" />
+    <ClInclude Include="container\PriorityQueue.h" />
+    <ClInclude Include="container\RingBuffer.h" />
+    <ClInclude Include="container\Utils.h" />
+    <ClInclude Include="Define.h" />
+    <ClInclude Include="Dispatcher.h" />
+    <ClInclude Include="domain\RateAlgorithms.h" />
+    <QtMoc Include="LoginDlg.h" />
+    <ClInclude Include="model\Constants.h" />
+    <ClInclude Include="model\dealing\Customer.h" />
+    <ClInclude Include="model\dealing\Dealing.h" />
+    <ClInclude Include="model\dealing\ExchangeRequest.h" />
+    <ClInclude Include="model\dealing\LocalIDService.h" />
+    <ClInclude Include="model\dealing\MarketingDealing.h" />
+    <ClInclude Include="model\dealing\OrderCommand.h" />
+    <ClInclude Include="model\factory\InstrumentFactory.h" />
+    <ClInclude Include="model\Instrument.h" />
+    <ClInclude Include="model\Quote.h" />
+    <ClInclude Include="model\Variety.h" />
+    <ClInclude Include="notify\ConnPublisher.h" />
+    <ClInclude Include="notify\Notify.h" />
+    <ClInclude Include="notify\StrategyPublisher.h" />
+    <ClInclude Include="notify\UIPublisher.h" />
+    <ClInclude Include="presenter\AccountPresenter.h" />
+    <ClInclude Include="presenter\LoginPresenter.h" />
+    <ClInclude Include="presenter\OrderListPresenter.h" />
+    <ClInclude Include="presenter\OrderPresenter.h" />
+    <ClInclude Include="presenter\PositionPresenter.h" />
+    <ClInclude Include="presenter\PresenterUtils.h" />
+    <ClInclude Include="presenter\StatusPresenter.h" />
+    <ClInclude Include="presenter\StrategyListPresenter.h" />
+    <ClInclude Include="presenter\TradeListPresenter.h" />
+    <ClInclude Include="repository\Repository.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="service\AccountService.h" />
+    <ClInclude Include="service\CancellationLimiter.h" />
+    <ClInclude Include="service\CustomizingPersistService.h" />
+    <ClInclude Include="service\ExchangeService.h" />
+    <ClInclude Include="service\InitService.h" />
+    <ClInclude Include="service\InstrumentProgressManager.h" />
+    <ClInclude Include="service\InstrumentService.h" />
+    <ClInclude Include="service\OrderService.h" />
+    <ClInclude Include="service\QueryService.h" />
+    <ClInclude Include="service\StrategyService.h" />
+    <ClInclude Include="service\TradeService.h" />
+    <ClInclude Include="service\Service.h" />
+    <ClInclude Include="runner\ConnRunner.h" />
+    <ClInclude Include="runner\Framework.h" />
+    <ClInclude Include="runner\Queues.h" />
+    <ClInclude Include="runner\Runner.h" />
+    <ClInclude Include="runner\StrategyRunner.h" />
+    <ClInclude Include="runner\UIRunner.h" />
+    <ClInclude Include="service\PositionService.h" />
+    <ClInclude Include="service\QuoteService.h" />
+    <ClInclude Include="service\TradeSystemService.h" />
+    <QtMoc Include="StrategySettingDlg.h" />
+    <ClInclude Include="strategy\auto\AutoStrategy.h" />
+    <ClInclude Include="strategy\auto\Context.h" />
+    <ClInclude Include="strategy\auto\Machine.h" />
+    <ClInclude Include="strategy\auto\StatusMachine.h" />
+    <ClInclude Include="strategy\Business.h" />
+    <ClInclude Include="strategy\mct\MCTStrategy.h" />
+    <ClInclude Include="strategy\PositionManager.h" />
+    <ClInclude Include="strategy\QuoteManager.h" />
+    <ClInclude Include="strategy\Strategy.h" />
+    <ClInclude Include="strategy\StrategyFactory.h" />
+    <ClInclude Include="type\CharArray.h" />
+    <ClInclude Include="type\Math.h" />
+    <ClInclude Include="type\Money.h" />
+    <ClInclude Include="type\type.hpp" />
+    <ClInclude Include="type\ZTPType.h" />
+    <ClInclude Include="unittest\MockService.h" />
+    <ClInclude Include="utils\Encryption.h" />
+    <ClInclude Include="utils\License.h" />
+    <ClInclude Include="utils\Log.h" />
+    <ClInclude Include="utils\Platform.h" />
+    <ClInclude Include="utils\String.h" />
+    <ClInclude Include="utils\TimeChecker.h" />
+    <ClInclude Include="utils\Uri.h" />
+    <ClInclude Include="view\AccountView.h" />
+    <ClInclude Include="view\LoginView.h" />
+    <ClInclude Include="view\OrderListView.h" />
+    <ClInclude Include="view\OrderView.h" />
+    <ClInclude Include="view\PositionView.h" />
+    <ClInclude Include="view\StatusView.h" />
+    <ClInclude Include="view\StrategyListView.h" />
+    <ClInclude Include="view\TradeListView.h" />
+    <ClInclude Include="view\ViewUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="JinDou.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="JinDou.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

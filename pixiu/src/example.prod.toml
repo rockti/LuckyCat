@@ -1,0 +1,14 @@
+[SGE]
+    SGEHost="88.31.25.140"
+    SGEPort=7777
+    SafeHost="192.168.2.18"
+    SafePort=8889
+    PublicKey="034200043D3AB1ABFCA754F1A9422B88DF41DCA24D70D1844B2A40717458F5A812231961D628AA05CC7A756B78156389F0A63D2BC5C0ED307BB27C9CF0443351708CBBB8""
+[Front]
+    MarketPort = 13823
+    TradePort = 13810
+ [Database]
+ 	Endpoint = "127.0.0.1:3306@jinchan"
+	User = "root"
+	Password = "root"
+	TradeEndpoint = "tcp://127.0.0.1:30003"

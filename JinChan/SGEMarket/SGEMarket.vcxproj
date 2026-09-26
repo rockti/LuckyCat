@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{fe679824-e9b7-4865-b1aa-c542d495e89a}</ProjectGuid>
+    <RootNamespace>SGEMarket</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)..\thirdparty/spdlog-1.x/include;$(SolutionDir)..\thirdparty/fmt-6.1.2/include;$(SolutionDir)..\thirdparty/boost-1.72/;$(SolutionDir)..\thirdparty\refl-0.8.1;$(SolutionDir)..\thirdapi\;$(IncludePath)</IncludePath>
+    <IntDir>$(SolutionDir)\Temp\Compile\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)_D</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)..\thirdparty/spdlog-1.x/include;$(SolutionDir)..\thirdparty/fmt-6.1.2/include;$(SolutionDir)..\thirdparty/boost-1.72/;$(SolutionDir)..\thirdparty\refl-0.8.1;$(SolutionDir)..\thirdapi\;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\Temp\Compile\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\Temp\Compile\$(ProjectName)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)..\thirdparty/spdlog-1.x/include;$(SolutionDir)..\thirdparty/fmt-6.1.2/include;$(SolutionDir)..\thirdparty/boost-1.72/;$(SolutionDir)..\thirdparty\refl-0.8.1;$(SolutionDir)..\thirdapi\;$(IncludePath)</IncludePath>
+    <TargetName>$(ProjectName)_D64</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\Temp\Compile\$(ProjectName)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)..\thirdparty/spdlog-1.x/include;$(SolutionDir)..\thirdparty/fmt-6.1.2/include;$(SolutionDir)..\thirdparty/boost-1.72/;$(SolutionDir)..\thirdparty\refl-0.8.1;$(SolutionDir)..\thirdapi\;$(IncludePath)</IncludePath>
+    <TargetName>$(ProjectName)64</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>SPDLOG_FMT_EXTERNAL;_HAS_CXX17;_HAS_CXX20;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)\Include;$(SolutionDir)\SourceUnit\Connection;$(SolutionDir)\SourceUnit\Database;$(SolutionDir)\SourceUnit\DataStruct;$(SolutionDir)\SourceUnit\Engine;$(SolutionDir)\SourceUnit\Front;$(SolutionDir)\SourceUnit\Kernel;$(SolutionDir)\SourceUnit\Network;$(SolutionDir)\SourceUnit\Type;$(SolutionDir)\SourceUnit\RPC;$(SolutionDir)\SourceUnit\Protocol;$(SolutionDir)\SourceUnit\Service;$(SolutionDir)SourceUnit\Domain;$(SolutionDir)\SourceUnit\Utility;$(SolutionDir)\SourceUnit\Rules;$(SolutionDir)SourceUnit\Infra;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wsock32.lib;../lib/SQL/sqlapi.lib;../lib/SGE/KeyFldEnc.lib;../lib/SGE/libsge_api.lib;../lib/SGE/WinSgeSafeApi.lib;../lib/ESUNNY/TapQuoteAPI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>SPDLOG_FMT_EXTERNAL;_HAS_CXX17;_HAS_CXX20;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)\Include;$(SolutionDir)\SourceUnit\Connection;$(SolutionDir)\SourceUnit\Database;$(SolutionDir)\SourceUnit\DataStruct;$(SolutionDir)\SourceUnit\Engine;$(SolutionDir)\SourceUnit\Front;$(SolutionDir)\SourceUnit\Kernel;$(SolutionDir)\SourceUnit\Network;$(SolutionDir)\SourceUnit\Type;$(SolutionDir)\SourceUnit\RPC;$(SolutionDir)\SourceUnit\Protocol;$(SolutionDir)\SourceUnit\Service;$(SolutionDir)SourceUnit\Domain;$(SolutionDir)\SourceUnit\Utility;$(SolutionDir)\SourceUnit\Rules;$(SolutionDir)SourceUnit\Infra;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wsock32.lib;../lib/SQL/sqlapi.lib;../lib/SGE/KeyFldEnc.lib;../lib/SGE/libsge_api.lib;../lib/SGE/WinSgeSafeApi.lib;../lib/ESUNNY/TapQuoteAPI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>SPDLOG_FMT_EXTERNAL;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)\Include;$(SolutionDir)\SourceUnit\Connection;$(SolutionDir)\SourceUnit\Database;$(SolutionDir)\SourceUnit\DataStruct;$(SolutionDir)\SourceUnit\Engine;$(SolutionDir)\SourceUnit\Front;$(SolutionDir)\SourceUnit\Kernel;$(SolutionDir)\SourceUnit\Network;$(SolutionDir)\SourceUnit\Type;$(SolutionDir)\SourceUnit\RPC;$(SolutionDir)\SourceUnit\Protocol;$(SolutionDir)\SourceUnit\Service;$(SolutionDir)SourceUnit\Domain;$(SolutionDir)\SourceUnit\Utility;$(SolutionDir)\SourceUnit\Rules;$(SolutionDir)SourceUnit\Infra;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wsock32.lib;../lib/SQL/x64/sqlapi.lib;../lib/SGE/KeyFldEnc.lib;../lib/SGE/sge_api.lib;../lib/SGE/libWinSgeSafeApi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\Bin</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>SPDLOG_FMT_EXTERNAL;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)\Include;$(SolutionDir)\SourceUnit\Connection;$(SolutionDir)\SourceUnit\Database;$(SolutionDir)\SourceUnit\DataStruct;$(SolutionDir)\SourceUnit\Engine;$(SolutionDir)\SourceUnit\Front;$(SolutionDir)\SourceUnit\Kernel;$(SolutionDir)\SourceUnit\Network;$(SolutionDir)\SourceUnit\Type;$(SolutionDir)\SourceUnit\RPC;$(SolutionDir)\SourceUnit\Protocol;$(SolutionDir)\SourceUnit\Service;$(SolutionDir)SourceUnit\Domain;$(SolutionDir)\SourceUnit\Utility;$(SolutionDir)\SourceUnit\Rules;$(SolutionDir)SourceUnit\Infra;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>wsock32.lib;../lib/SQL/x64/sqlapi.lib;../lib/SGE/KeyFldEnc.lib;../lib/SGE/sge_api.lib;../lib/SGE/libWinSgeSafeApi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\Bin</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\SourceUnit\Connection\MockSGEConnection.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\MockSGEHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\SafeHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\SGEConnection.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\SGEHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\SGEHandlerBase.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\SGEQuoteConnection.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\SGEQuoteHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\SGESerializer.cpp" />
+    <ClCompile Include="..\SourceUnit\Database\Database.cpp" />
+    <ClCompile Include="..\SourceUnit\Database\DBInit.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\CachedFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\CacheList.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\CSVParser.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\FileFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\FlowReader.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\FTDDataStruct.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\SeriesCachedFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\UserFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\ZtpDataStruct.cpp" />
+    <ClCompile Include="..\SourceUnit\Domain\Investor.cpp" />
+    <ClCompile Include="..\SourceUnit\Domain\Order.cpp" />
+    <ClCompile Include="..\SourceUnit\Domain\Repository.cpp" />
+    <ClCompile Include="..\SourceUnit\format.cc" />
+    <ClCompile Include="..\SourceUnit\Front\InstrumentManager.cpp" />
+    <ClCompile Include="..\SourceUnit\Front\MarketFlowMgr.cpp" />
+    <ClCompile Include="..\SourceUnit\Front\MarketFront.cpp" />
+    <ClCompile Include="..\SourceUnit\Infra\Repository\MemoryRepositoryImpl.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\BaseThread.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\EventHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\EventQueue.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\EventThread.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\ListenHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\MarketRepository.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\NotifyHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\ReactorThread.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\SelectThread.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\Session.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\SessionFactory.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\TimerHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\Channel.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\NetworkFactory.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\ServiceName.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\TcpChannel.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\TcpClient.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\TcpNetworkFactory.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\TcpServer.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\ChannelPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\ChannelProtocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\CompressPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\CompressProtocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\CompressUtil.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FieldDescribe.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FieldSet.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FTDPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FTDProtocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FTDSession.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\Package.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\Protocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\XMPPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\XMPProtocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\XMPSession.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\ZTPPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Rules\RateAlgorithms.cpp" />
+    <ClCompile Include="..\SourceUnit\Service\LoginServiceImpl.cpp" />
+    <ClCompile Include="..\SourceUnit\Service\MarketService.cpp" />
+    <ClCompile Include="..\SourceUnit\Utility\CTime.cpp" />
+    <ClCompile Include="..\SourceUnit\Utility\Logger.cpp" />
+    <ClCompile Include="..\SourceUnit\Utility\Profile.cpp" />
+    <ClCompile Include="..\SourceUnit\Utility\sha256.cpp" />
+    <ClCompile Include="SGEMarket.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\SourceUnit\Connection\MockSGEConnection.h" />
+    <ClInclude Include="..\SourceUnit\Connection\MockSGEHandler.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

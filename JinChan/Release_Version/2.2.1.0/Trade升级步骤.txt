@@ -1,0 +1,10 @@
+1. 备份老的程序
+2. 备份数据库
+3. copy新的trade程序及初始化程序
+4. 运行AddNewAuth.sql，升级investorinfo表
+5. 使用新的程序进行初始化，验证初始化的结果
+6. 修改配置文件，在SGE节增加LocalIDPrefix=10
+7. 启动新的Trade程序（注意检查Storage有没有连接上）,同时检查LocalIDPrefix有没有生效
+8. 使用新的JD登录并修改密码
+
+如果出现问题，停止新程序，删除investorinfo中三个新字段，然后启动老程序。

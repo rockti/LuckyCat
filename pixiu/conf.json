@@ -1,0 +1,50 @@
+{
+    "ConnConfigs":[
+        {
+            "API":"CTP",
+            "TradeEndpoint":"trade.ctp.com:1001",
+            "QuoteEndpoint":"quote.ctp.com:1001",
+            "Credential": {
+                "BrokerID": "9999",
+                "UserID": "049830",
+                "Password":"8888sdf8",
+                "UserProductInfo":"AutoWin",
+                "TradeAuthCode": "834AB89DE",
+                "QuoteAuthCode": "834AB89DE"
+
+            }
+        },
+        {
+            "API":"HKEX_ESUNNY",
+            "TradeEndpoint":"trade.hkex.com:1001",
+            "QuoteEndpoint":"quote.hkex.com:1001",
+            "Credential": {
+                "BrokerID": "9999",
+                "UserID": "049830",
+                "Password":"8888sdf8",
+                "UserProductInfo":"AutoWin",
+                "TradeAuthCode": "834AB89DE",
+                "QuoteAuthCode": "834AB89DE"
+
+            }
+        }
+    ],
+
+    "ExchangeAPIs":[
+        {
+            "Exchange": "SHFE",
+            "API":"CTP",
+            "ClientID":"0240043"
+        },
+        {
+            "Exchange": "CFFEX",
+            "API":"CTP",
+            "ClientID":"03343"
+        },
+        {
+            "Exchange": "HKEX",
+            "API":"HKEX_ESUNNY",
+            "ClientID":"03343"
+        }
+    ]
+}

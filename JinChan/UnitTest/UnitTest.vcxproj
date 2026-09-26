@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{8C2C1A4B-3455-44C0-8E58-625454E296EC}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>UnitTest</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\Temp\Compile\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_D</TargetName>
+    <IncludePath>$(SolutionDir)..\thirdparty/fmt-6.1.2/include;$(SolutionDir)..\thirdparty/spdlog-1.x/include;$(SolutionDir)..\thirdparty/catch2-2.11.1/single_include/catch2;$(SolutionDir)..\thirdparty/boost-1.72/;$(SolutionDir)..\thirdparty\refl-0.8.1;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)..\thirdparty/fmt-6.1.2/include;$(SolutionDir)..\thirdparty/spdlog-1.x/include;$(SolutionDir)..\thirdparty/catch2-2.11.1/single_include/catch2;$(SolutionDir)..\thirdparty/boost-1.72/;$(IncludePath)</IncludePath>
+    <IntDir>$(SolutionDir)\Temp\Compile\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)\Temp\Link\$(ProjectName)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>UNITTEST;_HAS_CXX17;_HAS_CXX20;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)\TradeProject;$(SolutionDir)\Include;$(SolutionDir)\SourceUnit\Connection;$(SolutionDir)\SourceUnit\Database;$(SolutionDir)\SourceUnit\DataStruct;$(SolutionDir)\SourceUnit\Engine;$(SolutionDir)\SourceUnit\Front;$(SolutionDir)\SourceUnit\Kernel;$(SolutionDir)\SourceUnit\Network;$(SolutionDir)\SourceUnit\Protocol;$(SolutionDir)\SourceUnit\Rules;$(SolutionDir)\SourceUnit\Service;$(SolutionDir)\SourceUnit\Api;$(SolutionDir)SourceUnit\Utility;$(SolutionDir)SourceUnit\Domain;$(SolutionDir)SourceUnit\RPC;$(SolutionDir)SourceUnit\Infra;$(SolutionDir)SourceUnit\Type;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wsock32.lib;../lib/SQL/sqlapi.lib;../lib/SGE/KeyFldEnc.lib;../lib/SGE/libsge_api.lib;../lib/SGE/WinSgeSafeApi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\Bin</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>JINCHAN_MOCK;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_HAS_CXX17;_HAS_CXX20;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)\TradeProject;$(SolutionDir)\Include;$(SolutionDir)\SourceUnit\Connection;$(SolutionDir)\SourceUnit\Database;$(SolutionDir)\SourceUnit\DataStruct;$(SolutionDir)\SourceUnit\Engine;$(SolutionDir)\SourceUnit\Front;$(SolutionDir)\SourceUnit\Kernel;$(SolutionDir)\SourceUnit\Network;$(SolutionDir)\SourceUnit\Protocol;$(SolutionDir)\SourceUnit\Rules;$(SolutionDir)\SourceUnit\Service;$(SolutionDir)\SourceUnit\Api;$(SolutionDir)SourceUnit\Utility;$(SolutionDir)SourceUnit\Domain;$(SolutionDir)SourceUnit\Infra;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wsock32.lib;../lib/SQL/sqlapi.lib;../lib/SGE/KeyFldEnc.lib;../lib/SGE/libsge_api.lib;../lib/SGE/WinSgeSafeApi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)\Bin</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\SourceUnit\Connection\DBConnection.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\LinkManager.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\MockSGEConnection.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\MockSGEHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\SafeHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\SGEConnection.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\SGEHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\SGEHandlerBase.cpp" />
+    <ClCompile Include="..\SourceUnit\Connection\SGESerializer.cpp" />
+    <ClCompile Include="..\SourceUnit\Database\Database.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\CachedFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\CacheList.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\CSVParser.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\FileFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\FlowReader.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\FtdDataStruct.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\IndexPackageFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\DataStruct\SeriesCachedFlow.cpp" />
+    <ClCompile Include="..\SourceUnit\Domain\Investor.cpp" />
+    <ClCompile Include="..\SourceUnit\Domain\MaxOrderLocalIDSinglton.cpp" />
+    <ClCompile Include="..\SourceUnit\Domain\Order.cpp" />
+    <ClCompile Include="..\SourceUnit\Domain\Repository.cpp" />
+    <ClCompile Include="..\SourceUnit\Engine\AdapterEngine.cpp" />
+    <ClCompile Include="..\SourceUnit\Engine\ErrorDefine.cpp" />
+    <ClCompile Include="..\SourceUnit\Engine\ErrorEngine.cpp" />
+    <ClCompile Include="..\SourceUnit\Engine\FrontEngine.cpp" />
+    <ClCompile Include="..\SourceUnit\Engine\Scheduler.cpp" />
+    <ClCompile Include="..\SourceUnit\Engine\TradeEngine.cpp" />
+    <ClCompile Include="..\SourceUnit\format.cc" />
+    <ClCompile Include="..\SourceUnit\Front\FrontForwarder.cpp" />
+    <ClCompile Include="..\SourceUnit\Front\MarketFlowMgr.cpp" />
+    <ClCompile Include="..\SourceUnit\Front\TradeFront.cpp" />
+    <ClCompile Include="..\SourceUnit\Infra\Repository\MemoryRepositoryImpl.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\BaseThread.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\DBLoadThread.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\EventHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\EventQueue.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\EventThread.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\InitHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\ListenHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\MarketRepository.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\NotifyHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\OrderQueue.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\ReactorThread.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\SelectThread.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\Session.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\SessionFactory.cpp" />
+    <ClCompile Include="..\SourceUnit\Kernel\TimerHandler.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\Channel.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\NetworkFactory.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\ServiceName.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\TcpChannel.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\TcpClient.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\TcpNetworkFactory.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\TcpServer.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\UdpChannel.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\UdpClient.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\UdpNetworkFactory.cpp" />
+    <ClCompile Include="..\SourceUnit\Network\UdpServer.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\ChannelPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\ChannelProtocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\CompressPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\CompressProtocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\CompressUtil.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FieldDescribe.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FieldSet.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FTDPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FTDProtocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\FTDSession.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\Package.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\Protocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\XMPPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\XMPProtocol.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\XMPSession.cpp" />
+    <ClCompile Include="..\SourceUnit\Protocol\ZTPPackage.cpp" />
+    <ClCompile Include="..\SourceUnit\Rules\RateAlgorithms.cpp" />
+    <ClCompile Include="..\SourceUnit\Service\BaseServiceLink.cpp" />
+    <ClCompile Include="..\SourceUnit\Service\InitServiceLink.cpp" />
+    <ClCompile Include="..\SourceUnit\Service\LoginServiceImpl.cpp" />
+    <ClCompile Include="..\SourceUnit\Service\LoginServiceLink.cpp" />
+    <ClCompile Include="..\SourceUnit\Service\OperatorServiceLink.cpp" />
+    <ClCompile Include="..\SourceUnit\Service\OrderSyncLink.cpp" />
+    <ClCompile Include="..\SourceUnit\Service\QueryServiceLink.cpp" />
+    <ClCompile Include="..\SourceUnit\Service\TradeServiceImpl.cpp" />
+    <ClCompile Include="..\SourceUnit\Service\TradeServiceLink.cpp" />
+    <ClCompile Include="..\SourceUnit\Utility\CTime.cpp" />
+    <ClCompile Include="..\SourceUnit\Utility\Logger.cpp" />
+    <ClCompile Include="..\SourceUnit\Utility\Profile.cpp" />
+    <ClCompile Include="..\SourceUnit\Utility\sha256.cpp" />
+    <ClCompile Include="..\SourceUnit\Utility\ToolFunctions.cpp" />
+    <ClCompile Include="..\TradeProject\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Inittest.cpp" />
+    <ClCompile Include="InverstorTest.cpp" />
+    <ClCompile Include="MarginFeeTest.cpp" />
+    <ClCompile Include="RepoTest.cpp" />
+    <ClCompile Include="SGEParserTest.cpp" />
+    <ClCompile Include="UnitTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\SourceUnit\Connection\BaseExchApi.h" />
+    <ClInclude Include="..\SourceUnit\Connection\DBConnection.h" />
+    <ClInclude Include="..\SourceUnit\Connection\LinkManager.h" />
+    <ClInclude Include="..\SourceUnit\Connection\MockSGEConnection.h" />
+    <ClInclude Include="..\SourceUnit\Connection\MockSGEHandler.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SafeHandler.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGEConnection.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGEHandler.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGE\client_cb_list_define.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGE\keyfld_enc.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGE\sge_api.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGE\sge_packet_struct.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGE\sge_safe_client_interface.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGE\sge_service.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGE\sge_session.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGE\sge_util.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGE\Syd_Api_WIN.h" />
+    <ClInclude Include="..\SourceUnit\Connection\SGE\z_guomi_struct_define.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\BaseDataType.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\CachedFlow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\CacheList.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\CSVParser.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\FileFlow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\FipDataStruct.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\FlowReader.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\FtdDataStruct.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\IFlow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\IndexPackageFlow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\IReadOnlyFlow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\SeriesCachedFlow.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\UserDataType.h" />
+    <ClInclude Include="..\SourceUnit\DataStruct\UserFlow.h" />
+    <ClInclude Include="..\SourceUnit\Domain\Investor.h" />
+    <ClInclude Include="..\SourceUnit\Domain\MaxOrderLocalIDSinglton.h" />
+    <ClInclude Include="..\SourceUnit\Domain\Order.h" />
+    <ClInclude Include="..\SourceUnit\Domain\Repository.h" />
+    <ClInclude Include="..\SourceUnit\Engine\AdapterEngine.h" />
+    <ClInclude Include="..\SourceUnit\Engine\DBScheduler.h" />
+    <ClInclude Include="..\SourceUnit\Engine\ErrorDefine.h" />
+    <ClInclude Include="..\SourceUnit\Engine\ErrorEngine.h" />
+    <ClInclude Include="..\SourceUnit\Engine\FrontEngine.h" />
+    <ClInclude Include="..\SourceUnit\Engine\TradeEngine.h" />
+    <ClInclude Include="..\SourceUnit\Engine\Triggers.h" />
+    <ClInclude Include="..\SourceUnit\Front\FrontForwarder.h" />
+    <ClInclude Include="..\SourceUnit\Front\MarketFlowMgr.h" />
+    <ClInclude Include="..\SourceUnit\Front\TradeFront.h" />
+    <ClInclude Include="..\SourceUnit\Infra\Repository\MemoryRepositoryImpl.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\BaseThread.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\DBLoadThread.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\EventHandler.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\EventQueue.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\EventThread.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\InitHandler.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\ListenHandler.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\MarketRepository.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\NotifyHandler.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\OrderQueue.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\ReactorThread.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\SelectThread.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\Session.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\SessionFactory.h" />
+    <ClInclude Include="..\SourceUnit\Kernel\TimerHandler.h" />
+    <ClInclude Include="..\SourceUnit\Network\Channel.h" />
+    <ClInclude Include="..\SourceUnit\Network\ClientBase.h" />
+    <ClInclude Include="..\SourceUnit\Network\NetworkFactory.h" />
+    <ClInclude Include="..\SourceUnit\Network\ServerBase.h" />
+    <ClInclude Include="..\SourceUnit\Network\ServiceName.h" />
+    <ClInclude Include="..\SourceUnit\Network\SocketInit.h" />
+    <ClInclude Include="..\SourceUnit\Network\TcpChannel.h" />
+    <ClInclude Include="..\SourceUnit\Network\TcpClient.h" />
+    <ClInclude Include="..\SourceUnit\Network\TcpNetworkFactory.h" />
+    <ClInclude Include="..\SourceUnit\Network\TcpServer.h" />
+    <ClInclude Include="..\SourceUnit\Network\UdpChannel.h" />
+    <ClInclude Include="..\SourceUnit\Network\UdpClient.h" />
+    <ClInclude Include="..\SourceUnit\Network\UdpNetworkFactory.h" />
+    <ClInclude Include="..\SourceUnit\Network\UdpServer.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\ChannelPackage.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\ChannelProtocol.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\CompressPackage.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\CompressProtocol.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\CompressUtil.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\FieldDescribe.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\FieldSet.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\FTDPackage.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\FTDProtocol.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\FTDSession.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\FTDSubscribe.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\Package.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\PackageDefine.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\Protocol.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\XMPPackage.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\XMPProtocol.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\XMPSession.h" />
+    <ClInclude Include="..\SourceUnit\Protocol\ZTPPackage.h" />
+    <ClInclude Include="..\SourceUnit\Rules\RateAlgorithms.h" />
+    <ClInclude Include="..\SourceUnit\Service\InitServiceLink.h" />
+    <ClInclude Include="..\SourceUnit\Service\LoginServiceImpl.h" />
+    <ClInclude Include="..\SourceUnit\Service\LoginServiceLink.h" />
+    <ClInclude Include="..\SourceUnit\Service\OrderSyncLink.h" />
+    <ClInclude Include="..\SourceUnit\Service\TradeServiceImpl.h" />
+    <ClInclude Include="..\SourceUnit\Service\TradeServiceLink.h" />
+    <ClInclude Include="..\SourceUnit\Utility\CTime.h" />
+    <ClInclude Include="..\SourceUnit\Utility\EntityCopy.h" />
+    <ClInclude Include="..\SourceUnit\Utility\FunctionCopy.h" />
+    <ClInclude Include="..\SourceUnit\Utility\Logger.h" />
+    <ClInclude Include="..\SourceUnit\Utility\Mutex.h" />
+    <ClInclude Include="..\SourceUnit\Utility\Profile.h" />
+    <ClInclude Include="..\SourceUnit\Utility\Semaphore.h" />
+    <ClInclude Include="..\SourceUnit\Utility\ToolFunctions.h" />
+    <ClInclude Include="..\TradeProject\stdafx.h" />
+    <ClInclude Include="InverstorTest.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

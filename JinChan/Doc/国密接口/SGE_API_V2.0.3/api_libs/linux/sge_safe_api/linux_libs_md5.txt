@@ -1,0 +1,2 @@
+206d7f83c25f0b9a219eb1562289dd47  ./client/lib/libapi_cli_safe.so
+0d3fd661d9d2917ed8b4eea7521dd63e  ./keyfld_enc/lib/libkeyfld_enc.so

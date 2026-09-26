@@ -1,0 +1,6 @@
+D:/GitSource/px/thirdparty/boost-1.72/boost/safe_numerics/out/build/x64-Debug/CMakeFiles/safe_numerics.dir
+D:/GitSource/px/thirdparty/boost-1.72/boost/safe_numerics/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+D:/GitSource/px/thirdparty/boost-1.72/boost/safe_numerics/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
+D:/GitSource/px/thirdparty/boost-1.72/boost/safe_numerics/out/build/x64-Debug/concept/CMakeFiles/edit_cache.dir
+D:/GitSource/px/thirdparty/boost-1.72/boost/safe_numerics/out/build/x64-Debug/concept/CMakeFiles/concepts.dir
+D:/GitSource/px/thirdparty/boost-1.72/boost/safe_numerics/out/build/x64-Debug/concept/CMakeFiles/rebuild_cache.dir

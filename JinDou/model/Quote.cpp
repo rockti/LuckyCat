@@ -1,0 +1,3 @@
+#include "model/Quote.h"
+
+

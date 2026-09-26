@@ -1,0 +1,11 @@
+      驱动使用说明
+ 标准B型USB接口模拟网口驱动使用说明
+1、当使用32位的XP、window7操作系统解压驱动文件《Linux    USB EthernetRNDISGadget_window7 xp_x32》进行安装驱动；
+
+2、当使用64位window7 操作系统解压驱动文件 《Linux USB EthernetRNDISGadget_window7_x64》 进行安装驱动；
+
+3、当使用64位windows10操作系统解压驱动文件《kindle_rndis.inf_amd64.zip》进行安装
+
+4、当使用Linux操作系统时使用驱动文件《Linux USB EthernetRNDISGadget_Linux》进行安装
+
+解释权：杭州信雅达科技有限公司
