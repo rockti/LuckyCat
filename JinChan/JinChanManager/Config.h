@@ -19,7 +19,7 @@ struct Config {
 
 class Configs {
 	static inline Config s_configs;
-	static inline char* config_file_name = "Manager.conf"; 
+	static inline const char* config_file_name = "Manager.conf"; 
 public:
 	static inline void LoadFromFile() {
 		QSettings config(config_file_name, QSettings::IniFormat);

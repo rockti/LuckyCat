@@ -41,7 +41,8 @@ namespace ztp {
 	}
 
 	void ztp_client::reconnect() {
-		socket_.swap(std::make_shared<tcp::socket>(io_context_));
+		auto a = std::make_shared<tcp::socket>(io_context_);
+		socket_.swap(a);
 		do_connect(endpoints_);
 //		deadline_.async_wait(std::bind(&ztp_client::check_deadline, this));
 

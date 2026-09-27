@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JinDou", "JinDou\JinDou.vcxproj", "{23EB5E1C-BD34-4D36-B523-CF2195669988}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_Real|x64 = Debug_Real|x64
+		Debug|x64 = Debug|x64
+		Release_real|x64 = Release_real|x64
+		Release|x64 = Release|x64
+		UNITTEST|x64 = UNITTEST|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23EB5E1C-BD34-4D36-B523-CF2195669988}.Debug_Real|x64.ActiveCfg = Debug_Real|x64
+		{23EB5E1C-BD34-4D36-B523-CF2195669988}.Debug_Real|x64.Build.0 = Debug_Real|x64
+		{23EB5E1C-BD34-4D36-B523-CF2195669988}.Debug|x64.ActiveCfg = Debug|x64
+		{23EB5E1C-BD34-4D36-B523-CF2195669988}.Debug|x64.Build.0 = Debug|x64
+		{23EB5E1C-BD34-4D36-B523-CF2195669988}.Release_real|x64.ActiveCfg = Release_real|x64
+		{23EB5E1C-BD34-4D36-B523-CF2195669988}.Release_real|x64.Build.0 = Release_real|x64
+		{23EB5E1C-BD34-4D36-B523-CF2195669988}.Release|x64.ActiveCfg = Release|x64
+		{23EB5E1C-BD34-4D36-B523-CF2195669988}.Release|x64.Build.0 = Release|x64
+		{23EB5E1C-BD34-4D36-B523-CF2195669988}.UNITTEST|x64.ActiveCfg = UNITTEST|x64
+		{23EB5E1C-BD34-4D36-B523-CF2195669988}.UNITTEST|x64.Build.0 = UNITTEST|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A90E3882-BEA5-41E1-A4F3-B97454D224AB}
+	EndGlobalSection
+EndGlobal
