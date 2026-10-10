@@ -57,10 +57,10 @@ namespace {
 
 	std::vector<year_month> futureMonths(year_month_day const& today) {
 		vector<year_month> results;
-		for (int i = 0; i < MONTH_COUNT; ++i) {				
-			auto ymd = today + months(i+1);
-			year_month ym{ ymd.year(), ymd.month() };
-			results.push_back(ym);
+
+		const year_month currentMonth{ today.year(), today.month() };
+		for (int i = 0; i <= MONTH_COUNT; ++i) {				
+			results.push_back(currentMonth + months(i));
 		}
 		return results;
 	}
@@ -170,7 +170,7 @@ void Variety::initType() {
 	}
 }
 
-std::string Variety::instsrumentCode(int year, unsigned month) const {
+std::string Variety::instrumentCode(int year, unsigned month) const {
 	switch (m_exchangeFlag) {
 	case Exchange::CZCE:
 		return fmt::format("{:d}{:02d}", year%10, month);	// 郑州年用1位表示
@@ -191,7 +191,7 @@ void Variety::initInstrumentCodes(year_month_day const& today) {
 	} 	// 金交所合约不带月份，无需组合
 	else {
 		for each (auto ym in varietyMonths(*this,today)) {
-			auto code = instsrumentCode(int(ym.year()), unsigned(ym.month()));
+			auto code = instrumentCode(int(ym.year()), unsigned(ym.month()));
 			m_instrumentCodes.push_back(code);
 		}
 	}

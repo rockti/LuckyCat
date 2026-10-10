@@ -17,8 +17,8 @@ class Variety {
 public:
 	enum TYPE {
 		Future = 0, 
-		Bond, 
-		Index, 
+		Bond,	// 债券
+		Index,	// 指数 
 		Defer,	// 延期
 		Spot,	// 现货
 		Unknown
@@ -55,7 +55,7 @@ private:
 
 	void initType();
 	void initInstrumentCodes(date::year_month_day const& today);
-	std::string instsrumentCode(int year, unsigned month) const;
+	std::string instrumentCode(int year, unsigned month) const;
 };
 
 typedef std::vector<Variety> Varieties;

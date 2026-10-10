@@ -74,21 +74,24 @@ void fillMarginAndFee(Instrument& instrument, VarietyConfig const& config) {
 using namespace date;
 void CreateInstruments(VarietyConfig const& config, Instruments& instruments) {
 	auto today = year_month_day(floor<days>(std::chrono::system_clock::now()));
-
 	Variety variety(config.exchangeFlag, config.code, config.unitPrice, config.multiple, today);
-	for each (auto code in variety.GetInstrumentCodes()) {
-		InstID instID = InstIDGen(variety.GetExchange(), (int)instruments.Count());
-		pos::GlobalPositionStore::Instance().InitInstrument(instID);
-		auto tmp = ConfigLoader::Get();
-		auto cnt = tmp.Rule.OffsetPunishmentVarieties.count(config.code);
-		if (ConfigLoader::Get().Rule.OffsetPunishmentVarieties.count(config.code) > 0) {
-			pos::GlobalPositionStore::Instance().EnableTodayOffsetPenalty(instID);
+
+	const auto shouldEnableTodayOffsetPenalty = ConfigLoader::Get().Rule.OffsetPunishmentVarieties.count(config.code) > 0;
+	for (const auto& code : variety.GetInstrumentCodes()) {
+		const auto instID = InstIDGen(variety.GetExchange(), static_cast<int>(instruments.Count()));
+
+		auto& positionStore = pos::GlobalPositionStore::Instance();
+		positionStore.InitInstrument(instID);
+
+		if (shouldEnableTodayOffsetPenalty) {
+			positionStore.EnableTodayOffsetPenalty(instID);
 		}
+
 		Instrument instrument(instID, variety, code);
 		fillMarginAndFee(instrument, config);
 		instruments.Add(instrument);
 	}
-}
+}	// Optimized
 
 static Instruments s_instruments;
 static Varieties s_varieties;
