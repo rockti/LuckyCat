@@ -11,7 +11,7 @@
 #include "model/dealing/OrderCommand.h"
 #include "utils/Log.h"
 
-extern bool g_breakTag;
+extern std::atomic_bool g_breakTag;
 extern LocalOrderID const GRAB_PREFIX;
 namespace {
 	inline void initPosition(PositionNotification const& position) {
@@ -277,7 +277,7 @@ void StrategyHandler::handleGrabOrder(OrderNotification const& order) {
 		return;
 	}	// 没有找到对应的Business，是其他客户端的大委托号委托
 
-	g_breakTag = true;					// 停止发单循环
+	g_breakTag.store(true, std::memory_order_relaxed);
 
 	switch (order.Status) {
 	case OrderNotification::E_ORDERED:	// 中立仓或交割申报会有挂单状态

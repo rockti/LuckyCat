@@ -11,38 +11,66 @@
 #include <mmsystem.h>
 #pragma comment(lib, "Winmm.lib")
 
-bool g_breakTag = false;
-int const MICRO_SECOND = 1000000;
+std::atomic_bool g_breakTag(false);
 static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUser, DWORD_PTR dw1, DWORD_PTR dw2) {
 	TimerCallback* parameter = (TimerCallback*)dwUser;
 	TriggerTimer* timerPtr = parameter->GetTimerPtr();
 
-	if (g_breakTag) {
+	if (g_breakTag.load(std::memory_order_relaxed)) {
 		parameter->RestetOrderSet();
 		return;
 	}
 	
-	Log::Info(fmt::format("ConnRunnerHandler: callback start, remainCnts[{}]", timerPtr->MaxLoopCnts));
+	Log::Info(fmt::format("ConnRunnerHandler: callback start, TotalCnts[{}] WameupCnts[{}]", timerPtr->MaxLoopCnts, timerPtr->AwakeCnts));
 	if (TriggerTimer::DELAY == timerPtr->GetType()) {
 		parameter->Callback();
 	}
 	else {
-		LARGE_INTEGER frequency = { 0 };
+
+		LARGE_INTEGER frequency{};
 		QueryPerformanceFrequency(&frequency);
-		LARGE_INTEGER endTime = { 0 };
-		LARGE_INTEGER beginTime = { 0 };
-		QueryPerformanceCounter(&beginTime);
-		while (timerPtr->MaxLoopCnts > 0 && false == g_breakTag) {
-			QueryPerformanceCounter(&endTime);
-			int64_t timeSpan = (endTime.QuadPart - beginTime.QuadPart) * MICRO_SECOND/*精度微秒*/ / frequency.QuadPart/*精度0.1微秒：10000000*/;
-			uint32_t period = (timerPtr->AwakeCnts > 0) ? timerPtr->GetAwakePeriod() : timerPtr->GetPeriod();
-			int64_t quotient = timeSpan / period;
-			if (quotient > 0) {
-				parameter->Callback();
-				QueryPerformanceCounter(&beginTime);
+		uint32_t completedRampSteps = 0;
+
+		const uint32_t rampSteps = timerPtr->AwakeCnts;
+		const uint32_t awakePeriodUs = timerPtr->GetAwakePeriod();
+		const uint32_t targetPeriodUs = timerPtr->GetTargetPeriod();
+		const double startHz = 1'000'000.0 / awakePeriodUs;	// 起始频率
+		const double maxHz = 1'000'000.0 / targetPeriodUs;	// 最高频率
+
+		LARGE_INTEGER end{};
+		LARGE_INTEGER begin{};
+		QueryPerformanceCounter(&begin);
+		while (timerPtr->MaxLoopCnts > 0 && false == g_breakTag.load(std::memory_order_relaxed)) {
+
+			uint32_t periodUs = targetPeriodUs;
+			if (rampSteps > 1 && completedRampSteps < rampSteps) {
+				const double ratio = static_cast<double>(completedRampSteps) / (rampSteps - 1);
+				const double currentHz = startHz + (maxHz - startHz) * ratio;			// 频率递增
+				periodUs = static_cast<uint32_t>(std::ceil(1'000'000.0 / currentHz));	// 向上取整
+				if (completedRampSteps == rampSteps - 1) {
+					periodUs = targetPeriodUs;
+				}	// 到最高频
 			}
+			else if (rampSteps == 1 && completedRampSteps == 0) {
+				periodUs = targetPeriodUs;
+			}	// 直接最高频
+			const int64_t periodTicks = (static_cast<int64_t>(periodUs) * frequency.QuadPart + 999'999) / 1'000'000;
+					
+			while (false == g_breakTag.load(std::memory_order_relaxed)) {
+				QueryPerformanceCounter(&end);
+				if (end.QuadPart - begin.QuadPart >= periodTicks) {
+					break;
+				}
+			}	// 计时循环
+			parameter->Callback();
+			Log::Info(fmt::format("TimerCallbackFunc: callback, periodTicks[{}]", periodTicks));
+
+			if (completedRampSteps < rampSteps) {
+				++completedRampSteps;
+			}
+			QueryPerformanceCounter(&begin);
 		}
-		g_breakTag = true;
+		g_breakTag.store(true, std::memory_order_relaxed);	// MaxLoopCnts
 		Log::Info(fmt::format("ConnRunnerHandler: callback stop, remainCnts[{}]", timerPtr->MaxLoopCnts));
 	}
 	parameter->RestetOrderSet();
@@ -76,28 +104,26 @@ void TimerCallback::Callback() {
 		m_connection->InsertMultiOrders(batchCnt, m_orderInfo);
 		m_pTimer->MaxLoopCnts -= batchCnt;
 
-		if (--m_pTimer->AwakeCnts <= 0) {
-			if (IsSHFE(m_orderInfo[0]->Exchange)) {
-				if (batchCnt < 12) {
-					batchCnt += 2;
-				}
-				else if (batchCnt > 12) {
-					batchCnt = 12;
-				}
+		if (IsSHFE(m_orderInfo[0]->Exchange)) {
+			if (batchCnt < 12) {
+				batchCnt += 1;
 			}
 			else {
-				if (m_increaseFreqTag) {
-					if (batchCnt < 5) {
-						batchCnt += 1;
-					}
-					else if (batchCnt > 5) {
-						batchCnt = 5;
-					}
-				}
-				m_increaseFreqTag = !m_increaseFreqTag;
-			}	// 中金所每个频率发两次再升频
+				batchCnt = 12;
+			}
 		}
-	}	// 预热单发完后逐渐升频
+		else {
+			if (m_increaseFreqTag) {
+				if (batchCnt < 5) {
+					batchCnt += 1;
+				}
+				else {
+					batchCnt = 5;
+				}
+			}
+			m_increaseFreqTag = !m_increaseFreqTag;
+		}
+	}
 }
 
 void TimerCallback::RestetOrderSet() {
@@ -210,7 +236,7 @@ void ConnRunnerHandler::onCommand(TimerCommand const& command) {
 	m_eventID = timeSetEvent(timerPtr->GetDelay(), 0, (LPTIMECALLBACK)TimerCallbackFunc, (DWORD_PTR)m_callbackPtr, TIME_ONESHOT);
 	if (m_eventID > 0) {
 		Log::Info(fmt::format("ConnRunner: SetTimer[{}] success, ID[{}] Delay[{}] Awake[{},{}] Period[{},{}]", (void*)m_callbackPtr, 
-			m_eventID, timerPtr->GetDelay(), timerPtr->GetAwakePeriod(), timerPtr->AwakeCnts, timerPtr->GetPeriod(), timerPtr->MaxLoopCnts));
+			m_eventID, timerPtr->GetDelay(), timerPtr->GetAwakePeriod(), timerPtr->AwakeCnts, timerPtr->GetTargetPeriod(), timerPtr->MaxLoopCnts));
 	}
 	else {
 		Log::Info(fmt::format("ConnRunner: SetTimer failed because of Delay[{}] is overflow", timerPtr->GetDelay()));

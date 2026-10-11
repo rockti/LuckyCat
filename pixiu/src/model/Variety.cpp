@@ -63,7 +63,8 @@ namespace {
 			results.push_back(currentMonth + months(i));
 		}
 		return results;
-	}
+	}	// Optimized
+
 
 	std::vector<year_month> bondMonths(year_month_day const& today) {
 		vector<year_month> results;

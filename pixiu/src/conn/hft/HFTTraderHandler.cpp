@@ -322,10 +322,12 @@ void HFTTraderHandler::notifyFailedOrder(const YDOrder* pFailedOrder, const YDIn
 		notification.IsQueryOrder = m_hasCaughtup ? false : true;	//报单流水号没追上前的都是查询
 		m_publisher.PushResponse(notification);
 		if (m_hasCaughtup) {
-			auto msg = fmt::format("HFT OrderInsert Failed: ErrCode[{}] ErrMsg[{}] Inst[{}] [{} {}：{:.3f},{}] LocalID[{}]", pFailedOrder->ErrorNo, GetErrDesc(pFailedOrder->ErrorNo),
-				pInstrument->InstrumentID, Desc(notification.Direction), Desc(notification.Operation), pFailedOrder->Price, pFailedOrder->OrderVolume, notification.LocalId);
-			m_publisher.NotifyUI(msg);
-			Log::Error(msg);
+			if (YD_ERROR_NoMoneyToOpen != pFailedOrder->ErrorNo) {
+				auto msg = fmt::format("HFT OrderInsert Failed: ErrCode[{}] ErrMsg[{}] Inst[{}] [{} {}：{:.3f},{}] LocalID[{}]", pFailedOrder->ErrorNo, GetErrDesc(pFailedOrder->ErrorNo),
+					pInstrument->InstrumentID, Desc(notification.Direction), Desc(notification.Operation), pFailedOrder->Price, pFailedOrder->OrderVolume, notification.LocalId);
+				m_publisher.NotifyUI(msg);
+				Log::Error(msg);
+			}	// 过滤易达内部资金不足的报错
 		}
 }
 // YD系统撤单失败

@@ -21,9 +21,9 @@ IMPLEMENT_DYNAMIC(SuperGrabDlg, CDialogEx)
 using namespace tg::grab;
 SuperGrabDlg::SuperGrabDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_TG_GRAB_DLG, pParent)
-// 	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 500/*SGE委托间隔*/, 1000/*唤醒间隔*/, 12, 220} {
-	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 500/*SHFE委托间隔*/, 500/*唤醒间隔*/, 2, 300} {
-// 	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 800/*CFFEX委托间隔*/, 1200/*唤醒间隔*/, 12, 350} {
+// 	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 500/*SGE委托间隔*/, 1000/*起始频率*/, 12, 220} {
+// 	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 800/*CFFEX委托间隔*/, 1200/*起始频率*/, 12, 350} {
+	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 500/*SHFE委托间隔*/, 2000/*起始频率*/, 10, 330 } {
 	::GetLocalTime(&m_startTime);
 	m_startTime.wHour = 9;
 	m_startTime.wMinute = 00;

@@ -4,7 +4,7 @@
 #include "runner/Queues.h"
 #include "model/factory/InstrumentFactory.h"
 
-extern bool g_breakTag;
+extern std::atomic_bool g_breakTag;
 using BusinessSnapshot = tg::grab::BusinessSnapshot;
 
 template<>
@@ -51,7 +51,7 @@ namespace tg::grab {
 			m_pExBusiness->OnQuote();
 		}
 		
-		if (true == g_breakTag) {
+		if (g_breakTag.load(std::memory_order_relaxed)) {
 			CheckStrategyStatus();
 		}
 	}
@@ -60,7 +60,7 @@ namespace tg::grab {
 		switch (command.Type) {
 		case StrategyCommand::UPDATE_ARGUMENT: {
 			m_arg = *(Arguments*)command.Data;
-			if (BusinessStatus::Running == m_status && false == g_breakTag && false == m_isNeturalTag) {
+			if (BusinessStatus::Running == m_status/*Timer开启*/ && false == g_breakTag.load(std::memory_order_relaxed)/*还未发单*/ && false == m_isNeturalTag/*非中立仓*/) {
 				Start();	// 如果Timer已经开启，修改参数会重置Timer，中立仓除外
 			}
 		}
@@ -220,7 +220,7 @@ namespace tg::grab {
 				Log::Info(fmt::format("Exchange[{}] Status[{}], send exOpen order at once: Inst[{}] [{} {} {:.3f},{} {}] LocalID[{}]", Desc(exchange), Desc(status), m_exOrderInfo.InstCode.Str()
 					, Desc(m_exOrderInfo.Direction), Desc(m_exOrderInfo.Operation), m_exOrderInfo.Price, m_exOrderInfo.Quantity, m_exOrderInfo.ProductClass, m_exOrderInfo.LocalId));
 			}
-			g_breakTag = true;
+			g_breakTag.store(true, std::memory_order_relaxed);
 // 			GetPublisher().PushTimerOrder(TimerCommand{});	// 发个空的TimerCommand删除Timer	//这里不能删除timer，可能队列里的委托还没发干净，删后会导致空指针 20250930
 			return;
 		}	// 提前开盘，先收到开盘信号的话，暂停Timer并直接发1次单
@@ -240,14 +240,14 @@ namespace tg::grab {
 			Dealing& dealing = Strategy::PushOrder(m_orderInfo);
 			Log::Info(fmt::format("Exchange[{}] Status[{}], send delivery order at once: Inst[{}] [{} {} {:.3f},{} {}] LocalID[{}]", Desc(exchange), Desc(status), m_orderInfo.InstCode.Str()
 				, Desc(m_orderInfo.Direction), Desc(m_orderInfo.Operation), m_orderInfo.Price, m_orderInfo.Quantity, m_orderInfo.ProductClass, m_orderInfo.LocalId));
-			g_breakTag = true;
+			g_breakTag.store(true, std::memory_order_relaxed);
 		}	// 收到交割申报信号,且非中立仓
 	}
 
 	int const MAX_PERIOD = 1000 * 1000;
 	void GrabStrategy::Pause() {
 		BusinessUpdater<BusinessSnapshot> updater(this, m_snapshot);
-		g_breakTag = true;
+		g_breakTag.store(true, std::memory_order_relaxed);
 		GetPublisher().PushTimerOrder(TimerCommand{});	// 发个空的TimerCommand删除Timer
 		m_isNeturalTag = false;
 
@@ -292,7 +292,7 @@ namespace tg::grab {
 				, nowTime.wMinute, nowTime.wSecond, nowTime.wMilliseconds, delay / 1000, retryDelay);
 			Log::Info(msg);
 			m_publisher.NotifyUI(msg);
-			g_breakTag = true;
+			g_breakTag.store(true, std::memory_order_relaxed);
 			SetStop();				// 无法开启状态机
 			return;
 		}
@@ -330,7 +330,7 @@ namespace tg::grab {
 			m_pExBusiness = new GrabBusiness{ *this, m_arg.ExOrder.Inst, m_arg.ExOrder.OpenQty, m_arg.ExOrder.HoldQty, m_arg.ExOrder.OffsetPrice, m_arg.ExOrder.StopPrice };
 		}
 
-		g_breakTag = false;
+		g_breakTag.store(false, std::memory_order_relaxed);
 		GetPublisher().PushTimerOrder(command);			// 发送Timer给connRunner
 		m_status = BusinessStatus::Running;				// 开启状态机		
 	}
@@ -378,7 +378,7 @@ namespace tg::grab {
 			m_pExBusiness = new GrabBusiness{ *this, m_arg.ExOrder.Inst, m_arg.ExOrder.OpenQty, m_arg.ExOrder.HoldQty, m_arg.ExOrder.OffsetPrice, m_arg.ExOrder.StopPrice };
 		}
 
-		g_breakTag = false;
+		g_breakTag.store(false, std::memory_order_relaxed);
 		GetPublisher().PushTimerOrder(command);			// 发送Timer给connRunner
 		m_status = BusinessStatus::Running;				// 开启状态机
 	}

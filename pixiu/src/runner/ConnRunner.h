@@ -23,7 +23,7 @@ class TriggerTimer;
 class TimerCallback {
 public:
 	TimerCallback(TriggerTimer* pTimer, ExchangeConn* exchConn, OrderInfo* pInfo1, OrderInfo* pInfo2)
-		:m_increaseFreqTag(false), m_shfeCnt(4), m_cffexCnt(1), m_pTimer(pTimer), m_connection(exchConn) {
+		:m_increaseFreqTag(false), m_shfeCnt(6), m_cffexCnt(1), m_pTimer(pTimer), m_connection(exchConn) {
 		Init(pInfo1, pInfo2);
 	}
 	~TimerCallback() {
