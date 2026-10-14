@@ -22,8 +22,8 @@ using namespace tg::grab;
 SuperGrabDlg::SuperGrabDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_TG_GRAB_DLG, pParent)
 // 	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 500/*SGE委托间隔*/, 1000/*起始频率*/, 12, 220} {
-// 	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 800/*CFFEX委托间隔*/, 2000/*起始频率*/, 25, 350} {
-	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 500/*SHFE委托间隔*/, 2000/*起始频率*/, 10, 330 } {
+// 	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 800/*CFFEX委托间隔*/, 2000/*起始频率*/, 25, 299} {
+	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 500/*SHFE委托间隔*/, 2000/*起始频率*/, 15, 350 } {
 	::GetLocalTime(&m_startTime);
 	m_startTime.wHour = 9;
 	m_startTime.wMinute = 00;

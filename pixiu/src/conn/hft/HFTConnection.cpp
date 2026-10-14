@@ -117,7 +117,7 @@ void HFTConnection::InsertMultiOrders(unsigned int cnt, OrderInfo const* orders[
 	}
 
 	if (m_pTraderApi->insertMultiOrders(cnt, m_orderSet, m_instruments)) {
-		Log::Info(fmt::format("HFTConnection: InsertMultiOrders[{}] are all successed", cnt));
+		Log::Info(fmt::format("HFTConnection: InsertMultiOrders[{}] are all successed, currentLocalID[{}]", cnt, LocalIdACC::GetCurrentID()));
 	}	
 }
 
