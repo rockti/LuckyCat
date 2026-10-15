@@ -48,7 +48,13 @@ namespace tg::grab {
 		else {
 			if (offsetableQty > 0) {
 				if (IsCFFEX(m_business->m_instID)) {
-					offsetableQty = std::min(offsetableQty, 50);	// 中金所品种单次最大平仓量不得超过50
+					Instruments const& instruments = InstrumentFactory::GetInstruments();
+					if (instruments.Get(m_business->m_instID).GetContractCode()[0] == 'I') {
+						offsetableQty = std::min(offsetableQty, 20);
+					}	// 股指期货最大委托量20
+					else {
+						offsetableQty = std::min(offsetableQty, 50);	
+					}	// 国债期货最大委托量50
 				}
 				else if (IsSGE(m_business->m_instID)) {
 					Instruments const& instruments = InstrumentFactory::GetInstruments();
