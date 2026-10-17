@@ -77,7 +77,8 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 }
 
 void TimerCallback::Callback() {
-	if (IsSGE(m_orderInfo[0]->Exchange)) {
+	if (IsSGE(m_orderInfo[0]->Exchange)) {	// 尝试连续发4单看看结果会如何
+		m_connection->InsertOrder(*m_orderInfo[0]);			// 主席位发单
 		m_connection->InsertOrder(*m_orderInfo[0]);			// 主席位发单
 		m_connection->InsertExOrder(*m_orderInfo[0]);		// 次席位发单
 		m_connection->InsertOrder(*m_orderInfo[0]);			// 主席位发单

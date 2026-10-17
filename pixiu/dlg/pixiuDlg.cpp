@@ -893,8 +893,8 @@ void CpixiuDlg::NotifyByPlatform(UINT quoteID, UINT tradeID, UINT statusID, Exch
 			OnCbnSelchangePlatformCombo();
 		}
 		else if (ConnPlatform::HFT == notification.Platform) {
-			GetDlgItem(IDC_SHFE_RADIO)->EnableWindow(TRUE);			// 中信上期所专用版本：120550255	autowin_plus_1.0	156eb98f3268601bd4773372203b7e1c
-// 			GetDlgItem(IDC_CFFEX_RADIO)->EnableWindow(TRUE);		// 东证中金所专用版本：88937011	client_autowin_1.3.3.24		SE5C6H1P1WYPMVPE
+// 			GetDlgItem(IDC_SHFE_RADIO)->EnableWindow(TRUE);			// 中信上期所专用版本：120550255	autowin_plus_1.0	156eb98f3268601bd4773372203b7e1c
+			GetDlgItem(IDC_CFFEX_RADIO)->EnableWindow(TRUE);		// 东证中金所专用版本：88937011	client_autowin_1.3.3.24		SE5C6H1P1WYPMVPE
 			m_platformCombo.SetCurSel(0);	// 期货
 		}	// 易达只支能持上海或中金
 		else if (ConnPlatform::CTP == notification.Platform) {
