@@ -100,7 +100,6 @@ void CpixiuDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BOFFSET_BTN, m_bOffsetBtn);
 	DDX_Control(pDX, IDC_SOFFSET_BTN, m_sOffsetBtn);
 	DDX_Control(pDX, IDC_SOFFSET_BTN, m_sOffsetBtn);
-	DDX_Control(pDX, IDC_PLATFORM_COMBO, m_platformCombo);
 	DDX_Control(pDX, IDC_LOG_LIST, m_logList);
 }
 
@@ -131,7 +130,6 @@ BEGIN_MESSAGE_MAP(CpixiuDlg, CDialogEx)
 	ON_NOTIFY(UDN_DELTAPOS, IDC_PRICE_SPIN, &CpixiuDlg::OnDeltaposPriceSpin)
 	ON_NOTIFY(UDN_DELTAPOS, IDC_BUY_SPIN, &CpixiuDlg::OnDeltaposBuySpin)
 	ON_NOTIFY(UDN_DELTAPOS, IDC_SELL_SPIN, &CpixiuDlg::OnDeltaposSellSpin)
-	ON_CBN_SELCHANGE(IDC_PLATFORM_COMBO, &CpixiuDlg::OnCbnSelchangePlatformCombo)
 	ON_CBN_SELCHANGE(IDC_INSTRUMENT_COMBO, &CpixiuDlg::OnCbnSelchangeInstrumentCombo)
 	ON_BN_CLICKED(IDC_QRY_POSITION_BTN, &CpixiuDlg::OnBnClickedQryPositionBtn)
 END_MESSAGE_MAP()
@@ -166,12 +164,30 @@ BOOL CpixiuDlg::OnInitDialog() {
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 	{
-		GetWindowRect(&m_windowRect);		//获取窗口大小
-		m_oldPoint.x = m_windowRect.right - m_windowRect.left;
-		m_oldPoint.y = m_windowRect.bottom - m_windowRect.top;
-		m_initPoint.x = m_oldPoint.x;
-		m_initPoint.y = m_oldPoint.y;
+// 		GetWindowRect(&m_windowRect);		//获取窗口大小
+// 		m_oldPoint.x = m_windowRect.right - m_windowRect.left;
+// 		m_oldPoint.y = m_windowRect.bottom - m_windowRect.top;
+// 		m_initPoint.x = m_oldPoint.x;
+// 		m_initPoint.y = m_oldPoint.y;
 	}	//for size
+
+	// 20261017 modify by codex
+	{
+		CRect clientRect;
+		GetClientRect(&clientRect);
+		m_originalClientSize.cx = clientRect.Width();
+		m_originalClientSize.cy = clientRect.Height();
+		for (HWND child = ::GetWindow(m_hWnd, GW_CHILD); child != nullptr; child = ::GetWindow(child, GW_HWNDNEXT)) {
+			RECT rect{};
+			::GetWindowRect(child, &rect);
+			::MapWindowPoints(nullptr, m_hWnd,
+				reinterpret_cast<POINT*>(&rect), 2);
+
+			m_controls.push_back({ child, rect });
+		}
+
+		m_layoutReady = true;
+	}
 
 	InitStrategyPaneSet();
 	InitCtrls();
@@ -319,42 +335,80 @@ void CpixiuDlg::OnClose() {
 void CpixiuDlg::OnSize(UINT nType, int cx, int cy) {
 	CDialogEx::OnSize(nType, cx, cy);
 
-	// TODO: 在此处添加消息处理程序代码
-	if (SIZE_RESTORED == nType || SIZE_MAXIMIZED == nType) {
-		POINT newPoint;
-		CRect clientRect;
-		GetClientRect(&clientRect);
-		newPoint.x = clientRect.right - clientRect.left;
-		newPoint.y = clientRect.bottom - clientRect.top;
 
-		float fsp[2];	//获取控件与窗口相对位置的比值
-		fsp[0] = (float)newPoint.x / m_oldPoint.x;
-		fsp[1] = (float)newPoint.y / m_oldPoint.y;
-
-		int ctrlId;
-		CRect Rect;
-		CPoint OldTLPoint, NewTLPoint; //左上角  
-		CPoint OldBRPoint, NewBRPoint; //右下角  
-		HWND  hwndChild = ::GetWindow(m_hWnd, GW_CHILD);
-		while (hwndChild) {
-			ctrlId = ::GetDlgCtrlID(hwndChild);//取得ID
-			GetDlgItem(ctrlId)->GetWindowRect(Rect);
-			ScreenToClient(Rect);
-			OldTLPoint = Rect.TopLeft();
-			NewTLPoint.x = long(OldTLPoint.x * fsp[0]);
-			NewTLPoint.y = long(OldTLPoint.y * fsp[1]);
-			OldBRPoint = Rect.BottomRight();
-			NewBRPoint.x = long(OldBRPoint.x * fsp[0]);
-			NewBRPoint.y = long(OldBRPoint.y * fsp[1]);
-			if (IDC_INSTRUMENT_COMBO == ctrlId) {
-				NewBRPoint.y += 150;
-			}
-			Rect.SetRect(NewTLPoint, NewBRPoint);
-			GetDlgItem(ctrlId)->MoveWindow(Rect, TRUE);
-			hwndChild = ::GetWindow(hwndChild, GW_HWNDNEXT);
-		}
-		m_oldPoint = newPoint;
+	if (!m_layoutReady || m_originalClientSize.cx <= 0 || m_originalClientSize.cy <= 0 || cx <= 0 || cy <= 0)
+	{
+		return;
 	}
+
+	ApplyLayout(cx, cy);
+	// TODO: 在此处添加消息处理程序代码
+// 	if (SIZE_RESTORED == nType || SIZE_MAXIMIZED == nType) {
+// 		POINT newPoint;
+// 		CRect clientRect;
+// 		GetClientRect(&clientRect);
+// 		newPoint.x = clientRect.right - clientRect.left;
+// 		newPoint.y = clientRect.bottom - clientRect.top;
+// 
+// 		float fsp[2];	//获取控件与窗口相对位置的比值
+// 		fsp[0] = (float)newPoint.x / m_oldPoint.x;
+// 		fsp[1] = (float)newPoint.y / m_oldPoint.y;
+// 
+// 		int ctrlId;
+// 		CRect Rect;
+// 		CPoint OldTLPoint, NewTLPoint; //左上角  
+// 		CPoint OldBRPoint, NewBRPoint; //右下角  
+// 		HWND  hwndChild = ::GetWindow(m_hWnd, GW_CHILD);
+// 		while (hwndChild) {
+// 			ctrlId = ::GetDlgCtrlID(hwndChild);//取得ID
+// 			GetDlgItem(ctrlId)->GetWindowRect(Rect);
+// 			ScreenToClient(Rect);
+// 			OldTLPoint = Rect.TopLeft();
+// 			NewTLPoint.x = long(OldTLPoint.x * fsp[0]);
+// 			NewTLPoint.y = long(OldTLPoint.y * fsp[1]);
+// 			OldBRPoint = Rect.BottomRight();
+// 			NewBRPoint.x = long(OldBRPoint.x * fsp[0]);
+// 			NewBRPoint.y = long(OldBRPoint.y * fsp[1]);
+// 			if (IDC_INSTRUMENT_COMBO == ctrlId) {
+// 				NewBRPoint.y += 150;
+// 			}
+// 			Rect.SetRect(NewTLPoint, NewBRPoint);
+// 			GetDlgItem(ctrlId)->MoveWindow(Rect, TRUE);
+// 			hwndChild = ::GetWindow(hwndChild, GW_HWNDNEXT);
+// 		}
+// 		m_oldPoint = newPoint;
+// 	}
+}
+
+void CpixiuDlg::ApplyLayout(int clientWidth, int clientHeight)
+{
+	const double sx = static_cast<double>(clientWidth) /
+		m_originalClientSize.cx;
+	const double sy = static_cast<double>(clientHeight) /
+		m_originalClientSize.cy;
+
+	HDWP batch = ::BeginDeferWindowPos(
+		static_cast<int>(m_controls.size()));
+
+	for (const auto& item : m_controls)
+	{
+		if (!::IsWindow(item.hwnd))
+			continue;
+
+		const RECT& r = item.originalRect;
+
+		int x = static_cast<int>(r.left * sx);
+		int y = static_cast<int>(r.top * sy);
+		int width = static_cast<int>((r.right - r.left) * sx);
+		int height = static_cast<int>((r.bottom - r.top) * sy);
+
+		batch = ::DeferWindowPos(
+			batch, item.hwnd, nullptr, x, y, width, height,
+			SWP_NOZORDER | SWP_NOACTIVATE);
+	}
+
+	if (batch)
+		::EndDeferWindowPos(batch);
 }
 
 void CpixiuDlg::OnTimer(UINT_PTR nIDEvent) {
@@ -366,25 +420,6 @@ void CpixiuDlg::OnTimer(UINT_PTR nIDEvent) {
 
 	UpdateQuote();
 	CDialogEx::OnTimer(nIDEvent);
-}
-void CpixiuDlg::OnCbnSelchangePlatformCombo() {
-	ConnPlatform futurePlatform = ConnPlatform::CTP;
-	for each (ConnConfig config in m_config.ConnConfigs) {
-		if (config.Platform != ConnPlatform::SGE) {
-			futurePlatform = config.Platform;
-		}
-	}	// 找到期货对应的Platform，现货只有SGE
-
-	CString platformName;
-	m_platformCombo.GetWindowTextW(platformName);
-	if (0 == platformName.Compare(_T("现货"))) {
-		m_framework.GetUIPublisher().QryFund(ConnPlatform::SGE);		
-		GetDlgItem(IDC_SET_FUND_BTN)->EnableWindow(TRUE);		// 只有金交所才能设置可用资金
-	}
-	else {
-// 		m_framework.GetUIPublisher().QryFund(futurePlatform);	// 期货资金自动查询
-		GetDlgItem(IDC_SET_FUND_BTN)->EnableWindow(FALSE);
-	}
 }
 void CpixiuDlg::OnCbnSelchangeInstrumentCombo() {
 	InstID instID = (InstID)m_instrumentCombo.GetItemData(m_instrumentCombo.GetCurSel());
@@ -705,26 +740,8 @@ void CpixiuDlg::InitStrategyPaneSet() {
 	m_dialogTabCtrl.SetDefaultPane(0);
 }
 void CpixiuDlg::InitCtrls() {
-	m_platformCombo.SetCurSel(0);
 	m_priceSpin.SetBuddy(GetDlgItem(IDC_PRICE_EDIT));
 	m_priceSpin.SetRange(-10, 10);
-
-	for each (ConnConfig const& connConfig  in m_config.ConnConfigs) {
-		UINT nID = m_platformIDMap[connConfig.Platform];
-		if (IDC_FUTURES_LOGIN_BTN == nID) {			
-			int index = m_platformCombo.AddString(_T("期货"));
-			m_platformCombo.SetItemData(index, nID);
-		}
-		else if (IDC_DEFERSPOT_LOGIN_BTN == nID) {
-			int index = m_platformCombo.AddString(_T("现货"));
-			m_platformCombo.SetItemData(index, nID);
-		}
-		else if (IDC_OVERSEA_LOGIN_BTN == nID) {
-			int index = m_platformCombo.AddString(_T("海外"));
-			m_platformCombo.SetItemData(index, nID);
-		}
-	}
-	m_platformCombo.SetCurSel(0);
 
 	InitDealingList();
 	InitPositionList();
@@ -889,20 +906,16 @@ void CpixiuDlg::NotifyByPlatform(UINT quoteID, UINT tradeID, UINT statusID, Exch
 		m_loginedPlatform.insert(notification.Platform);
 		if (ConnPlatform::SGE == notification.Platform) {
 			GetDlgItem(IDC_SGE_RADIO)->EnableWindow(TRUE);
-			m_platformCombo.SetCurSel(1);	// 现货
-			OnCbnSelchangePlatformCombo();
 		}
 		else if (ConnPlatform::HFT == notification.Platform) {
-// 			GetDlgItem(IDC_SHFE_RADIO)->EnableWindow(TRUE);			// 中信上期所专用版本：120550255	autowin_plus_1.0	156eb98f3268601bd4773372203b7e1c
-			GetDlgItem(IDC_CFFEX_RADIO)->EnableWindow(TRUE);		// 东证中金所专用版本：88937011	client_autowin_1.3.3.24		SE5C6H1P1WYPMVPE
-			m_platformCombo.SetCurSel(0);	// 期货
+			GetDlgItem(IDC_SHFE_RADIO)->EnableWindow(TRUE);			// 中信上期所专用版本：120550255	autowin_plus_1.0	156eb98f3268601bd4773372203b7e1c
+// 			GetDlgItem(IDC_CFFEX_RADIO)->EnableWindow(TRUE);		// 东证中金所专用版本：88937011	client_autowin_1.3.3.24		SE5C6H1P1WYPMVPE
 		}	// 易达只支能持上海或中金
 		else if (ConnPlatform::CTP == notification.Platform) {
 			GetDlgItem(IDC_CFFEX_RADIO)->EnableWindow(TRUE);
 			GetDlgItem(IDC_SHFE_RADIO)->EnableWindow(TRUE);
 			GetDlgItem(IDC_DCE_RADIO)->EnableWindow(TRUE);
 			GetDlgItem(IDC_CZCE_RADIO)->EnableWindow(TRUE);
-			m_platformCombo.SetCurSel(0);
 		}	// CTP支持所有期货品种
 		else if (ConnPlatform::HKEX_ESUNNY == notification.Platform) {
 			GetDlgItem(IDC_HKEX_RADIO)->EnableWindow(TRUE);
@@ -964,14 +977,8 @@ void CpixiuDlg::NotifyByPlatform(UINT quoteID, UINT tradeID, UINT statusID, Exch
 		break;
 	}
 }
-void CpixiuDlg::OnAccountUpdate(PlatformAccount const& notification) {
-	CString platformDesc = _T("期货");
-	if (notification.Platform == ConnPlatform::SGE) {
-		platformDesc = _T("现货");
-	} 
-	
+void CpixiuDlg::OnAccountUpdate(PlatformAccount const& notification) {	
 	auto const& account = pos::GlobalPositionStore::Instance().Account();
-	UINT nID = UINT(m_platformCombo.GetItemData(m_platformCombo.GetCurSel()));
 	CommonFunction::Double2WindowText(*GetDlgItem(IDC_CAPITAL_STATIC), account.Balance.value());
 	CommonFunction::Double2WindowText(*GetDlgItem(IDC_OCCUPY_STATIC), account.Margin.value());
 	CommonFunction::Double2WindowText(*GetDlgItem(IDC_FEE_STATIC), account.Fee.value());

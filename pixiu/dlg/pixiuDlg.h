@@ -124,7 +124,6 @@ public:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 
-	afx_msg void OnCbnSelchangePlatformCombo();
 	afx_msg void OnCbnSelchangeInstrumentCombo();
 	afx_msg void OnBnClickedSetFundsBtn();
 	afx_msg void OnBnClickedFuturesLoginBtn();
@@ -179,15 +178,28 @@ private:
 	void UpdateQuote();
 
 	void Update(Data const& data);
+
+protected:
+	struct ControlLayout
+	{
+		HWND hwnd;
+		RECT originalRect;  // 控件相对对话框客户区的位置，单位：像素
+	};
+
+	std::vector<ControlLayout> m_controls;
+	CSize m_originalClientSize;
+	bool m_layoutReady = false;
+
+	void ApplyLayout(int clientWidth, int clientHeight);
+
 private:
-	CRect m_windowRect;
-	POINT m_oldPoint;
-	POINT m_initPoint;
+// 	CRect m_windowRect;
+// 	POINT m_oldPoint;
+// 	POINT m_initPoint;
 
 	CListCtrl m_logList;
 	CListCtrl m_dealingList;
 	CListCtrl m_positionList;
-	CComboBox m_platformCombo;
 	CComboBox m_instrumentCombo;
 	CEdit m_amtEdit;
 	CEdit m_priceEdit;

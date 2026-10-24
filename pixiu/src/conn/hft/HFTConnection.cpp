@@ -95,7 +95,7 @@ void HFTConnection::InsertOrder(OrderInfo const& order) {
 // 结合SGE对手能发两个合约及发单频率来分析[1000/16=62.5]，估计是使用这个接口	
 void HFTConnection::InsertMultiOrders(unsigned int cnt, OrderInfo const* orders[]) {	
 	if (false == m_isOrderReady) {
-		for (unsigned int i = 0; i < 12/*按照上海12个前置提前准备好报单*/; ++i) {
+		for (unsigned int i = 0; i < cnt/*按照报单量提前准备好报单*/; ++i) {
 			m_instruments[i] = m_pTraderApi->getInstrumentByID(orders[i]->InstCode.Str());
 			m_orderSet[i].Direction = ConvertDirectionToYD(orders[i]->Direction);
 			m_orderSet[i].OffsetFlag = ConvertOperationToYD(orders[i]->Operation);

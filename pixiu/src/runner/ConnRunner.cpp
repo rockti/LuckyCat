@@ -100,19 +100,15 @@ void TimerCallback::Callback() {
 // 			--m_pTimer->MaxLoopCnts;
 // 		}
 
-		// 以下为易达批量发单功能代码（目前上海10席位, 中金5席位）
+		// 以下为易达批量发单功能代码（目前上海6席位, 中金5席位）
 		unsigned int& batchCnt = IsSHFE(m_orderInfo[0]->Exchange) ? m_shfeCnt : m_cffexCnt;
 		m_connection->InsertMultiOrders(batchCnt, m_orderInfo);
 		m_pTimer->MaxLoopCnts -= batchCnt;
 
 		if (IsSHFE(m_orderInfo[0]->Exchange)) {
-			if (batchCnt < 10) {
-				batchCnt += 1;
-			}
-			else {
-				batchCnt = 10;
-			}
-		}
+			m_connection->InsertMultiOrders(batchCnt, m_orderInfo);
+			m_pTimer->MaxLoopCnts -= batchCnt;
+		}	// SHFE再多发一份报单试试效果
 		else {
 			if (m_increaseFreqTag) {
 				if (batchCnt < 5) {

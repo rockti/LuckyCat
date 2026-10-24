@@ -32,7 +32,6 @@
 #define IDC_QUOTE_INST_COMBO            1012
 #define IDC_COMBO2                      1013
 #define IDC_HEDGE_COMBO                 1013
-#define IDC_PLATFORM_COMBO              1013
 #define IDC_MODEL_COMBO                 1013
 #define IDC_COMBO3                      1014
 #define IDC_OPERATION_COMBO             1014
