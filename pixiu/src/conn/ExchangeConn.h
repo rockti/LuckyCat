@@ -40,7 +40,7 @@ public:
 	virtual void ResetOrderSet() = 0;
 	virtual void InsertOrder(OrderInfo const& order) = 0;
 	virtual void InsertExOrder(OrderInfo const& order) = 0;		// 专为金交所多连接发单增加接口，只发FAK单，不另做撤单接口 20250101
-	virtual void InsertMultiOrders(unsigned int cnt, OrderInfo const* orders[]/*委托参数不可变*/) = 0;	// 批量报单接口，最多16笔	20250920
+	virtual int InsertMultiOrders(OrderInfo const* orders[]/*委托参数不可变*/) = 0;	// 批量报单接口，最多16笔	20250920
 	virtual void CancelOrder(OrderCancel const& action) = 0;
 
 	virtual void InsertMarketingOrder(MarketingOrderInfo const& order) = 0;

@@ -144,7 +144,7 @@ void CTPTraderHandler::OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, C
 		return;
 
 	if (IsErrorRspInfo(pRspInfo)) {
-		Log::Warn(fmt::format("CTPTraderHandler: UserLogout Failed, ErrorCode[%d], ErrorMsg[%s]", pRspInfo->ErrorID, pRspInfo->ErrorMsg));
+		Log::Warn(fmt::format("CTPTraderHandler: UserLogout Failed, ErrorCode[{}], ErrorMsg[{}]", pRspInfo->ErrorID, pRspInfo->ErrorMsg));
 	} else {
 		Log::Info("CTPTraderHandler: UserLogout Success");
 	}

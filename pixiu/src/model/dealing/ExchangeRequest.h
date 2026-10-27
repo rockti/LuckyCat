@@ -49,7 +49,7 @@ public:
 	inline static bool IsMarketingSell(LocalOrderID localId) {
 		return localId % 10 == 2;
 	}
-	static LocalOrderID GetCurrentID() { return GetBase(); }
+	static LocalOrderID GetCurrentID() { return GetBase() * 10; }
 private:
 	static LocalOrderID& GetBase() {
 		static LocalOrderID s_base = 100;

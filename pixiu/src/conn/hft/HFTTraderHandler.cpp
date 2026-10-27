@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "HFTTraderHandler.h"
 
+#include "HFTConnection.h"
 #include "YD/ydError.h"
 #include "config/Config.h"
 #include "notify/ConnPublisher.h"
@@ -139,8 +140,8 @@ namespace {
 		}
 	}
 }
-HFTTraderHandler::HFTTraderHandler(ConnConfig const& config, ExchangeConnInstrumentHelper const& instHelper, ConnPublisher& publisher)
-	:m_config(config), m_instHelper(instHelper), m_publisher(publisher), m_isForbidden(false), m_hasCaughtup(false) {
+HFTTraderHandler::HFTTraderHandler(ConnConfig const& config, ExchangeConnInstrumentHelper const& instHelper, ConnPublisher& publisher, FrontScorer& scorer)
+	:m_config(config), m_instHelper(instHelper), m_publisher(publisher), m_scorer(scorer), m_isForbidden(false), m_hasCaughtup(false) {
 }
 
 void HFTTraderHandler::notifyEvent(int apiEvent) {
@@ -233,8 +234,14 @@ void HFTTraderHandler::notifyFinishInit(void) {
 // 临时的，在该消息处理完成后将不再有效
 
 	char const* userName = m_config.Credential.UserID.c_str();
-// 	const YDAccount* pAccount = m_pTraderApi->getAccountByID(userName);
 	const YDAccount* pAccount = m_pTraderApi->getMyAccount();	// 新版本益达查账户资金
+	const YDExchange* pExchange = m_pTraderApi->getExchangeByID("SHFE");
+	if (nullptr != pExchange) {
+		for (int cnt = 0; cnt < pExchange->ConnectionCount; ++cnt) {
+			Log::Info(fmt::format("HFTTraderHandler: Connection[{}] isPublic[{}]", cnt, pExchange->IsPublicConnectionID[cnt]));
+		}
+	}
+
 	if (nullptr != pAccount) {
 		FundsNotification notification;
 		notification.Platform = ConnPlatform::HFT;
@@ -361,8 +368,11 @@ void HFTTraderHandler::notifyOrder(const YDOrder* pOrder, const YDInstrument* pI
 		notification.Status = OrderNotification::E_SENT_FAILED;
 		m_publisher.PushResponse(notification);
 		if (m_hasCaughtup) {
-			auto msg = fmt::format("HFT OrderInsert Failed: ErrCode[{}] ErrMsg[{}] Inst[{}] [{} {}：{:.3f},{}] LocalID[{}]", pOrder->ErrorNo, GetErrDesc(pOrder->ErrorNo),
-				pInstrument->InstrumentID, Desc(notification.Direction), Desc(notification.Operation), pOrder->Price, pOrder->OrderVolume, pOrder->OrderRef);
+			if (m_scorer.on_Return(pOrder->OrderRef/*委托号*/, pOrder->ConnectionID/*前置号*/)) {
+				Log::Info(fmt::format("HFTTraderHandler: ConnectionID has been scored"));
+			}
+			auto msg = fmt::format("Exchange OrderInsert Failed: ConnectionID[{:d}] ErrCode[{}] ErrMsg[{}] Inst[{}] [{} {}：{:.3f},{}] LocalID[{}]", pOrder->ConnectionID, pOrder->ErrorNo,
+				GetErrDesc(pOrder->ErrorNo), pInstrument->InstrumentID, Desc(notification.Direction), Desc(notification.Operation), pOrder->Price, pOrder->OrderVolume, pOrder->OrderRef);
 			if (1026 != pOrder->ErrorNo && YD_ERROR_NoMoneyToOpen != pOrder->ErrorNo) {
 				m_publisher.NotifyUI(msg);		// 废单报错不通知界面
 			}
@@ -406,8 +416,8 @@ void HFTTraderHandler::notifyOrder(const YDOrder* pOrder, const YDInstrument* pI
 		}	// FAK部成部撤通知在撤单里给
 		m_publisher.PushResponse(notification);
 
-		Log::Info(fmt::format("HFTTraderHandler OnRtnOrder: LocalID[{}] Inst[{}] [{} {}：{:.3f}] Info[O:{} D:{}] SystemID[{}] OrderStatus[{}]",
-			pOrder->OrderRef, pInstrument->InstrumentID, Desc(notification.Direction), Desc(notification.Operation), pOrder->Price,
+		Log::Info(fmt::format("HFTTraderHandler OnRtnOrder: connectionID[{:d}] LocalID[{}] Inst[{}] [{} {}：{:.3f}] Info[O:{} D:{}] SystemID[{}] OrderStatus[{}]",
+			pOrder->ConnectionID ,pOrder->OrderRef, pInstrument->InstrumentID, Desc(notification.Direction), Desc(notification.Operation), pOrder->Price,
 			pOrder->OrderVolume, pOrder->TradeVolume, pOrder->OrderSysID, GetOrderStatus(pOrder->OrderStatus)));
 		return;
 	}
@@ -486,7 +496,7 @@ void HFTTraderHandler::SubscribeMarket(InstID instID) {
 void HFTTraderHandler::FillingPositionNotification(YDPrePosition const& position, PositionNotification& notification) {
 	notification.Quantity = position.PrePosition;
 	notification.TodayQty = 0;
-	notification.Price = position.PreSettlementPrice;
+	notification.Price = position.AverageOpenPrice;
 
 	if (YD_HF_Arbitrage == position.HedgeFlag) {
 		notification.HedgeType = HedgeType::ARBITRAGE;

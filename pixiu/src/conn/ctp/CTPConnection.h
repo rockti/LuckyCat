@@ -16,7 +16,7 @@ public:
 	virtual void ResetOrderSet() {}
 	virtual void InsertOrder(OrderInfo const& order);
 	virtual void InsertExOrder(OrderInfo const& order) {}
-	virtual void InsertMultiOrders(unsigned int cnt, OrderInfo const* orders[]) {}
+	virtual int InsertMultiOrders(OrderInfo const* orders[]) { return 0; }
 	virtual void CancelOrder(OrderCancel const& action);
 	virtual void SubscribeQuote(char const* instrumentCode);
 	virtual void UnSubscribeQuote(char const* instrumentCode);

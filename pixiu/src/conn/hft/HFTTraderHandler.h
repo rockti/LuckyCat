@@ -5,10 +5,11 @@
 
 struct ConnConfig;
 class ConnPublisher;
+class FrontScorer;
 struct PositionNotification;
 class HFTTraderHandler : public YDListener {
 public:
-	HFTTraderHandler(ConnConfig const& config, ExchangeConnInstrumentHelper const& instHelper, ConnPublisher& publisher);
+	HFTTraderHandler(ConnConfig const& config, ExchangeConnInstrumentHelper const& instHelper, ConnPublisher& publisher, FrontScorer& scorer);
 
 	virtual void notifyEvent(int apiEvent);
 	virtual void notifyReadyForLogin(bool hasLoginFailed);	
@@ -39,6 +40,7 @@ private:
 	ConnConfig const& m_config;
 	ExchangeConnInstrumentHelper const& m_instHelper;
 	ConnPublisher& m_publisher;
+	FrontScorer& m_scorer;
 
 	bool m_isForbidden;
 	bool m_hasCaughtup;

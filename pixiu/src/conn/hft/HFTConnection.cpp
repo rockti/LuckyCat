@@ -44,7 +44,7 @@ static char ConvertHedgeFlagToYD(HedgeType hedgeType) {
 
 HFTConnection::HFTConnection(ConnConfig& config, Instruments const& instruments, ConnPublisher& publisher, bool isMulticast)
 	:ExchangeConn(ConnPlatform::HFT), m_config(config), m_instHelper(instruments), m_publisher(publisher), m_isMulticast(isMulticast)
-	, m_traderHandler(m_config, m_instHelper, publisher), m_marketHandler(m_config, m_instHelper, publisher)
+	, m_scorer(m_frontCnts/*前置数*/, m_batchCnts/*打分次数*/), m_traderHandler(m_config, m_instHelper, publisher, m_scorer), m_marketHandler(m_config, m_instHelper, publisher)
 	, m_pTraderApi(0), m_pMdApi(EESQuoteApi::CreateEESQuoteApi()) {
 }
 
@@ -92,10 +92,11 @@ void HFTConnection::InsertOrder(OrderInfo const& order) {
 	m_pExchange = m_pTraderApi->getExchangeByID(Desc(order.Exchange));
 }
 
-// 结合SGE对手能发两个合约及发单频率来分析[1000/16=62.5]，估计是使用这个接口	
-void HFTConnection::InsertMultiOrders(unsigned int cnt, OrderInfo const* orders[]) {	
+int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {	
 	if (false == m_isOrderReady) {
-		for (unsigned int i = 0; i < cnt/*按照报单量提前准备好报单*/; ++i) {
+		m_orderCnts = m_frontCnts;
+		m_scorer.reset();
+		for (uint32_t i = 0; i < m_frontCnts/*按照前置数量提前准备好报单*/; ++i) {
 			m_instruments[i] = m_pTraderApi->getInstrumentByID(orders[i]->InstCode.Str());
 			m_orderSet[i].Direction = ConvertDirectionToYD(orders[i]->Direction);
 			m_orderSet[i].OffsetFlag = ConvertOperationToYD(orders[i]->Operation);
@@ -105,20 +106,46 @@ void HFTConnection::InsertMultiOrders(unsigned int cnt, OrderInfo const* orders[
 			m_orderSet[i].OrderVolume = orders[i]->Quantity;
 			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
 			m_orderSet[i].YDOrderFlag = YD_YOF_Normal;
-			m_orderSet[i].ConnectionSelectionType = YD_CS_Any;
-			m_orderSet[i].ConnectionID = 0;
+			m_orderSet[i].ConnectionSelectionType = YD_CS_Fixed;	// 指定席位报单
+			m_orderSet[i].ConnectionID = i;
 		}
 		m_isOrderReady = true;
+		m_scorer.start(m_orderSet[0].OrderRef);
+		Log::Info(fmt::format("HFTConnection: Start to insertMultiOrders[{}], FirstLocalID[{}]", m_frontCnts, m_orderSet[0].OrderRef));
 	}
 	else {
-		for (unsigned int i = 0; i < cnt; ++i) {
-			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
+		if (m_batchCnts > 0) {
+			for (uint32_t i = 0; i < m_frontCnts; ++i) {
+				m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
+				m_orderSet[i].ConnectionID = i;
+			}
+			m_batchCnts--;
+		}	// 打分批次还未结束，继续无差别委托
+		else {			
+			if (0 == m_selectedFront.size()) {
+				if (!m_scorer.wait_done_for(std::chrono::microseconds(2800))) {
+					return 0;
+				}	// 打分结果没出来，直接返回，继续等待2ms(交易所应答时间2.5ms）
+				else if (m_orderCnts == m_frontCnts) {
+					m_selectedFront = m_scorer.select_top(m_frontCnts / 2);
+					m_orderCnts = static_cast<uint32_t>(m_selectedFront.size());
+				}	// 打分结果出来了，更新委托数量后根据结果选择高效席位发单
+			}
+
+			for (uint32_t i = 0; i < m_orderCnts; ++i) {
+				m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
+				m_orderSet[i].ConnectionID = m_selectedFront[i];
+				Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}], ConnectionCnt[{}|{}] LocalID[{}]", m_orderSet[i].ConnectionID, m_orderCnts, m_frontCnts, m_orderSet[i].OrderRef));
+			}
 		}
 	}
 
-	if (m_pTraderApi->insertMultiOrders(cnt, m_orderSet, m_instruments)) {
-		Log::Info(fmt::format("HFTConnection: InsertMultiOrders[{}] are all successed, currentLocalID[{}]", cnt, LocalIdACC::GetCurrentID()));
-	}	
+	if (m_pTraderApi->insertMultiOrders(m_orderCnts, m_orderSet, m_instruments)) {
+		Log::Info(fmt::format("HFTConnection: InsertMultiOrders[{}] are all successed, currentLocalID[{}] batch[{}]", m_orderCnts, LocalIdACC::GetCurrentID(), m_batchCnts));
+		return m_orderCnts;
+	}
+
+	return 0;
 }
 
 void HFTConnection::CancelOrder(OrderCancel const& action) {

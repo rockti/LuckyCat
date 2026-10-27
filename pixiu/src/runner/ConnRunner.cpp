@@ -21,7 +21,7 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 		return;
 	}
 	
-	Log::Info(fmt::format("ConnRunnerHandler: callback start, TotalCnts[{}] WameupCnts[{}]", timerPtr->MaxLoopCnts, timerPtr->AwakeCnts));
+	Log::Info(fmt::format("ConnRunnerHandler: callback start, TotalCnts[{}] WarmUpCnts[{}]", timerPtr->MaxLoopCnts, timerPtr->AwakeCnts));
 	if (TriggerTimer::DELAY == timerPtr->GetType()) {
 		parameter->Callback();
 	}
@@ -63,7 +63,7 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 				}
 			}	// 计时循环
 			parameter->Callback();
-			Log::Info(fmt::format("TimerCallbackFunc: callback, periodTicks[{}]", periodTicks));
+			Log::Info(fmt::format("TimerCallbackFunc: callback running, remainCnts[{}] periodTicks[{}]", timerPtr->MaxLoopCnts, periodTicks));
 
 			if (completedRampSteps < rampSteps) {
 				++completedRampSteps;
@@ -100,26 +100,24 @@ void TimerCallback::Callback() {
 // 			--m_pTimer->MaxLoopCnts;
 // 		}
 
-		// 以下为易达批量发单功能代码（目前上海6席位, 中金5席位）
-		unsigned int& batchCnt = IsSHFE(m_orderInfo[0]->Exchange) ? m_shfeCnt : m_cffexCnt;
-		m_connection->InsertMultiOrders(batchCnt, m_orderInfo);
-		m_pTimer->MaxLoopCnts -= batchCnt;
+		// 以下为易达批量发单功能代码（目前上海6席位, 中金5席位）	
+		m_pTimer->MaxLoopCnts -= m_connection->InsertMultiOrders(m_orderInfo);
 
-		if (IsSHFE(m_orderInfo[0]->Exchange)) {
-			m_connection->InsertMultiOrders(batchCnt, m_orderInfo);
-			m_pTimer->MaxLoopCnts -= batchCnt;
-		}	// SHFE再多发一份报单试试效果
-		else {
-			if (m_increaseFreqTag) {
-				if (batchCnt < 5) {
-					batchCnt += 1;
-				}
-				else {
-					batchCnt = 5;
-				}
-			}
-			m_increaseFreqTag = !m_increaseFreqTag;
-		}
+// 		if (IsSHFE(m_orderInfo[0]->Exchange)) {
+// 			m_connection->InsertMultiOrders(sendCnt, m_orderInfo);
+// 			m_pTimer->MaxLoopCnts -= sendCnt;
+// 		}	// SHFE再多发一份报单试试效果
+// 		else {
+// 			if (m_increaseFreqTag) {
+// 				if (sendCnt < 5) {
+// 					sendCnt += 1;
+// 				}
+// 				else {
+// 					sendCnt = 5;
+// 				}
+// 			}
+// 			m_increaseFreqTag = !m_increaseFreqTag;
+// 		}
 	}
 }
 

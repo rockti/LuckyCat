@@ -746,8 +746,8 @@ void CpixiuDlg::InitCtrls() {
 	InitDealingList();
 	InitPositionList();
 
-	m_logList.InsertColumn(0, _T("日期"), LVCFMT_RIGHT, 100);
-	m_logList.InsertColumn(1, _T("信息"), LVCFMT_LEFT, 1650);
+	m_logList.InsertColumn(0, _T("日期"), LVCFMT_RIGHT, 80);
+	m_logList.InsertColumn(1, _T("信息"), LVCFMT_LEFT, 950);
 	m_logList.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES | LVS_EX_HEADERDRAGDROP);
 }
 void CpixiuDlg::InitDealingList() {
@@ -767,11 +767,11 @@ void CpixiuDlg::InitDealingList() {
 }
 void CpixiuDlg::InitPositionList() {
 	int column = 0;
-	m_positionList.InsertColumn(column++, _T("合约代码"), LVCFMT_RIGHT, 100);
-	m_positionList.InsertColumn(column++, _T("买卖"), LVCFMT_CENTER, 60);
-	m_positionList.InsertColumn(column++, _T("总仓"), LVCFMT_RIGHT, 65);
-	m_positionList.InsertColumn(column++, _T("今仓"), LVCFMT_RIGHT, 65);		// 需用平仓指令的持仓
-	m_positionList.InsertColumn(column++, _T("冻结"), LVCFMT_RIGHT, 65);
+	m_positionList.InsertColumn(column++, _T("合约代码"), LVCFMT_RIGHT, 90);
+	m_positionList.InsertColumn(column++, _T("买卖"), LVCFMT_CENTER, 55);
+	m_positionList.InsertColumn(column++, _T("总仓"), LVCFMT_RIGHT, 60);
+	m_positionList.InsertColumn(column++, _T("今仓"), LVCFMT_RIGHT, 60);		// 需用平仓指令的持仓
+	m_positionList.InsertColumn(column++, _T("冻结"), LVCFMT_RIGHT, 2);
 	m_positionList.InsertColumn(column++, _T("均价"), LVCFMT_RIGHT, 80);
 	m_positionList.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES | LVS_EX_HEADERDRAGDROP | LVS_NOCOLUMNHEADER);
 }

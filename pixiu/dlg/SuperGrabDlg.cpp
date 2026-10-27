@@ -22,8 +22,8 @@ using namespace tg::grab;
 SuperGrabDlg::SuperGrabDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_TG_GRAB_DLG, pParent)
 // 	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 500/*SGE委托间隔*/, 1500/*起始频率*/, 30, 220} {
-// 	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 800/*CFFEX委托间隔*/, 2000/*起始频率*/, 25, 299} {
-	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 500/*SHFE委托间隔*/, 2000/*起始频率*/, 12, 320 } {
+// 	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 800/*CFFEX委托间隔*/, 3000/*起始频率*/, 25, 299} {
+	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 500/*SHFE委托间隔*/, 3000/*起始频率*/, 10, 320 } {
 	::GetLocalTime(&m_startTime);
 	m_startTime.wHour = 9;
 	m_startTime.wMinute = 00;
@@ -279,10 +279,10 @@ void SuperGrabDlg::InitCtrls() {
 }
 void SuperGrabDlg::InitListCtrls() {
 	int column = 0;
-	m_businessList.InsertColumn(column++, _T("合约"), LVCFMT_LEFT, 150);
-	m_businessList.InsertColumn(column++, _T("开仓参数"), LVCFMT_RIGHT, 225);
-	m_businessList.InsertColumn(column++, _T("时间参数"), LVCFMT_CENTER, 150);
-	m_businessList.InsertColumn(column++, _T("平仓参数"), LVCFMT_LEFT, 225);
+	m_businessList.InsertColumn(column++, _T("合约"), LVCFMT_LEFT, 120);
+	m_businessList.InsertColumn(column++, _T("开仓参数"), LVCFMT_RIGHT, 175);
+	m_businessList.InsertColumn(column++, _T("时间参数"), LVCFMT_CENTER, 120);
+	m_businessList.InsertColumn(column++, _T("平仓参数"), LVCFMT_LEFT, 175);
 	m_notifyColumn = column;
 	m_businessList.InsertColumn(column++, _T("持仓"), LVCFMT_CENTER, 70);
 	m_businessList.InsertColumn(column++, _T("状态"), LVCFMT_LEFT, 70);
