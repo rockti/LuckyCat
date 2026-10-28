@@ -113,7 +113,7 @@ public:
 		for (uint32_t id = 0; id < m_frontCnts; ++id) {
 			const auto index = id;
 			if (m_scores[index] > 1 && m_fastestCount[index] > 0) {
-				candidates[candidateCount++] = static_cast<int>(id);
+				candidates[candidateCount++] = id;
 			}
 		}	// 剔除无效前置
 
@@ -139,7 +139,7 @@ public:
 				++keep;
 			}
 		}
-		Log::Info(fmt::format("FrontScorer: FrontCnt[{}] FastestFront is [{}]", m_frontCnts, candidates[0]));
+		Log::Info(fmt::format("FrontScorer: candidateFront[{}|{}] FastestFront is[{}]", candidateCount, rank, candidates[0]));
 		return std::vector<uint32_t>(candidates.begin(), candidates.begin() + keep);
 	}
 
@@ -199,7 +199,7 @@ private:
 	bool m_isMulticast = true;
 
 	uint32_t m_frontCnts = 6;	// 席位数：要与TimerCallback里的一样
-	uint32_t m_batchCnts = 3;	// 批次数：前置打分所需要预发的批次数
+	uint32_t m_batchCnts = 4;	// 批次数：前置打分所需要预发的批次数
 	uint32_t m_orderCnts = 0;
 	std::vector<uint32_t> m_selectedFront{};	// 筛选过的前置
 	FrontScorer m_scorer;

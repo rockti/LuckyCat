@@ -26,12 +26,15 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 		parameter->Callback();
 	}
 	else {
-
 		LARGE_INTEGER frequency{};
 		QueryPerformanceFrequency(&frequency);
-		uint32_t completedRampSteps = 0;
 
-		const uint32_t rampSteps = timerPtr->AwakeCnts;
+		uint32_t completedRampSteps = 0;
+		uint32_t rampSteps = timerPtr->AwakeCnts;
+		if (rampSteps < 3) {
+			rampSteps = 3;
+		}	// 至少发2个批次预热单
+
 		const uint32_t awakePeriodUs = timerPtr->GetAwakePeriod();
 		const uint32_t targetPeriodUs = timerPtr->GetTargetPeriod();
 		const double startHz = 1'000'000.0 / awakePeriodUs;	// 起始频率
@@ -43,17 +46,17 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 		while (timerPtr->MaxLoopCnts > 0 && false == g_breakTag.load(std::memory_order_relaxed)) {
 
 			uint32_t periodUs = targetPeriodUs;
-			if (rampSteps > 1 && completedRampSteps < rampSteps) {
+			if (completedRampSteps < 2) {
+				periodUs = awakePeriodUs;
+			}	// 前两次保持预热频率（给前置打分用）
+			else if (completedRampSteps < rampSteps) {
 				const double ratio = static_cast<double>(completedRampSteps) / (rampSteps - 1);
 				const double currentHz = startHz + (maxHz - startHz) * ratio;			// 频率递增
 				periodUs = static_cast<uint32_t>(std::ceil(1'000'000.0 / currentHz));	// 向上取整
 				if (completedRampSteps == rampSteps - 1) {
 					periodUs = targetPeriodUs;
-				}	// 到最高频
-			}
-			else if (rampSteps == 1 && completedRampSteps == 0) {
-				periodUs = targetPeriodUs;
-			}	// 直接最高频
+				}	// 到最高频率
+			}	// 第三次循环开始递增频率
 			const int64_t periodTicks = (static_cast<int64_t>(periodUs) * frequency.QuadPart + 999'999) / 1'000'000;
 					
 			while (false == g_breakTag.load(std::memory_order_relaxed)) {
@@ -62,8 +65,11 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 					break;
 				}
 			}	// 计时循环
+
 			parameter->Callback();
-			Log::Info(fmt::format("TimerCallbackFunc: callback running, remainCnts[{}] periodTicks[{}]", timerPtr->MaxLoopCnts, periodTicks));
+			if (periodUs != targetPeriodUs) {
+				Log::Info(fmt::format("TimerCallbackFunc: callback running, remainCnts[{}] periodTicks[{}]", timerPtr->MaxLoopCnts, periodTicks));
+			}	// 未到最大频率记录日志
 
 			if (completedRampSteps < rampSteps) {
 				++completedRampSteps;
