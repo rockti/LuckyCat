@@ -374,9 +374,11 @@ void HFTTraderHandler::notifyOrder(const YDOrder* pOrder, const YDInstrument* pI
 			auto msg = fmt::format("Exchange OrderInsert Failed: ConnectionID[{:d}] ErrCode[{}] ErrMsg[{}] Inst[{}] [{} {}：{:.3f},{}] LocalID[{}]", pOrder->ConnectionID, pOrder->ErrorNo,
 				GetErrDesc(pOrder->ErrorNo), pInstrument->InstrumentID, Desc(notification.Direction), Desc(notification.Operation), pOrder->Price, pOrder->OrderVolume, pOrder->OrderRef);
 			if (1026 != pOrder->ErrorNo && YD_ERROR_NoMoneyToOpen != pOrder->ErrorNo) {
-				m_publisher.NotifyUI(msg);		// 废单报错不通知界面
+				m_publisher.NotifyUI(msg);		// 废单和资金不足报错不通知界面
 			}
-			Log::Error(msg);
+			if (YD_ERROR_NoMoneyToOpen != pOrder->ErrorNo) {
+				Log::Error(msg);
+			}	// 资金不足报错不记录日志
 		}
 		return;
 	}
@@ -416,9 +418,9 @@ void HFTTraderHandler::notifyOrder(const YDOrder* pOrder, const YDInstrument* pI
 		}	// FAK部成部撤通知在撤单里给
 		m_publisher.PushResponse(notification);
 
-		Log::Info(fmt::format("HFTTraderHandler OnRtnOrder: connectionID[{:d}] LocalID[{}] Inst[{}] [{} {}：{:.3f}] Info[O:{} D:{}] SystemID[{}] OrderStatus[{}]",
-			pOrder->ConnectionID ,pOrder->OrderRef, pInstrument->InstrumentID, Desc(notification.Direction), Desc(notification.Operation), pOrder->Price,
-			pOrder->OrderVolume, pOrder->TradeVolume, pOrder->OrderSysID, GetOrderStatus(pOrder->OrderStatus)));
+		Log::Info(fmt::format("HFTTraderHandler OnRtnOrder: connectionID[{:d}] Inst[{}] [{} {}：{:.3f}] Info[O:{} D:{}] SystemID[{}] OrderStatus[{}] LocalID[{}]",
+			pOrder->ConnectionID, pInstrument->InstrumentID, Desc(notification.Direction), Desc(notification.Operation), pOrder->Price,
+			pOrder->OrderVolume, pOrder->TradeVolume, pOrder->OrderSysID, GetOrderStatus(pOrder->OrderStatus), pOrder->OrderRef));
 		return;
 	}
 
@@ -453,8 +455,8 @@ void HFTTraderHandler::notifyTrade(const YDTrade* pTrade, const YDInstrument* pI
 	m_publisher.PushResponse(notification);
 
 	char const* direction = (Direction::SELL == notification.Direction) ? "S" : "B";
-	Log::Info(fmt::format("HFTTraderHandler OnRtnTrade: Inst[{}] Dir[{}] Opt[{}] Price[{:.3f}] Qty[{}] SystemID[{}] LocalID[{}]",
-		pInstrument->InstrumentID, direction, Desc(notification.Operation), pTrade->Price, pTrade->Volume, pTrade->OrderSysID, pTrade->OrderRef));
+	Log::Info(fmt::format("HFTTraderHandler OnRtnTrade: connectionID[{:d}] Inst[{}] Dir[{}] Opt[{}] Price[{:.3f}] Qty[{}] SystemID[{}] LocalID[{}]",
+		pTrade->RealConnectionID, pInstrument->InstrumentID, direction, Desc(notification.Operation), pTrade->Price, pTrade->Volume, pTrade->OrderSysID, pTrade->OrderRef));
 }
 
 void HFTTraderHandler::notifyAccount(const YDAccount* pAccount) {

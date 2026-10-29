@@ -77,14 +77,14 @@ void ConnPublisher::NotifyUI(PositionNotification const& notification) {
 void ConnPublisher::NotifyUI(std::string const& msg) {
 	Data data;
 	data.Type = DataType::UIMessage;
-	data.Size = static_cast<uint16_t>(std::max(sizeof(data.Data), msg.size()));
+	data.Size = static_cast<uint16_t>(std::min(sizeof(data.Data), msg.size()));
 	memcpy(data.Data, msg.c_str(), data.Size);
 	notifyUI(data);
 }
 void ConnPublisher::NotifyUI(char const* msg) {
 	Data data;
 	data.Type = DataType::UIMessage;
-	data.Size = static_cast<uint16_t>(std::max(sizeof(data.Data), strlen(msg)));
+	data.Size = static_cast<uint16_t>(std::min(sizeof(data.Data), strlen(msg)));
 	memcpy(data.Data, msg, data.Size);
 	notifyUI(data);
 }
