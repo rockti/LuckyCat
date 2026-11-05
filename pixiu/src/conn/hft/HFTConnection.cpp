@@ -106,7 +106,7 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 			m_orderSet[i].OrderVolume = orders[i]->Quantity;
 			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
 			m_orderSet[i].YDOrderFlag = YD_YOF_Normal;
-			m_orderSet[i].ConnectionSelectionType = YD_CS_Fixed;	// 指定席位报单
+			m_orderSet[i].ConnectionSelectionType = YD_CS_Any;	// 第一次随机席位报单(看看回报会不会快)
 			m_orderSet[i].ConnectionID = i;
 		}
 		m_isOrderReady = true;
@@ -117,26 +117,37 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 		if (m_batchCnts > 0) {
 			for (uint32_t i = 0; i < m_frontCnts; ++i) {
 				m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
+				m_orderSet[i].ConnectionSelectionType = YD_CS_Prefered;		// 优选席位报单
 				m_orderSet[i].ConnectionID = i;
 			}
 			m_batchCnts--;
-		}	// 打分批次还未结束，继续无差别委托
+		}	// 打分批次还未结束，
 		else {			
-			if (0 == m_selectedFront.size()) {
-				if (!m_scorer.wait_done_for(std::chrono::microseconds(2800))) {
+			uint32_t selectedCnts = static_cast<uint32_t>(m_selectedFront.size());
+			if (0 == selectedCnts) {
+				if (!m_scorer.wait_done_for(std::chrono::microseconds(2000))) {
 					return 0;
-				}	// 打分结果没出来，直接返回，继续等待2ms(交易所应答时间2.5ms）
+				}	// 打分结果没出来，不发委托，继续等待
 				else if (m_orderCnts == m_frontCnts) {
 					m_selectedFront = m_scorer.select_top(m_frontCnts / 2);
-					m_orderCnts = static_cast<uint32_t>(m_selectedFront.size());
-				}	// 打分结果出来了，更新委托数量后根据结果选择高效席位发单
+					selectedCnts = static_cast<uint32_t>(m_selectedFront.size());
+					m_orderCnts = selectedCnts;	
+				}	// 打分结果出来后，更新委托数量
 			}
 
-			for (uint32_t i = 0; i < m_orderCnts; ++i) {
+			for (uint32_t i = 0; i < selectedCnts; ++i) {
 				m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
+				m_orderSet[i].ConnectionSelectionType = YD_CS_Fixed;		// 指定席位报单
 				m_orderSet[i].ConnectionID = m_selectedFront[i];
-				Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}], ConnectionCnt[{}|{}] LocalID[{}]", m_orderSet[i].ConnectionID, m_orderCnts, m_frontCnts, m_orderSet[i].OrderRef));
+				Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}], ConnectionCnt[{}|{}] LocalID[{}]", m_orderSet[i].ConnectionID, selectedCnts, m_frontCnts, m_orderSet[i].OrderRef));
 			}
+
+// 			if (selectedCnts < 3) {
+// 				m_orderSet[selectedCnts].OrderRef = LocalIdACC::NextNormal();
+// 				m_orderSet[selectedCnts].ConnectionID = uint32_t{ 0 };
+// 				Log::Info(fmt::format("HFTConnection: Append ConnectionID[{:d}], ConnectionCnt[{}|{}] LocalID[{}]", m_orderSet[selectedCnts].ConnectionID, selectedCnts, m_frontCnts, m_orderSet[selectedCnts].OrderRef));
+// 				m_orderCnts = selectedCnts + 1;
+// 			}	// 对0号前置多发1单
 		}
 	}
 

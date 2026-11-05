@@ -376,9 +376,7 @@ void HFTTraderHandler::notifyOrder(const YDOrder* pOrder, const YDInstrument* pI
 			if (1026 != pOrder->ErrorNo && YD_ERROR_NoMoneyToOpen != pOrder->ErrorNo) {
 				m_publisher.NotifyUI(msg);		// 废单和资金不足报错不通知界面
 			}
-			if (YD_ERROR_NoMoneyToOpen != pOrder->ErrorNo) {
-				Log::Error(msg);
-			}	// 资金不足报错不记录日志
+			Log::Error(msg);
 		}
 		return;
 	}

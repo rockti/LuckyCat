@@ -199,7 +199,7 @@ private:
 	bool m_isMulticast = true;
 
 	uint32_t m_frontCnts = 6;	// 席位数：要与TimerCallback里的一样
-	uint32_t m_batchCnts = 4;	// 批次数：前置打分所需要预发的批次数
+	uint32_t m_batchCnts = 2;	// 批次数：前置打分所需要预发的批次数
 	uint32_t m_orderCnts = 0;
 	std::vector<uint32_t> m_selectedFront{};	// 筛选过的前置
 	FrontScorer m_scorer;

@@ -23,7 +23,7 @@ SuperGrabDlg::SuperGrabDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_TG_GRAB_DLG, pParent)
 // 	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 500/*SGE委托间隔*/, 1500/*起始频率*/, 30, 220} {
 // 	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 800/*CFFEX委托间隔*/, 3000/*起始频率*/, 25, 299} {
-	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 500/*SHFE委托间隔*/, 3000/*起始频率*/, 10, 320 } {
+	, m_notifyColumn(0), m_arguments{ GBOrder{ 0 }, GBOrder{}/*默认值是INVALID*/, m_startTime, 500/*SHFE委托间隔*/, 2500/*起始频率*/, 12, 320 } {
 	::GetLocalTime(&m_startTime);
 	m_startTime.wHour = 9;
 	m_startTime.wMinute = 00;
