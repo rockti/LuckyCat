@@ -21,44 +21,58 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 		return;
 	}
 	
-	Log::Info(fmt::format("ConnRunnerHandler: callback start, TotalCnts[{}] WarmUpCnts[{}]", timerPtr->MaxLoopCnts, timerPtr->AwakeCnts));
+	Log::Info(fmt::format("ConnRunnerHandler: callback start, TotalCnts[{}] AwakeCnts[{}] Period[{}]", timerPtr->MaxLoopCnts, timerPtr->AwakeCnts, timerPtr->GetTargetPeriod()));
 	if (TriggerTimer::DELAY == timerPtr->GetType()) {
 		parameter->Callback();
+		// ...
+		return;
 	}
 	else {
-		LARGE_INTEGER frequency{};
-		QueryPerformanceFrequency(&frequency);
-
-		uint32_t completedRampSteps = 0;
-		uint32_t rampSteps = timerPtr->AwakeCnts;
-		if (rampSteps < 3) {
-			rampSteps = 3;
-		}	// 至少发2个批次预热单
-
+		const bool isAwakeTimer = (timerPtr->GetType() == TriggerTimer::AWAKE);
 		const uint32_t awakePeriodUs = timerPtr->GetAwakePeriod();
 		const uint32_t targetPeriodUs = timerPtr->GetTargetPeriod();
 		const double startHz = 1'000'000.0 / awakePeriodUs;	// 起始频率
 		const double maxHz = 1'000'000.0 / targetPeriodUs;	// 最高频率
 
-		LARGE_INTEGER end{};
 		LARGE_INTEGER begin{};
-		QueryPerformanceCounter(&begin);
-		while (timerPtr->MaxLoopCnts > 0 && false == g_breakTag.load(std::memory_order_relaxed)) {
+		LARGE_INTEGER end{};
+		LARGE_INTEGER frequency{};
+		QueryPerformanceFrequency(&frequency);
 
+		uint32_t rampSteps = 0;
+		uint32_t completedRampSteps = 0;
+		if (isAwakeTimer) {
+			rampSteps = timerPtr->AwakeCnts > 0 ? static_cast<uint32_t>(timerPtr->AwakeCnts) : 0;
+			if (rampSteps < 3) {
+				rampSteps = 3;
+			}	// 至少唤醒3次
+		}
+
+		if (timerPtr->MaxLoopCnts > 0 && !g_breakTag.load(std::memory_order_relaxed)) {
+			parameter->Callback();
+			if (isAwakeTimer && completedRampSteps < rampSteps) {
+				++completedRampSteps;
+			}
+			QueryPerformanceCounter(&begin);
+		}	// 触发Timer立即调用一次，然后开始计算下一次间隔。
+
+		while (timerPtr->MaxLoopCnts > 0 && false == g_breakTag.load(std::memory_order_relaxed)) {
 			uint32_t periodUs = targetPeriodUs;
-			if (completedRampSteps < 2) {
-				periodUs = awakePeriodUs;
-			}	// 前两次保持预热频率（给前置打分用）
-			else if (completedRampSteps < rampSteps) {
-				const double ratio = static_cast<double>(completedRampSteps) / (rampSteps - 1);
-				const double currentHz = startHz + (maxHz - startHz) * ratio;			// 频率递增
-				periodUs = static_cast<uint32_t>(std::ceil(1'000'000.0 / currentHz));	// 向上取整
-				if (completedRampSteps == rampSteps - 1) {
-					periodUs = targetPeriodUs;
-				}	// 到最高频率
-			}	// 第三次循环开始递增频率
-			const int64_t periodTicks = (static_cast<int64_t>(periodUs) * frequency.QuadPart + 999'999) / 1'000'000;
-					
+			if (isAwakeTimer) {
+				if (completedRampSteps < 2) {
+					periodUs = awakePeriodUs;
+				}	// 前两次固定使用唤醒周期
+				else if (completedRampSteps < rampSteps) {
+					const double ratio = static_cast<double>(completedRampSteps) / (rampSteps - 1);
+					const double currentHz = startHz + (maxHz - startHz) * ratio;			// 频率递增
+					periodUs = static_cast<uint32_t>(std::ceil(1'000'000.0 / currentHz));	// 向上取整
+					if (completedRampSteps == rampSteps - 1) {
+						periodUs = targetPeriodUs;	// 达到最高频率
+					}
+				}	// 频率开始递增
+			}
+
+			const int64_t periodTicks = (static_cast<int64_t>(periodUs) * frequency.QuadPart + 999'999) / 1'000'000;				
 			while (false == g_breakTag.load(std::memory_order_relaxed)) {
 				QueryPerformanceCounter(&end);
 				if (end.QuadPart - begin.QuadPart >= periodTicks) {
@@ -66,14 +80,20 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 				}
 			}	// 计时循环
 
-			parameter->Callback();
-			if (periodUs != targetPeriodUs) {
-				Log::Info(fmt::format("TimerCallbackFunc: callback running, remainCnts[{}] periodTicks[{}]", timerPtr->MaxLoopCnts, periodTicks));
-			}	// 未到最大频率记录日志
+			if (g_breakTag.load(std::memory_order_relaxed)) {
+				break;
+			}
 
-			if (completedRampSteps < rampSteps) {
+			parameter->Callback();
+
+			if (isAwakeTimer && completedRampSteps < rampSteps) {
 				++completedRampSteps;
 			}
+
+			if (isAwakeTimer && periodUs != targetPeriodUs) {
+				Log::Info(fmt::format("TimerCallbackFunc: callback running, remainCnts[{}] periodTicks[{}]", timerPtr->MaxLoopCnts, periodTicks));
+			}	// 未到最高频率记录日志
+
 			QueryPerformanceCounter(&begin);
 		}
 		g_breakTag.store(true, std::memory_order_relaxed);	// MaxLoopCnts

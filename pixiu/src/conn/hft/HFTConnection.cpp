@@ -44,7 +44,7 @@ static char ConvertHedgeFlagToYD(HedgeType hedgeType) {
 
 HFTConnection::HFTConnection(ConnConfig& config, Instruments const& instruments, ConnPublisher& publisher, bool isMulticast)
 	:ExchangeConn(ConnPlatform::HFT), m_config(config), m_instHelper(instruments), m_publisher(publisher), m_isMulticast(isMulticast)
-	, m_scorer(m_frontCnts/*前置数*/, m_batchCnts/*打分次数*/), m_traderHandler(m_config, m_instHelper, publisher, m_scorer), m_marketHandler(m_config, m_instHelper, publisher)
+	, m_scorer(m_frontCnts/*前置数*/, m_scoreBatchCnts/*打分次数*/), m_traderHandler(m_config, m_instHelper, publisher, m_scorer), m_marketHandler(m_config, m_instHelper, publisher)
 	, m_pTraderApi(0), m_pMdApi(EESQuoteApi::CreateEESQuoteApi()) {
 }
 
@@ -95,6 +95,8 @@ void HFTConnection::InsertOrder(OrderInfo const& order) {
 int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {	
 	if (false == m_isOrderReady) {
 		m_orderCnts = m_frontCnts;
+		m_probeBatchesRemaining = m_scoreBatchCnts - 1;
+		m_selectedFront.clear();
 		m_scorer.reset();
 		for (uint32_t i = 0; i < m_frontCnts/*按照前置数量提前准备好报单*/; ++i) {
 			m_instruments[i] = m_pTraderApi->getInstrumentByID(orders[i]->InstCode.Str());
@@ -106,54 +108,54 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 			m_orderSet[i].OrderVolume = orders[i]->Quantity;
 			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
 			m_orderSet[i].YDOrderFlag = YD_YOF_Normal;
-			m_orderSet[i].ConnectionSelectionType = YD_CS_Any;	// 第一次随机席位报单(看看回报会不会快)
+			m_orderSet[i].ConnectionSelectionType = YD_CS_Fixed;
 			m_orderSet[i].ConnectionID = i;
 		}
 		m_isOrderReady = true;
 		m_scorer.start(m_orderSet[0].OrderRef);
-		Log::Info(fmt::format("HFTConnection: Start to insertMultiOrders[{}], FirstLocalID[{}]", m_frontCnts, m_orderSet[0].OrderRef));
-	}
-	else {
-		if (m_batchCnts > 0) {
-			for (uint32_t i = 0; i < m_frontCnts; ++i) {
-				m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
-				m_orderSet[i].ConnectionSelectionType = YD_CS_Prefered;		// 优选席位报单
-				m_orderSet[i].ConnectionID = i;
-			}
-			m_batchCnts--;
-		}	// 打分批次还未结束，
-		else {			
-			uint32_t selectedCnts = static_cast<uint32_t>(m_selectedFront.size());
-			if (0 == selectedCnts) {
-				if (!m_scorer.wait_done_for(std::chrono::microseconds(2000))) {
-					return 0;
-				}	// 打分结果没出来，不发委托，继续等待
-				else if (m_orderCnts == m_frontCnts) {
-					m_selectedFront = m_scorer.select_top(m_frontCnts / 2);
-					selectedCnts = static_cast<uint32_t>(m_selectedFront.size());
-					m_orderCnts = selectedCnts;	
-				}	// 打分结果出来后，更新委托数量
-			}
-
-			for (uint32_t i = 0; i < selectedCnts; ++i) {
-				m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
-				m_orderSet[i].ConnectionSelectionType = YD_CS_Fixed;		// 指定席位报单
-				m_orderSet[i].ConnectionID = m_selectedFront[i];
-				Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}], ConnectionCnt[{}|{}] LocalID[{}]", m_orderSet[i].ConnectionID, selectedCnts, m_frontCnts, m_orderSet[i].OrderRef));
-			}
-
-// 			if (selectedCnts < 3) {
-// 				m_orderSet[selectedCnts].OrderRef = LocalIdACC::NextNormal();
-// 				m_orderSet[selectedCnts].ConnectionID = uint32_t{ 0 };
-// 				Log::Info(fmt::format("HFTConnection: Append ConnectionID[{:d}], ConnectionCnt[{}|{}] LocalID[{}]", m_orderSet[selectedCnts].ConnectionID, selectedCnts, m_frontCnts, m_orderSet[selectedCnts].OrderRef));
-// 				m_orderCnts = selectedCnts + 1;
-// 			}	// 对0号前置多发1单
+		Log::Info(fmt::format("HFTConnection: Start to insertMultiOrders[{}], FirstLocalID[{}], ScoreBatches[{}], ProbeBatchesRemaining[{}]"
+			, m_frontCnts, m_orderSet[0].OrderRef, m_scoreBatchCnts, m_probeBatchesRemaining));
+	}	// Timer启动首批报单
+	else if (m_probeBatchesRemaining > 0) {
+		for (uint32_t i = 0; i < m_frontCnts; ++i) {
+			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
+			m_orderSet[i].ConnectionSelectionType = YD_CS_Fixed;
+			m_orderSet[i].ConnectionID = i;
 		}
+		--m_probeBatchesRemaining;
+	}	// 打分批次报单
+	else {
+		if (!m_scorer.isDone()) {
+			return 0;
+		}	// 等待评分，结果出来之前不再发委托
+
+		uint32_t selectedCnts = static_cast<uint32_t>(m_selectedFront.size());
+		if (0 == selectedCnts && m_orderCnts == m_frontCnts/*选出前置后不会相等，防止反复select_top*/) {
+			m_selectedFront = m_scorer.select_top(m_frontCnts / 2);
+			selectedCnts = static_cast<uint32_t>(m_selectedFront.size());
+			m_orderCnts = selectedCnts;
+		}	// 最多选择一半的前置数
+
+		for (uint32_t i = 0; i < selectedCnts; ++i) {
+			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
+			m_orderSet[i].ConnectionSelectionType = YD_CS_Fixed;
+			m_orderSet[i].ConnectionID = m_selectedFront[i];
+			Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}], ConnectionCnt[{}|{}] LocalID[{}]", m_orderSet[i].ConnectionID, selectedCnts, m_frontCnts, m_orderSet[i].OrderRef));
+		}
+
+// 		if (selectedCnts < 3) {
+// 			m_orderSet[selectedCnts].OrderRef = LocalIdACC::NextNormal();
+// 			m_orderSet[selectedCnts].ConnectionID = uint32_t{ 0 };
+// 			Log::Info(fmt::format("HFTConnection: Append ConnectionID[{:d}], ConnectionCnt[{}|{}] LocalID[{}]", m_orderSet[selectedCnts].ConnectionID, selectedCnts, m_frontCnts, m_orderSet[selectedCnts].OrderRef));
+// 			m_orderCnts = selectedCnts + 1;
+// 		}	// 对0号前置多发1单
 	}
 
 	if (m_pTraderApi->insertMultiOrders(m_orderCnts, m_orderSet, m_instruments)) {
-		Log::Info(fmt::format("HFTConnection: InsertMultiOrders[{}] are all successed, currentLocalID[{}] batch[{}]", m_orderCnts, LocalIdACC::GetCurrentID(), m_batchCnts));
 		return m_orderCnts;
+	}
+	else {
+		Log::Info(fmt::format("HFTConnection: InsertMultiOrders[{}] API returned failure, currentLocalID[{}]", m_orderCnts, LocalIdACC::GetCurrentID()));
 	}
 
 	return 0;

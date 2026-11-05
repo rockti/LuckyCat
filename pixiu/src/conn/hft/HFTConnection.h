@@ -198,8 +198,9 @@ private:
 	ConnPublisher& m_publisher;
 	bool m_isMulticast = true;
 
-	uint32_t m_frontCnts = 6;	// 席位数：要与TimerCallback里的一样
-	uint32_t m_batchCnts = 2;	// 批次数：前置打分所需要预发的批次数
+	uint32_t m_frontCnts = 6;		// 上联席位数
+	uint32_t m_scoreBatchCnts = 3;	// 评分批次数
+	uint32_t m_probeBatchesRemaining = 0;
 	uint32_t m_orderCnts = 0;
 	std::vector<uint32_t> m_selectedFront{};	// 筛选过的前置
 	FrontScorer m_scorer;
@@ -212,8 +213,7 @@ private:
 	std::string m_apiVersion;
 	YDExchange const* m_pExchange;
 
-	// 以下变量用于InsertMultiorders
-	
+	// 以下变量用于InsertMultiorders	
 	bool m_isOrderReady = false;
 	YDInputOrder m_orderSet[16] = {};
 	const YDInstrument* m_instruments[16] = {};

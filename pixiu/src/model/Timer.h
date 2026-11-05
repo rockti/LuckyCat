@@ -24,11 +24,11 @@ public:
 	static TriggerTimer* CreateAwakeTimer(uint32_t delay, uint32_t period, uint32_t exPeriod) { return new TriggerTimer(AWAKE, delay, period, exPeriod); }
 
 public:
-	int AwakeCnts = 0;
+	int AwakeCnts = 0;		// 唤醒次数
 	int MaxLoopCnts = 100;	// 缺省值
 private:
 	Type m_type;
-	uint32_t m_delay;		// 延时：ms	
-	uint32_t m_awakePeriod;	// 唤醒精度：ms
+	uint32_t m_delay;		// 延时精度：ms	
+	uint32_t m_awakePeriod;	// 唤醒精度：us
 	uint32_t m_targetPeriod;// 执行精度：us
 };
