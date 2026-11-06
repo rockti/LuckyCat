@@ -16,18 +16,15 @@ class FrontScorer {
 public:
 	static constexpr int MaxFronts = 12;	// 前置数量最大值
 
-	FrontScorer(uint32_t frontCnts/*前置数*/, uint32_t batchCnts/*发几批*/)
-		:m_frontCnts(frontCnts), m_batchCnts(batchCnts)
-		,m_scores(frontCnts, 0), m_fastestCount(frontCnts, 0)
-		,m_batchReceived(batchCnts, 0)
-		,m_batchSeen(static_cast<std::size_t>(batchCnts) * frontCnts, 0)
+	FrontScorer(uint32_t frontCnts/*前置数*/, uint32_t batchCnt/*发几批*/)
+		:m_frontCnt(frontCnts), m_batchCnt(batchCnt)
+		,m_scores(frontCnts, 0), m_batchReceived(batchCnt, 0)
+		,m_batchSeen(static_cast<std::size_t>(batchCnt) * frontCnts, 0)
 		,m_firstLocalID(0), m_completedBatch(0), m_isScoreCompleted(false) {
-		Log::Info(fmt::format("FrontScorer: Ready to work! FrontCnts[{}] BatchCnts[{}]", m_frontCnts, batchCnts));
 	}
 
 	void reset() {
 		std::fill(m_scores.begin(), m_scores.end(), 0);
-		std::fill(m_fastestCount.begin(), m_fastestCount.end(), 0);
 		std::fill(m_batchSeen.begin(), m_batchSeen.end(), 0);
 		std::fill(m_batchReceived.begin(), m_batchReceived.end(), 0);
 
@@ -36,7 +33,13 @@ public:
 		std::lock_guard<std::mutex> lock(m_doneMutex);
 		m_isScoreCompleted = false;
 	}
-
+	void setFrontCnt(uint32_t frontCnt) { 
+		m_frontCnt = frontCnt;
+		m_scores.assign(frontCnt, 0);
+		m_batchSeen.assign(static_cast<std::size_t>(m_batchCnt) * frontCnt, 0);
+		std::fill(m_batchReceived.begin(), m_batchReceived.end(), 0);
+		Log::Info(fmt::format("FrontScorer: SetFrontCnt[{}]! BatchCnts[{}]", m_frontCnt, m_batchCnt));
+	}
 	void start(uint32_t firstLocalId) { m_firstLocalID = firstLocalId; }
 
 	bool isDone() const { 
@@ -56,20 +59,20 @@ public:
 			}	// 打分已完成
 		}	// Lock要独立作用域
 
-		if (localID < m_firstLocalID || connectionID >= m_frontCnts) {
-			Log::Info(fmt::format("FrontScorer: Invalid localID[{}] < firstID[{}] or connectionID[{}] >= frontCnts[{}]", localID, m_firstLocalID, connectionID, m_frontCnts));
+		if (localID < m_firstLocalID || connectionID >= m_frontCnt) {
+			Log::Info(fmt::format("FrontScorer: Invalid localID[{}] < firstID[{}] or connectionID[{}] >= frontCnts[{}]", localID, m_firstLocalID, connectionID, m_frontCnt));
 			return false;
 		}	// 委托号或前置号不合法
 
 		const uint32_t  offset = (localID - m_firstLocalID) / 10;	//localID放大了10倍，这里要缩小10倍
-		const uint32_t  batchID = offset / m_frontCnts;
-		const uint32_t  slot = offset % m_frontCnts;
-		if (batchID >= m_batchCnts) {
+		const uint32_t  batchID = offset / m_frontCnt;
+		const uint32_t  slot = offset % m_frontCnt;
+		if (batchID >= m_batchCnt) {
 			Log::Info(fmt::format("FrontScorer: Invalid batchID[{}] offset[{}]", batchID, offset));
 			return false;
 		}	// 批次号不合法(超出打分批次)，（打分前发了太多批次委托，阻塞模式不会出现）
 
-		const std::size_t seenIndex = static_cast<std::size_t>(batchID) * m_frontCnts + slot;
+		const std::size_t seenIndex = static_cast<std::size_t>(batchID) * m_frontCnt + slot;
 		if (0 != m_batchSeen[seenIndex]) {
 			Log::Info(fmt::format("FrontScorer: Repeated orderRtn, localID[{}] connectionID[{}]", localID, connectionID));
 			return false;
@@ -77,81 +80,62 @@ public:
 		m_batchSeen[seenIndex] = 1;
 
 		const uint32_t rank = m_batchReceived[batchID]++;
-		if (rank == 0) {
-			m_scores[connectionID] += 2;
-            ++m_fastestCount[connectionID];
-		}	// 先来的回报得2分
-		else if (rank < m_frontCnts - 1) {
-			++m_scores[connectionID];
-		}	// 非最后的回报得1分
+		const uint32_t points = m_frontCnt - rank;
+		m_scores[connectionID] += points;
 
-		if (rank == m_frontCnts - 1) {
-			if (++m_completedBatch == m_batchCnts) {
+		if (rank == m_frontCnt - 1) {
+			if (++m_completedBatch == m_batchCnt) {
 				{
 					std::lock_guard<std::mutex> lock(m_doneMutex);
 					m_isScoreCompleted = true;
 				}	// Lock要独立作用域
 
 				m_doneCv.notify_one();
-				Log::Info(fmt::format("FrontScorer: Score done, batchCnt[{}|{}]", m_completedBatch, m_batchCnts));
+				Log::Info(fmt::format("FrontScorer: Score done, batchCnt[{}|{}]", m_completedBatch, m_batchCnt));
 				return true;
 			}
-			Log::Info(fmt::format("FrontScorer: Score once, batchCnt[{}|{}]", m_completedBatch, m_batchCnts));
-		}	// 最后一个回报不得分
+			Log::Info(fmt::format("FrontScorer: Score once, batchCnt[{}|{}]", m_completedBatch, m_batchCnt));
+		}
 
 		return false;
 	}
 
-	std::vector<uint32_t> select_top(uint32_t rank/*取前几*/) const {
-		if (!isDone()) {
+	std::vector<uint32_t> select_rankRange(std::size_t firstIndex, std::size_t lastIndex) const {
+		if (!isDone() || lastIndex < firstIndex) {
 			return {};
 		}
 
-		std::array<uint32_t, MaxFronts> candidates{};
-		uint32_t candidateCount = 0;
-
-		for (uint32_t id = 0; id < m_frontCnts; ++id) {
-			const auto index = id;
-			if (m_scores[index] > 1 && m_fastestCount[index] > 0) {
-				candidates[candidateCount++] = id;
+		std::vector<uint32_t> candidates;
+		candidates.reserve(m_frontCnt);
+		for (uint32_t id = 0; id < m_frontCnt; ++id) {
+			if (m_scores[id] > 0) {
+				candidates.push_back(id);
 			}
-		}	// 剔除无效前置
-
-		if (0 == candidateCount) {
-			return {};
 		}
 
-		std::sort(candidates.begin(), candidates.begin() + candidateCount, [this](int lhs, int rhs) {
-				const auto left = static_cast<std::size_t>(lhs);
-				const auto right = static_cast<std::size_t>(rhs);
-				if (m_scores[left] != m_scores[right]) {
-					return m_scores[left] > m_scores[right];
+		std::sort(candidates.begin(), candidates.end(),
+			[this](uint32_t lhs, uint32_t rhs) {
+				if (m_scores[lhs] != m_scores[rhs]) {
+					return m_scores[lhs] > m_scores[rhs];
 				}
 				return lhs < rhs;
 			});
 
-
-		uint32_t keep = candidateCount;
-		if (candidateCount > rank) {
-			const uint32_t cutoff_score = m_scores[static_cast<std::size_t>(candidates[rank - 1])];
-			keep = rank;
-			while (keep < candidateCount && m_scores[static_cast<std::size_t>(candidates[keep])] == cutoff_score) {
-				++keep;
-			}
+		if (firstIndex >= candidates.size()) {
+			return {};
 		}
-		Log::Info(fmt::format("FrontScorer: candidateFront[{}|{}] FastestFront is[{}]", candidateCount, rank, candidates[0]));
-		return std::vector<uint32_t>(candidates.begin(), candidates.begin() + keep);
+
+		const std::size_t endIndex = std::min(lastIndex, candidates.size() - 1);
+		return std::vector<uint32_t>(candidates.begin() + firstIndex, candidates.begin() + endIndex + 1);
 	}
 
 private:
-	const uint32_t m_frontCnts;		// 前置数量（同没批委托数量）
-	const uint32_t m_batchCnts;		// 打分批次数量
+	uint32_t m_frontCnt;			// 前置数量
+	const uint32_t m_batchCnt;		// 打分批次数量
 
-	std::vector<uint32_t> m_scores;			// 每个前置的累计得分（最快2分；最慢0分；其余1分）
-	std::vector<uint32_t> m_fastestCount;	// 每个前置得第一名的次数（下标是前置号）
-
+	std::vector<uint32_t> m_scores;			// 每个前置的累计得分（回报先来的分数高）
 	std::vector<uint8_t> m_batchSeen;		// 检查某个LocalID是否已经处理过（0：未处理；1：已处理)
-	std::vector<uint32_t> m_batchReceived;	// 记录每批已经收到并处理的回报数量
+	std::vector<uint8_t> m_batchReceived;	// 记录每批已经收到并处理的回报数量
 
 	uint32_t m_firstLocalID;
 	uint32_t m_completedBatch;
@@ -198,14 +182,18 @@ private:
 	ConnPublisher& m_publisher;
 	bool m_isMulticast = true;
 
-	uint32_t m_frontCnts = 6;		// 上联席位数
+	uint32_t m_frontCnts = 10;		// 上联席位数
 	uint32_t m_scoreBatchCnts = 3;	// 评分批次数
 	uint32_t m_probeBatchesRemaining = 0;
 	uint32_t m_orderCnts = 0;
-	std::vector<uint32_t> m_selectedFront{};	// 筛选过的前置
+
 	FrontScorer m_scorer;
 	HFTTraderHandler m_traderHandler;
 	HFTMarketHandler m_marketHandler;
+
+	std::vector<uint32_t> m_rankedFront;
+	std::size_t m_nextRankIndex = 0;
+	bool m_rankedFrontReady = false;
 
 	YDApi* m_pTraderApi;
 	EESQuoteApi* m_pMdApi;

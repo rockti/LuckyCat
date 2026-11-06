@@ -96,8 +96,11 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 	if (false == m_isOrderReady) {
 		m_orderCnts = m_frontCnts;
 		m_probeBatchesRemaining = m_scoreBatchCnts - 1;
-		m_selectedFront.clear();
+		m_rankedFront.clear();
+		m_nextRankIndex = 0;
+		m_rankedFrontReady = false;
 		m_scorer.reset();
+
 		for (uint32_t i = 0; i < m_frontCnts/*按照前置数量提前准备好报单*/; ++i) {
 			m_instruments[i] = m_pTraderApi->getInstrumentByID(orders[i]->InstCode.Str());
 			m_orderSet[i].Direction = ConvertDirectionToYD(orders[i]->Direction);
@@ -108,9 +111,10 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 			m_orderSet[i].OrderVolume = orders[i]->Quantity;
 			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
 			m_orderSet[i].YDOrderFlag = YD_YOF_Normal;
-			m_orderSet[i].ConnectionSelectionType = YD_CS_Fixed;
-			m_orderSet[i].ConnectionID = i;
+			m_orderSet[i].ConnectionSelectionType = YD_CS_Any;
+			m_orderSet[i].ConnectionID = 0;	// 这里用YD_CS_Any，看看第一个应答是不是依然8.1ms
 		}
+
 		m_isOrderReady = true;
 		m_scorer.start(m_orderSet[0].OrderRef);
 		Log::Info(fmt::format("HFTConnection: Start to insertMultiOrders[{}], FirstLocalID[{}], ScoreBatches[{}], ProbeBatchesRemaining[{}]"
@@ -128,30 +132,35 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 		if (!m_scorer.isDone()) {
 			return 0;
 		}	// 等待评分，结果出来之前不再发委托
+		
+		if (!m_rankedFrontReady) {
+			m_rankedFront = m_scorer.select_rankRange(0, m_frontCnts - 1);
+			m_nextRankIndex = 0;
+			m_rankedFrontReady = true;
+			if (m_rankedFront.empty()) {
+				return 0;
+			}
+		}	// 评分完成后缓存一次前置名次
 
-		uint32_t selectedCnts = static_cast<uint32_t>(m_selectedFront.size());
-		if (0 == selectedCnts && m_orderCnts == m_frontCnts/*选出前置后不会相等，防止反复select_top*/) {
-			m_selectedFront = m_scorer.select_top(m_frontCnts / 2);
-			selectedCnts = static_cast<uint32_t>(m_selectedFront.size());
-			m_orderCnts = selectedCnts;
-		}	// 最多选择一半的前置数
-
-		for (uint32_t i = 0; i < selectedCnts; ++i) {
+		const std::size_t total = m_rankedFront.size();
+		const std::size_t firstHalf = (total + 1) / 2;
+		m_orderCnts = static_cast<uint32_t>(m_nextRankIndex == 0 ? firstHalf : total - m_nextRankIndex);
+		for (uint32_t i = 0; i < m_orderCnts; ++i) {
+			const std::size_t rankIndex = m_nextRankIndex + i;
 			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
-			m_orderSet[i].ConnectionSelectionType = YD_CS_Fixed;
-			m_orderSet[i].ConnectionID = m_selectedFront[i];
-			Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}], ConnectionCnt[{}|{}] LocalID[{}]", m_orderSet[i].ConnectionID, selectedCnts, m_frontCnts, m_orderSet[i].OrderRef));
-		}
+			m_orderSet[i].ConnectionID = m_rankedFront[rankIndex];
 
-// 		if (selectedCnts < 3) {
-// 			m_orderSet[selectedCnts].OrderRef = LocalIdACC::NextNormal();
-// 			m_orderSet[selectedCnts].ConnectionID = uint32_t{ 0 };
-// 			Log::Info(fmt::format("HFTConnection: Append ConnectionID[{:d}], ConnectionCnt[{}|{}] LocalID[{}]", m_orderSet[selectedCnts].ConnectionID, selectedCnts, m_frontCnts, m_orderSet[selectedCnts].OrderRef));
-// 			m_orderCnts = selectedCnts + 1;
-// 		}	// 对0号前置多发1单
+			Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}], LocalID[{}]", m_orderSet[i].ConnectionID, m_orderSet[i].OrderRef));
+		}
 	}
 
 	if (m_pTraderApi->insertMultiOrders(m_orderCnts, m_orderSet, m_instruments)) {
+		if (m_rankedFrontReady) {
+			m_nextRankIndex += m_orderCnts;
+			if (m_nextRankIndex >= m_rankedFront.size()) {
+				m_nextRankIndex = 0;
+			}
+		}
 		return m_orderCnts;
 	}
 	else {

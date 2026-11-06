@@ -240,6 +240,7 @@ void HFTTraderHandler::notifyFinishInit(void) {
 		for (int cnt = 0; cnt < pExchange->ConnectionCount; ++cnt) {
 			Log::Info(fmt::format("HFTTraderHandler: Connection[{}] isPublic[{}]", cnt, pExchange->IsPublicConnectionID[cnt]));
 		}
+		m_scorer.setFrontCnt(pExchange->ConnectionCount);
 	}
 
 	if (nullptr != pAccount) {

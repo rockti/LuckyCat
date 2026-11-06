@@ -7,6 +7,8 @@ struct ConnConfig;
 class ConnPublisher;
 class FrontScorer;
 struct PositionNotification;
+
+
 class HFTTraderHandler : public YDListener {
 public:
 	HFTTraderHandler(ConnConfig const& config, ExchangeConnInstrumentHelper const& instHelper, ConnPublisher& publisher, FrontScorer& scorer);

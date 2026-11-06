@@ -21,7 +21,7 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 		return;
 	}
 	
-	Log::Info(fmt::format("ConnRunnerHandler: callback start, TotalCnts[{}] AwakeCnts[{}] Period[{}]", timerPtr->MaxLoopCnts, timerPtr->AwakeCnts, timerPtr->GetTargetPeriod()));
+	Log::Info(fmt::format("ConnRunnerHandler: callback start, TotalCnts[{}]", timerPtr->MaxLoopCnts));
 	if (TriggerTimer::DELAY == timerPtr->GetType()) {
 		parameter->Callback();
 		// ...
@@ -49,8 +49,9 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 		}
 
 		if (timerPtr->MaxLoopCnts > 0 && !g_breakTag.load(std::memory_order_relaxed)) {
+			const auto beforeCnts = timerPtr->MaxLoopCnts;
 			parameter->Callback();
-			if (isAwakeTimer && completedRampSteps < rampSteps) {
+			if (isAwakeTimer && timerPtr->MaxLoopCnts < beforeCnts && completedRampSteps < rampSteps) {
 				++completedRampSteps;
 			}
 			QueryPerformanceCounter(&begin);
@@ -84,13 +85,13 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 				break;
 			}
 
+			const auto beforeCnts = timerPtr->MaxLoopCnts;
 			parameter->Callback();
-
-			if (isAwakeTimer && completedRampSteps < rampSteps) {
+			if (isAwakeTimer && timerPtr->MaxLoopCnts < beforeCnts && completedRampSteps < rampSteps) {
 				++completedRampSteps;
-			}
+			}	// MaxLoopCnts减少才是为一个成功的发送周期，频率才会相应调整
 
-			if (isAwakeTimer && periodUs != targetPeriodUs) {
+			if (isAwakeTimer && timerPtr->MaxLoopCnts < beforeCnts && periodUs != targetPeriodUs) {
 				Log::Info(fmt::format("TimerCallbackFunc: callback running, remainCnts[{}] periodTicks[{}]", timerPtr->MaxLoopCnts, periodTicks));
 			}	// 未到最高频率记录日志
 
