@@ -109,7 +109,7 @@ void TimerCallback::Callback() {
 		m_connection->InsertOrder(*m_orderInfo[0]);			// 主席位发单
 		m_connection->InsertExOrder(*m_orderInfo[0]);		// 次席位发单
 		m_connection->InsertOrder(*m_orderInfo[0]);			// 主席位发单
-		m_pTimer->MaxLoopCnts -= 3;
+		m_pTimer->MaxLoopCnts -= 4;
 		if (nullptr != m_orderInfo[1]) {
 			m_connection->InsertOrder(*m_orderInfo[1]);
 			m_connection->InsertExOrder(*m_orderInfo[1]);

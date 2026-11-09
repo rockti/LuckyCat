@@ -38,7 +38,7 @@ public:
 		m_scores.assign(frontCnt, 0);
 		m_batchSeen.assign(static_cast<std::size_t>(m_batchCnt) * frontCnt, 0);
 		std::fill(m_batchReceived.begin(), m_batchReceived.end(), 0);
-		Log::Info(fmt::format("FrontScorer: SetFrontCnt[{}]! BatchCnts[{}]", m_frontCnt, m_batchCnt));
+		Log::Info(fmt::format("FrontScorer: SetFrontCnt[{}], BatchCnts[{}]", m_frontCnt, m_batchCnt));
 	}
 	void start(uint32_t firstLocalId) { m_firstLocalID = firstLocalId; }
 

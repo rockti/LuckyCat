@@ -906,6 +906,8 @@ void CpixiuDlg::NotifyByPlatform(UINT quoteID, UINT tradeID, UINT statusID, Exch
 		m_loginedPlatform.insert(notification.Platform);
 		if (ConnPlatform::SGE == notification.Platform) {
 			GetDlgItem(IDC_SGE_RADIO)->EnableWindow(TRUE);
+			m_framework.GetUIPublisher().QryFund(ConnPlatform::SGE);
+			GetDlgItem(IDC_SET_FUND_BTN)->EnableWindow(TRUE);		// 只有金交所才能设置可用资金
 		}
 		else if (ConnPlatform::HFT == notification.Platform) {
 			GetDlgItem(IDC_SHFE_RADIO)->EnableWindow(TRUE);			// 中信上期所专用版本：120550255	autowin_plus_1.0	156eb98f3268601bd4773372203b7e1c
