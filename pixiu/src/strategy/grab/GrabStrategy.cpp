@@ -279,30 +279,82 @@ namespace tg::grab {
 			m_status = BusinessStatus::Running;
 			return;
 		}
-
-		SYSTEMTIME nowTime;
-		::GetLocalTime(&nowTime);
-		auto nowMS = 1000 * (nowTime.wHour * 3600 + nowTime.wMinute * 60 + nowTime.wSecond) + nowTime.wMilliseconds;	// 当前毫秒数
-		SYSTEMTIME dstTime = m_arg.StartTime;
-		auto dstMS = 1000 * (dstTime.wHour * 3600 + dstTime.wMinute * 60 + dstTime.wSecond) + dstTime.wMilliseconds;	// 目标毫秒数
-		uint32_t delay = dstMS - nowMS;
-		if (delay > MAX_PERIOD) {	// 超过1000秒的Timer不可启动
-			auto retryDelay = (delay - MAX_PERIOD) / 1000;
-			auto msg = fmt::format("Timer start failed[{}:{:02d}:{}], because delay[{}] is over [1000]s, please retry after [{}]s"
-				, nowTime.wMinute, nowTime.wSecond, nowTime.wMilliseconds, delay / 1000, retryDelay);
+		
+		FILETIME nowFt{};
+		SYSTEMTIME nowUtc{};
+		SYSTEMTIME nowLocal{};
+		::GetSystemTimePreciseAsFileTime(&nowFt);	// 先取一次高精度时间，用它取得当前本地日期。
+		if (!::FileTimeToSystemTime(&nowFt, &nowUtc) || !::SystemTimeToTzSpecificLocalTime(nullptr, &nowUtc, &nowLocal)) {
+			const auto msg = fmt::format("Timer start failed: cannot get current local time");
 			Log::Info(msg);
 			m_publisher.NotifyUI(msg);
 			g_breakTag.store(true, std::memory_order_relaxed);
-			SetStop();				// 无法开启状态机
+			SetStop();
+			return;
+		}
+		// 更新StartTime传入的目标时刻
+		SYSTEMTIME targetLocal = nowLocal;
+		targetLocal.wHour = m_arg.StartTime.wHour;
+		targetLocal.wMinute = m_arg.StartTime.wMinute;
+		targetLocal.wSecond = m_arg.StartTime.wSecond;
+		targetLocal.wMilliseconds = m_arg.StartTime.wMilliseconds;
+
+		// 将目标本地时间转为 UTC FILETIME。
+		SYSTEMTIME targetUtc{};
+		FILETIME targetFt{};
+		if (!::TzSpecificLocalTimeToSystemTime(nullptr, &targetLocal, &targetUtc) || !::SystemTimeToFileTime(&targetUtc, &targetFt)) {
+			const auto msg = fmt::format("Timer start failed: cannot convert target local time");
+			Log::Info(msg);
+			m_publisher.NotifyUI(msg);
+			g_breakTag.store(true, std::memory_order_relaxed);
+			SetStop();
+			return;
+		}
+		::GetSystemTimePreciseAsFileTime(&nowFt);	// 转换完成后再次重新取当前时间
+
+		ULARGE_INTEGER target{}, now{};
+		target.LowPart = targetFt.dwLowDateTime;
+		target.HighPart = targetFt.dwHighDateTime;
+		now.LowPart = nowFt.dwLowDateTime;
+		now.HighPart = nowFt.dwHighDateTime;
+
+		const int64_t delta100ns = static_cast<int64_t>(target.QuadPart) - static_cast<int64_t>(now.QuadPart);
+		const uint64_t delay = delta100ns <= 0 ? static_cast<uint64_t>(MAX_PERIOD) + 1ULL : (static_cast<uint64_t>(delta100ns) + 9'999ULL) / 10'000ULL;
+		if (delay > static_cast<uint64_t>(MAX_PERIOD)) {
+			SYSTEMTIME nowTime{};
+			::GetLocalTime(&nowTime);
+			const uint64_t retryDelay = (delay - static_cast<uint64_t>(MAX_PERIOD) + 999ULL) / 1000ULL;
+			const auto msg = fmt::format("Timer start failed[{}:{:02d}:{}], because delay[{}] is over [{}]s, please retry after [{}]s",
+				nowTime.wMinute, nowTime.wSecond, nowTime.wMilliseconds, delay / 1000ULL, static_cast<uint64_t>(MAX_PERIOD) / 1000ULL, retryDelay);
+			Log::Info(msg);
+			m_publisher.NotifyUI(msg);
+			g_breakTag.store(true, std::memory_order_relaxed);
+			SetStop();
 			return;
 		}
 
+// 		SYSTEMTIME nowTime;
+// 		::GetLocalTime(&nowTime);
+// 		const uint32_t nowMs = ((static_cast<uint32_t>(nowTime.wHour) * 60u + nowTime.wMinute) * 60u + nowTime.wSecond) * 1000u + nowTime.wMilliseconds;
+// 		const uint32_t dstMs = ((static_cast<uint32_t>(m_arg.StartTime.wHour) * 60u + m_arg.StartTime.wMinute) * 60u + m_arg.StartTime.wSecond) * 1000u + m_arg.StartTime.wMilliseconds;
+// 		int32_t deltaMs = static_cast<int32_t>(dstMs) - static_cast<int32_t>(nowMs);
+// 		if (delay > static_cast<uint64_t>(MAX_PERIOD)) {	// 超过1000秒的Timer不可启动
+// 			auto retryDelay = (deltaMs - MAX_PERIOD) / 1000;
+// 			auto msg = fmt::format("Timer start failed[{}:{:02d}:{}], because delay[{}] is over [1000]s, please retry after [{}]s"
+// 				, nowTime.wMinute, nowTime.wSecond, nowTime.wMilliseconds, deltaMs / 1000, retryDelay);
+// 			Log::Info(msg);
+// 			m_publisher.NotifyUI(msg);
+// 			g_breakTag.store(true, std::memory_order_relaxed);
+// 			SetStop();				// 无法开启状态机
+// 			return;
+// 		}
+
 		TimerCommand command;
 		if (m_arg.AwakeCnt <= 0) {
-			command.TimerPtr = TriggerTimer::CreatePeriodTimer(delay, m_arg.Period);
+			command.TimerPtr = TriggerTimer::CreatePeriodTimer(static_cast<UINT>(delay), m_arg.Period);
 		}
 		else {
-			command.TimerPtr = TriggerTimer::CreateAwakeTimer(delay, m_arg.Period, m_arg.ExPeriod/*唤醒间隔*/);
+			command.TimerPtr = TriggerTimer::CreateAwakeTimer(static_cast<UINT>(delay), m_arg.Period, m_arg.ExPeriod/*唤醒间隔*/);
 		}
 		command.TimerPtr->InitCounters(m_arg.TotalCnt/*触发次数*/, m_arg.AwakeCnt/*唤醒次数*/);
 		command.BusinessPtr = this;

@@ -112,14 +112,14 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
 			m_orderSet[i].YDOrderFlag = YD_YOF_Normal;
 			m_orderSet[i].ConnectionSelectionType = YD_CS_Any;
-			m_orderSet[i].ConnectionID = 0;	// 这里用YD_CS_Any，看看第一个应答是不是依然8.1ms
+			m_orderSet[i].ConnectionID = 0;
 		}
 
 		m_isOrderReady = true;
 		m_scorer.start(m_orderSet[0].OrderRef);
 		Log::Info(fmt::format("HFTConnection: Start to insertMultiOrders[{}], FirstLocalID[{}], ScoreBatches[{}], ProbeBatchesRemaining[{}]"
 			, m_frontCnts, m_orderSet[0].OrderRef, m_scoreBatchCnts, m_probeBatchesRemaining));
-	}	// Timer启动首批报单
+	}	// Timer启动后的首批报单：YD_CS_Any
 	else if (m_probeBatchesRemaining > 0) {
 		for (uint32_t i = 0; i < m_frontCnts; ++i) {
 			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
