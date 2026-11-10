@@ -43,15 +43,12 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 		uint32_t completedRampSteps = 0;
 		if (isAwakeTimer) {
 			rampSteps = timerPtr->AwakeCnts > 0 ? static_cast<uint32_t>(timerPtr->AwakeCnts) : 0;
-			if (rampSteps < 3) {
-				rampSteps = 3;
-			}	// 至少唤醒3次
 		}
 
 		if (timerPtr->MaxLoopCnts > 0 && !g_breakTag.load(std::memory_order_relaxed)) {
 			const auto beforeCnts = timerPtr->MaxLoopCnts;
 			parameter->Callback();
-			if (isAwakeTimer && timerPtr->MaxLoopCnts < beforeCnts && completedRampSteps < rampSteps) {
+			if (isAwakeTimer && timerPtr->MaxLoopCnts < beforeCnts) {
 				++completedRampSteps;
 			}
 			QueryPerformanceCounter(&begin);
@@ -59,18 +56,13 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 
 		while (timerPtr->MaxLoopCnts > 0 && false == g_breakTag.load(std::memory_order_relaxed)) {
 			uint32_t periodUs = targetPeriodUs;
-			if (isAwakeTimer) {
-				if (completedRampSteps < 2) {
-					periodUs = awakePeriodUs;
-				}	// 前两次固定使用唤醒周期
-				else if (completedRampSteps < rampSteps) {
-					const double ratio = static_cast<double>(completedRampSteps) / (rampSteps - 1);
-					const double currentHz = startHz + (maxHz - startHz) * ratio;			// 频率递增
-					periodUs = static_cast<uint32_t>(std::ceil(1'000'000.0 / currentHz));	// 向上取整
-					if (completedRampSteps == rampSteps - 1) {
-						periodUs = targetPeriodUs;	// 达到最高频率
-					}
-				}	// 频率开始递增
+			if (isAwakeTimer && completedRampSteps < rampSteps) {				
+				const double ratio = static_cast<double>(completedRampSteps) / (rampSteps - 1);
+				const double currentHz = startHz + (maxHz - startHz) * ratio;			// 频率递增
+				periodUs = static_cast<uint32_t>(std::ceil(1'000'000.0 / currentHz));	// 向上取整
+				if (completedRampSteps == rampSteps - 1) {
+					periodUs = targetPeriodUs;	// 达到最高频率
+				}				
 			}
 
 			const int64_t periodTicks = (static_cast<int64_t>(periodUs) * frequency.QuadPart + 999'999) / 1'000'000;				
@@ -87,14 +79,10 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 
 			const auto beforeCnts = timerPtr->MaxLoopCnts;
 			parameter->Callback();
-			if (isAwakeTimer && timerPtr->MaxLoopCnts < beforeCnts && completedRampSteps < rampSteps) {
+			if (isAwakeTimer && timerPtr->MaxLoopCnts < beforeCnts/*发送成功*/ && completedRampSteps < rampSteps/*次数未到*/) {
 				++completedRampSteps;
-			}	// MaxLoopCnts减少才是为一个成功的发送周期，频率才会相应调整
-
-			if (isAwakeTimer && timerPtr->MaxLoopCnts < beforeCnts && periodUs != targetPeriodUs) {
 				Log::Info(fmt::format("TimerCallbackFunc: callback running, remainCnts[{}] periodTicks[{}]", timerPtr->MaxLoopCnts, periodTicks));
-			}	// 未到最高频率记录日志
-
+			}
 			QueryPerformanceCounter(&begin);
 		}
 		g_breakTag.store(true, std::memory_order_relaxed);	// MaxLoopCnts
@@ -104,18 +92,19 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 }
 
 void TimerCallback::Callback() {
-	if (IsSGE(m_orderInfo[0]->Exchange)) {	// 尝试连续发4单看看结果会如何
-		m_connection->InsertOrder(*m_orderInfo[0]);			// 主席位发单
+	if (IsSGE(m_orderInfo[0]->Exchange)) {
 		m_connection->InsertOrder(*m_orderInfo[0]);			// 主席位发单
 		m_connection->InsertExOrder(*m_orderInfo[0]);		// 次席位发单
 		m_connection->InsertOrder(*m_orderInfo[0]);			// 主席位发单
-		m_pTimer->MaxLoopCnts -= 4;
+		m_connection->InsertOrder(*m_orderInfo[0]);			// 主席位发单
+		m_pTimer->MaxLoopCnts -= 3;
+
 		if (nullptr != m_orderInfo[1]) {
 			m_connection->InsertOrder(*m_orderInfo[1]);
 			m_connection->InsertExOrder(*m_orderInfo[1]);
 			m_pTimer->MaxLoopCnts -= 2;
 		}
-	}	// SGE是重复委托号，不更新LocalID
+	}	// SGE是重复委托号，不用更新LocalID
 	else {
 // 		--m_pTimer->AwakeCnts;
 // 		m_connection->InsertOrder(*m_orderInfo[0]);

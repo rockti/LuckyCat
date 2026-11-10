@@ -242,7 +242,7 @@ bool SGEConnection::CreateSession(bool isTrade) {
 
 	//等待安全握手完成
 	while (false == theContext.IsHandshaked && m_retryTimes-- > 0) {
-		Sleep(200);
+		Sleep(220);
 	}
 
 	if (m_retryTimes <= 0) {
