@@ -123,8 +123,7 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 	else if (m_probeBatchesRemaining > 0) {
 		for (uint32_t i = 0; i < m_frontCnts; ++i) {
 			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
-			m_orderSet[i].ConnectionSelectionType = YD_CS_Fixed;
-			m_orderSet[i].ConnectionID = i;
+			m_orderSet[i].ConnectionID = 0;
 		}
 		--m_probeBatchesRemaining;
 	}	// 打分批次报单
@@ -134,7 +133,8 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 		}	// 等待评分，结果出来之前不再发委托
 		
 		if (!m_rankedFrontReady) {
-			m_rankedFront = m_scorer.select_rankRange(0, m_frontCnts - 1);
+			constexpr std::size_t dropWorst = 2;	//淘汰掉的前置数
+			m_rankedFront = m_scorer.select_rankRange(0, m_frontCnts - 1 - dropWorst);
 			m_nextRankIndex = 0;
 			m_rankedFrontReady = true;
 			if (m_rankedFront.empty()) {
@@ -148,8 +148,8 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 		for (uint32_t i = 0; i < m_orderCnts; ++i) {
 			const std::size_t rankIndex = m_nextRankIndex + i;
 			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
+			m_orderSet[i].ConnectionSelectionType = YD_CS_Prefered;
 			m_orderSet[i].ConnectionID = m_rankedFront[rankIndex];
-
 			Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}], LocalID[{}]", m_orderSet[i].ConnectionID, m_orderSet[i].OrderRef));
 		}
 	}
