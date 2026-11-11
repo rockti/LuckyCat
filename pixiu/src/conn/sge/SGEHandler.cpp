@@ -337,6 +337,9 @@ void SGEHandler::ReqOrderInsert(OrderInfo const& orderInfo, bool isTrade) {
 		Log::Error(fmt::format("SGEHandler: send OrderInsert failed, rtnCode[{}]", nRtn));
 		return;
 	}
+	else {
+		Log::Info(fmt::format("SGEHandler: send OrderInsert success, isTrade[{}] ReqNo[{}]", isTrade, m_requestNo));	// 确定一下精确开盘时间
+	}
 }
 void SGEHandler::ReqOrderAction(OrderCancel const& actionInfo) {
 	if (SGE_OC_Unknown == actionInfo.GetProductClass()) {

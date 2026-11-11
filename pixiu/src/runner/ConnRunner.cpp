@@ -96,26 +96,16 @@ void TimerCallback::Callback() {
 		m_connection->InsertOrder(*m_orderInfo[0]);			// 交易前置130
 		m_connection->InsertExOrder(*m_orderInfo[0]);		// 行情前置140
 		m_connection->InsertOrder(*m_orderInfo[0]);			// 交易前置130
-		m_pTimer->MaxLoopCnts -= 3;
+		m_connection->InsertExOrder(*m_orderInfo[0]);		// 行情前置140
+		m_pTimer->MaxLoopCnts -= 4;
 
 		if (nullptr != m_orderInfo[1]) {
 			m_connection->InsertOrder(*m_orderInfo[1]);
 			m_connection->InsertExOrder(*m_orderInfo[1]);
 			m_pTimer->MaxLoopCnts -= 2;
 		}
-	}	// SGE是重复委托号，不用更新LocalID
+	}
 	else {
-// 		--m_pTimer->AwakeCnts;
-// 		m_connection->InsertOrder(*m_orderInfo[0]);
-// 		m_orderInfo[0]->LocalId = LocalIdACC::NextNormal();	// 更新下次的委托号
-// 		--m_pTimer->MaxLoopCnts;
-// 		if (nullptr != m_orderInfo[1]) {
-// 			m_connection->InsertOrder(*m_orderInfo[1]);
-// 			m_orderInfo[1]->LocalId = LocalIdACC::NextNormal();
-// 			--m_pTimer->MaxLoopCnts;
-// 		}
-
-		// 以下为易达批量发单功能代码
 		m_pTimer->MaxLoopCnts -= m_connection->InsertMultiOrders(m_orderInfo);
 
 // 		if (IsSHFE(m_orderInfo[0]->Exchange)) {

@@ -292,6 +292,7 @@ namespace tg::grab {
 			SetStop();
 			return;
 		}
+
 		// 更新StartTime传入的目标时刻
 		SYSTEMTIME targetLocal = nowLocal;
 		targetLocal.wHour = m_arg.StartTime.wHour;
@@ -332,22 +333,6 @@ namespace tg::grab {
 			SetStop();
 			return;
 		}
-
-// 		SYSTEMTIME nowTime;
-// 		::GetLocalTime(&nowTime);
-// 		const uint32_t nowMs = ((static_cast<uint32_t>(nowTime.wHour) * 60u + nowTime.wMinute) * 60u + nowTime.wSecond) * 1000u + nowTime.wMilliseconds;
-// 		const uint32_t dstMs = ((static_cast<uint32_t>(m_arg.StartTime.wHour) * 60u + m_arg.StartTime.wMinute) * 60u + m_arg.StartTime.wSecond) * 1000u + m_arg.StartTime.wMilliseconds;
-// 		int32_t deltaMs = static_cast<int32_t>(dstMs) - static_cast<int32_t>(nowMs);
-// 		if (delay > static_cast<uint64_t>(MAX_PERIOD)) {	// 超过1000秒的Timer不可启动
-// 			auto retryDelay = (deltaMs - MAX_PERIOD) / 1000;
-// 			auto msg = fmt::format("Timer start failed[{}:{:02d}:{}], because delay[{}] is over [1000]s, please retry after [{}]s"
-// 				, nowTime.wMinute, nowTime.wSecond, nowTime.wMilliseconds, deltaMs / 1000, retryDelay);
-// 			Log::Info(msg);
-// 			m_publisher.NotifyUI(msg);
-// 			g_breakTag.store(true, std::memory_order_relaxed);
-// 			SetStop();				// 无法开启状态机
-// 			return;
-// 		}
 
 		TimerCommand command;
 		if (m_arg.AwakeCnt <= 0) {
