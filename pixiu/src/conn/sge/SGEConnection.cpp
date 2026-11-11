@@ -39,10 +39,10 @@ void SGEConnection::Init() {
 	if (InitSafeLinkService()/*创建安全连接服务*/ && InitSGELinkService()/*创建交易连接服务*/) {
 		if (GetPublicKey(false)) {
 			CreateSession(false);
-		}
+		}	// 140
 		if (m_quoteContext.IsHandshaked && GetPublicKey()) {
 			CreateSession();
-		}
+		}	// 130
 	}
 }
 void SGEConnection::Release() {

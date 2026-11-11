@@ -2,8 +2,8 @@
 #include "model/Constants.h"
 #include "SGE/SGEDataType.h"
 
-LocalOrderID const SGE_LOCALID = 521000000;			// SGE起始委托号(007421)
-// LocalOrderID const SGE_LOCALID = 522000000;			// SGE起始委托号(007422)
+// LocalOrderID const SGE_LOCALID = 521000000;			// SGE起始委托号(007421)
+LocalOrderID const SGE_LOCALID = 522000000;			// SGE起始委托号(007422)
 LocalOrderID const GRAB_PREFIX = 512823810;			// 抢单起始委托号
 LocalOrderID const MAX_LOCALID = 2147483647;		// 本地最大委托号：int max	UInt max：4294967295
 

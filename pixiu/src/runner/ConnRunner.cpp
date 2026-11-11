@@ -93,10 +93,9 @@ static VOID CALLBACK TimerCallbackFunc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUse
 
 void TimerCallback::Callback() {
 	if (IsSGE(m_orderInfo[0]->Exchange)) {
-		m_connection->InsertOrder(*m_orderInfo[0]);			// 主席位发单
-		m_connection->InsertExOrder(*m_orderInfo[0]);		// 次席位发单
-		m_connection->InsertOrder(*m_orderInfo[0]);			// 主席位发单
-		m_connection->InsertOrder(*m_orderInfo[0]);			// 主席位发单
+		m_connection->InsertOrder(*m_orderInfo[0]);			// 交易前置130
+		m_connection->InsertExOrder(*m_orderInfo[0]);		// 行情前置140
+		m_connection->InsertOrder(*m_orderInfo[0]);			// 交易前置130
 		m_pTimer->MaxLoopCnts -= 3;
 
 		if (nullptr != m_orderInfo[1]) {
@@ -116,7 +115,7 @@ void TimerCallback::Callback() {
 // 			--m_pTimer->MaxLoopCnts;
 // 		}
 
-		// 以下为易达批量发单功能代码（目前上海6席位, 中金5席位）	
+		// 以下为易达批量发单功能代码
 		m_pTimer->MaxLoopCnts -= m_connection->InsertMultiOrders(m_orderInfo);
 
 // 		if (IsSHFE(m_orderInfo[0]->Exchange)) {
