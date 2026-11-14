@@ -123,7 +123,6 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 	else if (m_probeBatchesRemaining > 0) {
 		for (uint32_t i = 0; i < m_frontCnts; ++i) {
 			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
-			m_orderSet[i].ConnectionID = 0;
 		}
 		--m_probeBatchesRemaining;
 	}	// 打分批次报单
@@ -133,7 +132,7 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 		}	// 等待评分，结果出来之前不再发委托
 		
 		if (!m_rankedFrontReady) {
-			constexpr std::size_t dropWorst = 2;	//淘汰掉的前置数
+			constexpr std::size_t dropWorst = 1;	// 淘汰最差的前置
 			m_rankedFront = m_scorer.select_rankRange(0, m_frontCnts - 1 - dropWorst);
 			m_nextRankIndex = 0;
 			m_rankedFrontReady = true;
@@ -143,16 +142,22 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 		}	// 评分完成后缓存一次前置名次
 
 		const std::size_t total = m_rankedFront.size();
-		const std::size_t firstHalf = (total + 1) / 2;
-		m_orderCnts = static_cast<uint32_t>(m_nextRankIndex == 0 ? firstHalf : total - m_nextRankIndex);
-		for (uint32_t i = 0; i < m_orderCnts; ++i) {
-			const std::size_t rankIndex = m_nextRankIndex + i;
-			m_orderSet[i].OrderRef = LocalIdACC::NextNormal();
-			m_orderSet[i].ConnectionSelectionType = YD_CS_Prefered;
-			m_orderSet[i].ConnectionID = m_rankedFront[rankIndex];
-			Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}], LocalID[{}]", m_orderSet[i].ConnectionID, m_orderSet[i].OrderRef));
+		if (m_nextRankIndex >= total) {
+			m_nextRankIndex = 0;
 		}
-	}
+		
+		auto& order = m_orderSet[0];
+		m_orderSet[0].OrderRef = LocalIdACC::NextNormal();
+		m_orderSet[0].ConnectionSelectionType = YD_CS_Prefered;
+		m_orderSet[0].ConnectionID = m_rankedFront[m_nextRankIndex];	
+		Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}|{}], LocalID[{}]", m_orderSet[0].ConnectionID, total, m_orderSet[0].OrderRef));
+		if (!m_pTraderApi->insertOrder(&order, m_instruments[0])) {
+			Log::Error("HFTConnection: insertOrder send failed!");
+			return 0;
+		}
+		m_nextRankIndex = (m_nextRankIndex + 1) % total;
+		return 1;
+	}	// 打分完成后的报单，改成单笔超高频次
 
 	if (m_pTraderApi->insertMultiOrders(m_orderCnts, m_orderSet, m_instruments)) {
 		if (m_rankedFrontReady) {

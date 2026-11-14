@@ -95,9 +95,8 @@ void TimerCallback::Callback() {
 	if (IsSGE(m_orderInfo[0]->Exchange)) {
 		m_connection->InsertOrder(*m_orderInfo[0]);			// 交易前置130
 		m_connection->InsertExOrder(*m_orderInfo[0]);		// 行情前置140
-		m_connection->InsertOrder(*m_orderInfo[0]);			// 交易前置130
 		m_connection->InsertExOrder(*m_orderInfo[0]);		// 行情前置140
-		m_pTimer->MaxLoopCnts -= 4;
+		m_pTimer->MaxLoopCnts -= 3;
 
 		if (nullptr != m_orderInfo[1]) {
 			m_connection->InsertOrder(*m_orderInfo[1]);

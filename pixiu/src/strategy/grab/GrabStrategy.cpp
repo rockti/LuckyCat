@@ -183,7 +183,11 @@ namespace tg::grab {
 		auto& instrument = InstrumentFactory::GetInstruments().Get(m_arg.Order.Inst);
 		if (BusinessStatus::Running == m_status && instrument.GetExchange() == exchange && ExchangeStatus::CONTINOUS == status) {
 			if (m_pBusiness) {
-				if (IsCFFEX(m_orderInfo.InstID)) {
+				if (IsSHFE(m_orderInfo.InstID)) {
+					g_breakTag.store(true, std::memory_order_relaxed);
+					return;	// SHFE收到开盘信号不发单
+				}
+				else if (IsCFFEX(m_orderInfo.InstID)) {
 					m_orderInfo.Quantity += m_orderInfo.Quantity;		// 委托量翻倍
 					m_orderInfo.Quantity = std::min(m_orderInfo.Quantity, 50);		// 中金所最大委托量不得超过50
 				}
@@ -191,10 +195,10 @@ namespace tg::grab {
 // 					m_orderInfo.Quantity = std::min(m_orderInfo.Quantity, 200);		// Au(T+D)最大委托量不得超过200
 // 				}
 // 				else if (IsSGE(m_orderInfo.InstID) && 0 == strcmp("mAu(T+D)", m_orderInfo.InstCode.Str())) {
-// 					m_orderInfo.Quantity = std::min(m_orderInfo.Quantity, 2000);	// mAu(T+D)最大委托量不得超过200
+// 					m_orderInfo.Quantity = std::min(m_orderInfo.Quantity, 2000);	// mAu(T+D)最大委托量不得超过2000
 // 				}
 // 				else if (IsSGE(m_orderInfo.InstID) && 0 == strcmp("Ag(T+D)", m_orderInfo.InstCode.Str())) {
-// 					m_orderInfo.Quantity = std::min(m_orderInfo.Quantity, 10000);	// Ag(T+D)最大委托量不得超过200
+// 					m_orderInfo.Quantity = std::min(m_orderInfo.Quantity, 10000);	// Ag(T+D)最大委托量不得超过10000
 // 				}		// 除CFFEX外开盘委托量不再翻倍，所以手数限制可以去掉
 				m_orderInfo.LocalId = LocalIdACC::NextNormal();
 				Dealing& dealing = Strategy::PushOrder(m_orderInfo);
@@ -213,7 +217,7 @@ namespace tg::grab {
 // 					m_orderInfo.Quantity = std::min(m_orderInfo.Quantity, 2000);	// mAu(T+D)最大委托量不得超过200
 // 				}
 // 				else if (IsSGE(m_orderInfo.InstID) && 0 == strcmp("Ag(T+D)", m_orderInfo.InstCode.Str())) {
-// 					m_orderInfo.Quantity = std::min(m_orderInfo.Quantity, 10000);	// Ag(T+D)最大委托量不得超过200
+// 					m_orderInfo.Quantity = std::min(m_orderInfo.Quantity, 10000);	// Ag(T+D)最大委托量不得超过10000
 // 				}		// 除CFFEX外开盘委托量不再翻倍，所以手数限制可以去掉
 				m_exOrderInfo.LocalId = LocalIdACC::NextNormal();
 				Dealing& dealing = Strategy::PushOrder(m_exOrderInfo);
