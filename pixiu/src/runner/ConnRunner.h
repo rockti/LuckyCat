@@ -23,7 +23,7 @@ class TriggerTimer;
 class TimerCallback {
 public:
 	TimerCallback(TriggerTimer* pTimer, ExchangeConn* exchConn, OrderInfo* pInfo1, OrderInfo* pInfo2)
-		:m_increaseFreqTag(false), m_pTimer(pTimer), m_connection(exchConn) {
+		:m_pTimer(pTimer), m_connection(exchConn) {
 		Init(pInfo1, pInfo2);
 	}
 	~TimerCallback() {
@@ -57,7 +57,6 @@ private:
 		}
 	}
 private:
-	bool m_increaseFreqTag;
 	TriggerTimer* m_pTimer;
 	ExchangeConn* m_connection;
 	const OrderInfo* m_orderInfo[16] = { nullptr };		// 易达接口限制：最多一次发送16笔委托

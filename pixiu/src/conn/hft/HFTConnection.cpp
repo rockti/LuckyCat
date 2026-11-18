@@ -132,7 +132,7 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 		}	// 等待评分，结果出来之前不再发委托
 		
 		if (!m_rankedFrontReady) {
-			constexpr std::size_t dropWorst = 1;	// 淘汰最差的前置
+			constexpr std::size_t dropWorst = 0;	// 淘汰最差的前置
 			m_rankedFront = m_scorer.select_rankRange(0, m_frontCnts - 1 - dropWorst);
 			m_nextRankIndex = 0;
 			m_rankedFrontReady = true;

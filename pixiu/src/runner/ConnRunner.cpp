@@ -106,22 +106,6 @@ void TimerCallback::Callback() {
 	}
 	else {
 		m_pTimer->MaxLoopCnts -= m_connection->InsertMultiOrders(m_orderInfo);
-
-// 		if (IsSHFE(m_orderInfo[0]->Exchange)) {
-// 			m_connection->InsertMultiOrders(sendCnt, m_orderInfo);
-// 			m_pTimer->MaxLoopCnts -= sendCnt;
-// 		}	// SHFE再多发一份报单试试效果
-// 		else {
-// 			if (m_increaseFreqTag) {
-// 				if (sendCnt < 5) {
-// 					sendCnt += 1;
-// 				}
-// 				else {
-// 					sendCnt = 5;
-// 				}
-// 			}
-// 			m_increaseFreqTag = !m_increaseFreqTag;
-// 		}
 	}
 }
 
