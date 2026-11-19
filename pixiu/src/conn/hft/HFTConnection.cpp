@@ -142,20 +142,37 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 		}	// 评分完成后缓存一次前置名次
 
 		const std::size_t total = m_rankedFront.size();
+
 		if (m_nextRankIndex >= total) {
 			m_nextRankIndex = 0;
-		}
-		
-		auto& order = m_orderSet[0];
+		}		
+		auto& order1 = m_orderSet[0];
 		m_orderSet[0].OrderRef = LocalIdACC::NextNormal();
 		m_orderSet[0].ConnectionSelectionType = YD_CS_Prefered;
 		m_orderSet[0].ConnectionID = m_rankedFront[m_nextRankIndex];	
 		Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}|{}], LocalID[{}]", m_orderSet[0].ConnectionID, total, m_orderSet[0].OrderRef));
-		if (!m_pTraderApi->insertOrder(&order, m_instruments[0])) {
+		if (!m_pTraderApi->insertOrder(&order1, m_instruments[0])) {
 			Log::Error("HFTConnection: insertOrder send failed!");
 			return 0;
 		}
 		m_nextRankIndex = (m_nextRankIndex + 1) % total;
+
+		// 连续发送两单，保持射击宽度试试效果
+		if (m_nextRankIndex >= total) {
+			m_nextRankIndex = 0;
+		}
+		auto& order2 = m_orderSet[1];
+		m_orderSet[1].OrderRef = LocalIdACC::NextNormal();
+		m_orderSet[1].ConnectionSelectionType = YD_CS_Prefered;
+		m_orderSet[1].ConnectionID = m_rankedFront[m_nextRankIndex];
+		Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}|{}], LocalID[{}]", m_orderSet[1].ConnectionID, total, m_orderSet[1].OrderRef));
+		if (!m_pTraderApi->insertOrder(&order2, m_instruments[0])) {
+			Log::Error("HFTConnection: insertOrder send failed!");
+			return 0;
+		}
+		m_nextRankIndex = (m_nextRankIndex + 1) % total;
+
+
 		return 1;
 	}	// 打分完成后的报单，改成单笔超高频次
 

@@ -182,7 +182,7 @@ private:
 	ConnPublisher& m_publisher;
 	bool m_isMulticast = true;
 
-	uint32_t m_frontCnts = 5;		// 上联席位数
+	uint32_t m_frontCnts = 10;		// 上联席位数
 	uint32_t m_scoreBatchCnts = 3;	// 评分批次数
 	uint32_t m_probeBatchesRemaining = 0;
 	uint32_t m_orderCnts = 0;

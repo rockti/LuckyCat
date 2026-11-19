@@ -236,6 +236,7 @@ void HFTTraderHandler::notifyFinishInit(void) {
 	char const* userName = m_config.Credential.UserID.c_str();
 	const YDAccount* pAccount = m_pTraderApi->getMyAccount();	// 新版本益达查账户资金
 	const YDExchange* pExchange = m_pTraderApi->getExchangeByID("SHFE");
+// 	const YDExchange* pExchange = m_pTraderApi->getExchangeByID("CFFEX");
 	if (nullptr != pExchange) {
 		for (int cnt = 0; cnt < pExchange->ConnectionCount; ++cnt) {
 			Log::Info(fmt::format("HFTTraderHandler: Connection[{}] isPublic[{}]", cnt, pExchange->IsPublicConnectionID[cnt]));
