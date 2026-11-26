@@ -132,7 +132,7 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 		}	// 等待评分，结果出来之前不再发委托
 		
 		if (!m_rankedFrontReady) {
-			constexpr std::size_t dropWorst = 0;	// 淘汰最差的前置
+			constexpr std::size_t dropWorst = 1;	// 淘汰最差的前置
 			m_rankedFront = m_scorer.select_rankRange(0, m_frontCnts - 1 - dropWorst);
 			m_nextRankIndex = 0;
 			m_rankedFrontReady = true;
@@ -150,7 +150,7 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 		m_orderSet[0].OrderRef = LocalIdACC::NextNormal();
 		m_orderSet[0].ConnectionSelectionType = YD_CS_Prefered;
 		m_orderSet[0].ConnectionID = m_rankedFront[m_nextRankIndex];	
-		Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}|{}], LocalID[{}]", m_orderSet[0].ConnectionID, total, m_orderSet[0].OrderRef));
+		Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}], LocalID[{}]", m_orderSet[0].ConnectionID, m_orderSet[0].OrderRef));
 		if (!m_pTraderApi->insertOrder(&order1, m_instruments[0])) {
 			Log::Error("HFTConnection: insertOrder send failed!");
 			return 0;
@@ -158,19 +158,19 @@ int HFTConnection::InsertMultiOrders(OrderInfo const* orders[]) {
 		m_nextRankIndex = (m_nextRankIndex + 1) % total;
 
 		// 连续发送两单，保持射击宽度试试效果
-		if (m_nextRankIndex >= total) {
-			m_nextRankIndex = 0;
-		}
-		auto& order2 = m_orderSet[1];
-		m_orderSet[1].OrderRef = LocalIdACC::NextNormal();
-		m_orderSet[1].ConnectionSelectionType = YD_CS_Prefered;
-		m_orderSet[1].ConnectionID = m_rankedFront[m_nextRankIndex];
-		Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}|{}], LocalID[{}]", m_orderSet[1].ConnectionID, total, m_orderSet[1].OrderRef));
-		if (!m_pTraderApi->insertOrder(&order2, m_instruments[0])) {
-			Log::Error("HFTConnection: insertOrder send failed!");
-			return 0;
-		}
-		m_nextRankIndex = (m_nextRankIndex + 1) % total;
+// 		if (m_nextRankIndex >= total) {
+// 			m_nextRankIndex = 0;
+// 		}
+// 		auto& order2 = m_orderSet[1];
+// 		m_orderSet[1].OrderRef = LocalIdACC::NextNormal();
+// 		m_orderSet[1].ConnectionSelectionType = YD_CS_Prefered;
+// 		m_orderSet[1].ConnectionID = m_rankedFront[m_nextRankIndex];
+// 		Log::Info(fmt::format("HFTConnection: Pick ConnectionID[{:d}], LocalID[{}]", m_orderSet[1].ConnectionID, m_orderSet[1].OrderRef));
+// 		if (!m_pTraderApi->insertOrder(&order2, m_instruments[0])) {
+// 			Log::Error("HFTConnection: insertOrder send failed!");
+// 			return 0;
+// 		}
+// 		m_nextRankIndex = (m_nextRankIndex + 1) % total;
 
 
 		return 1;
